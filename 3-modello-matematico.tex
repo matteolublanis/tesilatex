@@ -1,0 +1,227 @@
+\section{Modello matematico}
+\setcounter{subsection}{-1}
+\subsection{Formulazione}
+
+\paragraph{Funzione obiettivo}
+\begin{align}
+    \min \; & 
+    \lambda_1 \sum_{w \in T}\sum_{s \in S} L_s x_{w,s} 
+    + \lambda_2 \sum_{w \in T} diff_w
+    + \lambda_3 \sum_{w \in T} O_w
+    + \lambda_4 \sum_{d \in D}\sum_{w \in T} stacco_{w,d}\label{obj}
+    + \lambda_5 \sum_{w\in T}\sum_{d\in D}c_{w,d}
+\end{align}
+
+\paragraph{Vincoli orario e copertura}
+\begin{align}
+    %
+    \text{s.t.} \quad 
+    & \sum_{w \in T}\sum_{s \in S : day(s)=d} A_{s,k} x_{w,s} 
+      \ge d_{d,k} 
+      && \forall d, k \label{vincolo:copertura}\\[6pt]
+    %
+    & C_{p,t} \le \sum_{w \in T, \, s} 0.5*L_sx_{w,s} \le 48
+    && \text{monte ore} \label{vincolo:monteorept}\\[6pt]
+    %
+    & \sum_{w \in PT, \, s : day(s)=d} x_{w,s} \le 1, 
+      && \forall d \label{vincolo:pt1}\\[6pt]
+    %
+    & \sum_{w \in FT, \, s : day(s)=d} x_{w,s} \le 2, 
+      && \forall d \label{vincolo:ft2}\\[6pt]
+    %
+    & x_{w\in PTW,s} = 1, 
+      && day(s)=5 \land start(s)=16{:}30 \label{vincolo:weekend}\\[6pt]
+    %
+    & x_{w\in PTW,s} = 0, 
+      && day(s)<5 
+      \label{vincolo:weekend2}\\[6pt]
+    %
+    & \sum_{w \in PTW, \, s : day(s)=d} x_{w,s} \le 2, 
+      && d>5\label{vincolo:ft3}
+\end{align}
+
+\paragraph{Vincoli straordinari}
+\begin{align}
+	%
+	& O_w \ge \sum_{w \in T}\sum_{s \in S : day(s)=d} A_{s,k} x_{w,s} - C_{p,t}
+	&& \text{straordinari} \label{vincolo:straordinari}
+\end{align}
+
+\paragraph{Vincoli stacco turni (da rivedere)}
+\begin{align}
+	%
+	& split_{w,d} \ge \sum_{s : day(s)=d} x_{w,s} - 1
+	& \text{se lavoratore fa due turni in giorno d}\label{split}\\[6pt]
+	%
+	& stacco_{w,d} \ge  split_{w,d} \cdot (start(s_2) - end(s_1))
+	& \text{per } x_{w,s_1} = x_{w,s_2} = 1, \label{vincolo:stacco} \\[4pt]
+	&& \text{con } day(s_1) = day(s_2), \notag \\
+	&& \text{e } start(s_2) > end(s_1). \notag 
+\end{align}
+
+\paragraph{Vincoli riposo}
+\begin{align}
+	%
+	& r_{w,d} \ge 1-\sum_{s\in S_d}x_{w,s}
+	&& \label{riposo}\\[6pt]
+	%
+	& 1 \le \sum_{d\in D} r_{w,d}\le 2
+	&& \text{almeno un giorno di riposo} \label{vincoloriposo2}\\[6pt]
+	%
+	& c_{w,d}\le r_{w,d}
+	&& \text{per riposo continuato} \label{vincoloriposo3}\\[6pt]
+	%
+	& c_{w,d}\le r_{w,d+1}
+	&& \label{vincoloriposo4}\\[6pt]
+	%
+	& c_{w,d}\le r_{w,d} + r_{w,d+1} - 1
+	&& \label{vincoloriposo5}\\[6pt]
+	%
+\end{align}
+
+\paragraph{Vincoli per l'equità}
+\begin{align}
+	%
+	& H_w=\sum_{w \in T, \, s} L_sx_{w,s}
+	&& \text{ore lavorate da lavoratore w}\label{orelavoratew}\\[6pt]
+	%
+	& Hmedia_t = \frac{1}{|W_t|} * \sum_{w \in W_t} H_w
+	&& \text{ore medie lavorate da tipo t}\label{oremediet}\\[6pt]
+	%
+	& diff_w \ge H_w - Hmedia_t
+	&& \text{deviazione assoluta}\label{diffwhwhmedia}\\[6pt]
+	%
+	& diff_w \ge Hmedia_t - H_w
+	&& \text{deviazione assoluta}\label{diffwhmediahw}\\[6pt]
+\end{align}
+
+\paragraph{Vincoli di non negatività}
+\begin{align}
+	%
+	& O_{w} \ge 0
+	&& \text{ore straordinari lavoratore w}\label{vincolononnegstraordinari}\\[6pt]
+	%
+	& stacco_{w,d}\ge 0
+	&& \text{stacco giorno d lavoratore w}\label{vincolononegstacco}\\[6pt]
+	%
+	& d_{d,k}\ge 1
+	&& \label{vincolononnegd}\\[6pt]
+	%
+	& diff_w \ge 0
+	&& \label{vincolononnegdiffw}
+\end{align}
+
+\paragraph{Variabili}
+\begin{align*}
+	%
+    & x_{w,s} \in \{0,1\}, 
+    && \forall w \in T, s \in S\\[6pt]
+    %
+    & T=\{FT, PT, PTW\}
+    && \text{insieme dei lavoratori}\\[6pt]
+    %
+    & D=\{1,...,7\}
+    && \text{insieme dei giorni}\\[6pt]
+    %
+    & K_d
+    && \text{insieme slot temporali del giorno d} \\[6pt]
+    %
+    & S
+    && \text{insieme dei turni ammissibili s} \\[6pt]
+    %
+    & d_{d,k}\in \mathbb{N}
+    && \text{fabbisogno slot k giorno d}\\[6pt]
+    %
+    & A_{s,k}\in \{0,1\}
+    && \text{copertura turno s per slot k}\\[6pt]
+    %
+    & L_{s}\in \mathbb[6,7,...,12]
+    && \text{durata turno s}\\[6pt]
+    %
+    & C_{p,t}\in \{20,24,48\} 
+    && \text{ore contrattuali lavoratore tipo t}\\[6pt]
+    %
+    & stacco_{w,d}\in \mathbb{R}
+    && \text{stacco tra due turni nello stesso giorno lavoratore w}\\[6pt]
+    %
+    & split_{w,d}\in \{0,1\}
+    && \text{lavoratore w fa due turni giorno d}\\[6pt]
+    %
+    & O_{w}\in \mathbb{N}
+    && \text{ore straordinarie lavoratore w}\\[6pt]
+    %
+    & r_{w,d}\in \{0,1\}
+    && \text{riposo per lavoratore w giorno d}\\[6pt]
+    %
+    & H_{w}\in \mathbb{N}
+    && \text{ore programmate lavoratore w}\\[6pt]
+    %
+    & H_{media_t\text{insieme dei turni ammissibili s}}\in \mathbb{R}
+    && \text{ore medie lavoratori tipo t}\\[6pt]
+    %
+    & diff_{w}\in \mathbb{R}
+    && \text{deviazione assoluta ore programmate da ideali}\\[6pt]
+    %
+    & diff_{w}\in \mathbb{R}
+    && \text{deviazione assoluta ore programmate da ideali}\\[6pt]
+    %
+    & c_{w,d}\in \{0,1\}
+    && \text{riposo continuato di due giorni}\\[6pt]
+    %
+    & \lambda_1,\lambda_2,\lambda_3,\lambda_4, \lambda_5 \in \mathbb{R}
+    && \text{pesi obiettivi}
+\end{align*}
+
+\subsection{Indici e parametri}
+Indichiamo con $T$ l'insieme dei lavoratori suddivisi in tipi, così definito:
+\begin{center}
+    $T=\{FT, PT, PTW\}$\\
+    $FT=\{w_1,...w_n\}$ e stesso per gli altri
+    
+\end{center}
+ove FT sta per lavoratore full-time, PT per lavoratore part-time e PTW per lavoratore part-time fine settimana. Si considera un caso nel quale ogni lavoratore $w$ possiede lo stesso tipo e livello di contratto, cioè si differenziano solo per il monte orario da lavorare.\\
+Il fabbisogno viene espresso settimanalmente e in periodi non festivi è abbastanza regolare e può venir quindi riutilizzato, si definiscono:
+\begin{center}
+    $D=\{lun...dom\}\text{ l'insieme dei giorni}$.\\
+    $K_d\text{ l'insieme degli slot del giorno $d$}$.\\
+    $d_{d,k}\text{ il fabbisogno per lo slot $k$ del giorno $d$}$.\\
+\end{center}
+La giornata di lavoro inizia alle 08:00 e finisce alle 20:30, è quindi costituita da un totale di 25 slot temporali.\\
+L'obiettivo è trovare quali sono i turni migliori per rispondere alle necessità definite dal datore di lavoro, definiamo quindi l'insieme $S$, l'insieme dei turni possibili $s$, ove $s$ è definito da:
+\begin{itemize}
+    \item $day(s)$: il giorno $d$ del turno $s$.
+    \item $start(s)$: lo slot di inizio del turno $s$.
+    \item $L_s$: durata del turno $s$.
+    \item $A_{s,k}$: copertura dello slot $k$ dal turno $s$ (1 se coperto, 0 altrimenti).
+\end{itemize}
+Nella definizione dei turni, bisogna specificare anche i vincoli relativi a:
+\begin{itemize}
+    \item durata minima e massima (3-6 ore).
+    \item vincoli di turno per giornata per i PT.
+    \item i PTW possono lavorare solo il fine settimana.
+\end{itemize}
+\subsection{Variabili decisionali}
+Definiamo $x_{w, s}\in\{0,1\}$, variabile binaria che vale 1 se il lavoratore $w$ è assegnato al turno $s$, 0 altrimenti.\\
+Da questa, possiamo determinare il totale delle ore lavorate:
+\begin{center}
+    $H_{tot}=\sum_{t\in T}H_t$\\
+    $H_t=\sum_{s\in S}x_{w,s}$
+\end{center}
+Queste saranno poi utili per l'obiettivo di fairness del problema.
+\subsection{Vincoli}
+\begin{equation}
+    \sum_{w\in T}\sum_{s\in S:day(s)=d}A_{s,k}*x_{w,s}\ge d_{d,k}
+\end{equation}
+Vincolo di copertura.
+\begin{equation}
+    x_{w,s}=0
+\end{equation}
+Vincolo di non compatibilità.
+\begin{equation}
+    \sum_{w\in PT, s:day(s)=d} x_{w,s}\le1
+\end{equation}
+Vincolo di singolo turno per giorno per lavoratore part time.
+\begin{equation}
+    x_{w, s}\in\{0,1\}\text{, }\forall s\in S, t\in T
+\end{equation}
+Vincolo di non negatività e integrità.

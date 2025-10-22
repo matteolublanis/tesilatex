@@ -1,0 +1,150 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{ynt/global//global/global/global}
+    \entry{dantzig1954comment}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=212fe65a17e797b6dbce0c3731498b2c}{%
+           family={Dantzig},
+           familyi={D\bibinitperiod},
+           given={George\bibnamedelima B},
+           giveni={G\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {INFORMS}%
+      }
+      \strng{namehash}{212fe65a17e797b6dbce0c3731498b2c}
+      \strng{fullhash}{212fe65a17e797b6dbce0c3731498b2c}
+      \strng{fullhashraw}{212fe65a17e797b6dbce0c3731498b2c}
+      \strng{bibnamehash}{212fe65a17e797b6dbce0c3731498b2c}
+      \strng{authorbibnamehash}{212fe65a17e797b6dbce0c3731498b2c}
+      \strng{authornamehash}{212fe65a17e797b6dbce0c3731498b2c}
+      \strng{authorfullhash}{212fe65a17e797b6dbce0c3731498b2c}
+      \strng{authorfullhashraw}{212fe65a17e797b6dbce0c3731498b2c}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of the Operations Research Society of America}
+      \field{number}{3}
+      \field{title}{A comment on Edie's “Traffic delays at toll booths”}
+      \field{volume}{2}
+      \field{year}{1954}
+      \true{nocite}
+      \field{pages}{339\bibrangedash 341}
+      \range{pages}{3}
+    \endentry
+    \entry{edie1954traffic}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=38e613e4cbde10519b5fcc595280000f}{%
+           family={Edie},
+           familyi={E\bibinitperiod},
+           given={Leslie\bibnamedelima C},
+           giveni={L\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {INFORMS}%
+      }
+      \strng{namehash}{38e613e4cbde10519b5fcc595280000f}
+      \strng{fullhash}{38e613e4cbde10519b5fcc595280000f}
+      \strng{fullhashraw}{38e613e4cbde10519b5fcc595280000f}
+      \strng{bibnamehash}{38e613e4cbde10519b5fcc595280000f}
+      \strng{authorbibnamehash}{38e613e4cbde10519b5fcc595280000f}
+      \strng{authornamehash}{38e613e4cbde10519b5fcc595280000f}
+      \strng{authorfullhash}{38e613e4cbde10519b5fcc595280000f}
+      \strng{authorfullhashraw}{38e613e4cbde10519b5fcc595280000f}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of the operations research society of America}
+      \field{number}{2}
+      \field{title}{Traffic delays at toll booths}
+      \field{volume}{2}
+      \field{year}{1954}
+      \true{nocite}
+      \field{pages}{107\bibrangedash 138}
+      \range{pages}{32}
+    \endentry
+    \entry{VANDENBERGH2013367}{article}{}{}
+      \name{author}{5}{}{%
+        {{hash=5d1775e3e8d5d3db52b40f241ec89759}{%
+           family={{Van den Bergh}},
+           familyi={V\bibinitperiod},
+           given={Jorne},
+           giveni={J\bibinitperiod}}}%
+        {{hash=712e426c1c841df01251d3a8b763439f}{%
+           family={Beliën},
+           familyi={B\bibinitperiod},
+           given={Jeroen},
+           giveni={J\bibinitperiod}}}%
+        {{hash=fefadfc3a2e49663402068e60b269fe3}{%
+           family={{De Bruecker}},
+           familyi={D\bibinitperiod},
+           given={Philippe},
+           giveni={P\bibinitperiod}}}%
+        {{hash=bafc3307ca493bc9cd04670ac182524e}{%
+           family={Demeulemeester},
+           familyi={D\bibinitperiod},
+           given={Erik},
+           giveni={E\bibinitperiod}}}%
+        {{hash=2351d7a74bf14a0eaf25b4fd40ca72d9}{%
+           family={{De Boeck}},
+           familyi={D\bibinitperiod},
+           given={Liesje},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{1d2ab3266c10c4b69082bd872c4afa1b}
+      \strng{fullhash}{6e9a1e2515518cab89e8c270be046b8a}
+      \strng{fullhashraw}{6e9a1e2515518cab89e8c270be046b8a}
+      \strng{bibnamehash}{1d2ab3266c10c4b69082bd872c4afa1b}
+      \strng{authorbibnamehash}{1d2ab3266c10c4b69082bd872c4afa1b}
+      \strng{authornamehash}{1d2ab3266c10c4b69082bd872c4afa1b}
+      \strng{authorfullhash}{6e9a1e2515518cab89e8c270be046b8a}
+      \strng{authorfullhashraw}{6e9a1e2515518cab89e8c270be046b8a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{This paper presents a review of the literature on personnel scheduling problems. Firstly, we discuss the classification methods in former review papers. Secondly, we evaluate the literature in the many fields that are related to either the problem setting or the technical features. Each perspective is presented as a table in which the classification is displayed. This method facilitates the identification of manuscripts related to the reader’s specific interests. Throughout the literature review, we identify trends in research on personnel staffing and scheduling, and we indicate which areas should be subject to future research.}
+      \field{issn}{0377-2217}
+      \field{journaltitle}{European Journal of Operational Research}
+      \field{number}{3}
+      \field{title}{Personnel scheduling: A literature review}
+      \field{volume}{226}
+      \field{year}{2013}
+      \true{nocite}
+      \field{pages}{367\bibrangedash 385}
+      \range{pages}{19}
+      \verb{doi}
+      \verb https://doi.org/10.1016/j.ejor.2012.11.029
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S0377221712008776
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S0377221712008776
+      \endverb
+      \keyw{Workforce,Staffing,Scheduling,Literature review}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

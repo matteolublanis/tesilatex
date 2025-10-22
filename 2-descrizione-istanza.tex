@@ -1,0 +1,51 @@
+\section{Descrizione del problema}
+
+\subsection{Descrizione generale}
+Una delle attività più laboriose per il reparto risorse umane di un supermercato di dimensioni medio-grandi, appartenente ad una catena della GDO, è la pianificazione dei turni: sfruttando i fogli di calcolo, la turnazione di una singola settimana può richiedere fino ad addirittura due giorni interi di lavoro. Si richiede inizialmente di trovare la pianificazione oraria migliore e poi di automatizzare il processo di assegnamento dei dipendenti, andando incontro ad eventuali esigenze aziendali e preferenze del personale.\\
+
+\subsection{Tipologie di contratto}
+Il personale è suddiviso in tre categorie contrattuali:
+\begin{itemize}
+    \item Full time: 40 ore settimanali;
+    \item Part time: 24 ore settimanali;
+    \item Part time weekend: 20 ore settimanali, con disponibilità limitata ai giorni di venerdì, sabato e domenica.
+\end{itemize}
+
+\subsection{Struttura dei turni}
+Il supermercato opera sette giorni su sette, dalle 08:00 alle 20:00, per tutto l’anno.\\
+La giornata lavorativa è suddivisa in slot di 30 minuti.
+Ogni turno può avere una durata compresa tra 3 e 6 ore.\\
+I lavoratori full time possono coprire uno o due turni giornalieri, mentre i part time possono svolgerne solo uno.\\
+Il tempo massimo di lavoro giornaliero per un singolo dipendente è di 12 ore, anche se nella pratica si tende a non superare le 8 ore.\\
+È inoltre previsto che alcuni cassieri rimangano 30 minuti oltre l’orario di chiusura (20:00) per le attività di pulizia e sistemazione finale.
+
+\subsection{Vincoli settimanali}
+Ogni lavoratore deve rispettare il proprio monte ore contrattuale, evitando di superare il limite massimo settimanale di 48 ore (inclusi eventuali straordinari).
+Tra due turni consecutivi deve essere garantito un riposo minimo di 11 ore, in conformità con le normative sul lavoro, anche se si preferisce prevedere pause più lunghe per motivi di sicurezza e benessere del personale.
+
+\subsection{Preferenze del personale}
+Oltre ai vincoli contrattuali, il modello tiene conto di alcune preferenze espresse dai dipendenti, che contribuiscono a migliorare la soddisfazione e l’equità complessiva della pianificazione.\\
+In particolare, vengono considerate le seguenti preferenze:
+\begin{itemize}
+    \item avere giorni di riposo consecutivi;
+    \item ridurre al minimo gli stacchi tra due turni nello stesso giorno (favorendo turni continuativi);
+    \item disporre del riposo domenicale, ove possibile.
+\end{itemize}
+
+\subsection{Fabbisogno di personale}
+Il numero minimo di cassieri necessari in ciascuno slot orario viene definito dal caporeparto, in base ai flussi di clientela e alle esigenze operative del punto vendita.\\
+Il piano orario deve quindi garantire una copertura completa della domanda di personale, evitando contemporaneamente situazioni di sotto- o sovracopertura.
+
+\subsection{Obiettivi del modello}
+La formulazione del piano dei turni mira al raggiungimento di più obiettivi:
+\begin{itemize}
+    \item Minimizzare i costi del personale;
+    \item Massimizzare la soddisfazione del personale;
+    \item Garantire equità nella distribuzione dei turni, dei riposi e delle ore lavorate;
+    \item Mantenere flessibilità operativa, in modo da poter gestire eventuali imprevisti (assenze, malattie, permessi, variazioni della domanda).
+\end{itemize}
+
+\subsection{Sintesi}
+In sintesi, il problema affrontato è un problema di ottimizzazione combinatoria tipico del rostering/staff scheduling.\\
+Richiede di assegnare, per un periodo prefissato (una o due settimane, o un mese), un insieme di turni ai lavoratori disponibili, in modo da soddisfare i vincoli di copertura, orario e riposo, cercando contemporaneamente di ottimizzare più criteri di tipo economico e organizzativo.
+
