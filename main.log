@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.22)  22 OCT 2025 19:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.22)  23 OCT 2025 11:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1127,9 +1127,9 @@ Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'italian'.
- (main.aux (title.aux) (1-sezione-esempio.aux)
-(2-descrizione-istanza.aux) (3-modello-matematico.aux) (A-appendice.aux)
-(ringraziamenti.aux))
+ (main.aux (title.aux) (0-introduzione.aux)
+(1-schedulazionepersonale.aux) (2-descrizione-istanza.aux)
+(3-modello-matematico.aux) (A-appendice.aux) (ringraziamenti.aux))
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 5.
@@ -1294,17 +1294,17 @@ Overfull \hbox (2.61108pt too wide) in paragraph at lines 21--39
 
 {C:/Users/matteo/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./figures/f
 rontespizio.png>]) (main.toc
-LaTeX Font Info:    Trying to load font information for U+msa on input line 4.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 3.
 
 (C:\Users\matteo\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 4.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 3.
 
 (C:\Users\matteo\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+lasy on input line 4.
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 3.
 
 
 (C:\Users\matteo\AppData\Local\Programs\MiKTeX\tex/latex/base\ulasy.fd
@@ -1320,20 +1320,29 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.13 \include{1-sezione-esempio}
-                                 [1
+l.13 \include{0-introduzione}
+                              [1
 
 
 ]
-\openout2 = `1-sezione-esempio.aux'.
+\openout2 = `0-introduzione.aux'.
 
- (1-sezione-esempio.tex
+ (0-introduzione.tex
 
 [2
 
 ])
 
 [3]
+\openout2 = `1-schedulazionepersonale.aux'.
+
+ (1-schedulazionepersonale.tex)
+
+[4
+
+
+
+]
 \openout2 = `2-descrizione-istanza.aux'.
 
  (2-descrizione-istanza.tex
@@ -1343,18 +1352,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 4--5
 
 
 
-[4
+[5
 
 
 
 ])
 
-[5]
+[6]
 \openout2 = `3-modello-matematico.aux'.
 
  (3-modello-matematico.tex
 
-[6
+[7
 
 
 
@@ -1365,24 +1374,24 @@ Overfull \hbox (0.15056pt too wide) detected at line 173
 
 
 
-[7]
-
 [8]
 
-[9])
+[9]
 
-[10]
+[10])
+
+[11]
 \openout2 = `A-appendice.aux'.
 
  (A-appendice.tex)
 
-[11
+[12
 
 
 
 ]
 
-[12
+[13
 
 
 ]
@@ -1390,96 +1399,50 @@ Overfull \hbox (0.15056pt too wide) detected at line 173
 
  (ringraziamenti.tex)
 
-[13
+[14
 
-] (main.aux (title.aux) (1-sezione-esempio.aux) (2-descrizione-istanza.aux)
-(3-modello-matematico.aux) (A-appendice.aux) (ringraziamenti.aux))
+] (main.aux (title.aux) (0-introduzione.aux) (1-schedulazionepersonale.aux)
+(2-descrizione-istanza.aux) (3-modello-matematico.aux) (A-appendice.aux)
+(ringraziamenti.aux))
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-09-02>
  ***********
-
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: 115865483787E92A9730C08F9AFF7ED5;3015
-(rerunfilecheck)             After:  D643D801D7939CFC7AA9A40083E28514;2903.
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: 73EB33C16FD4BCB957C98AE237590901;3128.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 34714 strings out of 468081
- 658055 string characters out of 5425304
- 1540833 words of memory out of 5000000
- 62714 multiletter control sequences out of 15000+600000
+ 34739 strings out of 468081
+ 659276 string characters out of 5425304
+ 1543457 words of memory out of 5000000
+ 62738 multiletter control sequences out of 15000+600000
  638045 words of font info for 80 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  107i,11n,110p,1183b,1825s stack positions out of 10000i,1000n,20000p,200000b,200000s
-
-pdfTeX warning (dest): name{subsection.3.3} has been referenced but does not ex
-ist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.3.2} has been referenced but does not ex
-ist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.3.1} has been referenced but does not ex
-ist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.3.0} has been referenced but does not ex
-ist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{section.3} has been referenced but does not exist, 
-replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.2.8} has been referenced but does not ex
-ist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.2.7} has been referenced but does not ex
-ist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.2.6} has been referenced but does not ex
-ist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.2.5} has been referenced but does not ex
-ist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.2.4} has been referenced but does not ex
-ist, replaced by a fixed one
-
- <C:\Users\matteo\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1
-200.pk><C:/Users/matteo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
-ts/cm/cmbx12.pfb><C:/Users/matteo/AppData/Local/Programs/MiKTeX/fonts/type1/pub
-lic/amsfonts/cm/cmcsc10.pfb><C:/Users/matteo/AppData/Local/Programs/MiKTeX/font
-s/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/matteo/AppData/Local/Programs/M
-iKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/matteo/AppData/Local/
-Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/matteo/AppDa
-ta/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/mat
-teo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/
-Users/matteo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.
-pfb><C:/Users/matteo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
-cm/cmr8.pfb><C:/Users/matteo/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
-msfonts/cm/cmsy10.pfb><C:/Users/matteo/AppData/Local/Programs/MiKTeX/fonts/type
-1/public/amsfonts/cm/cmsy6.pfb><C:/Users/matteo/AppData/Local/Programs/MiKTeX/f
-onts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/matteo/AppData/Local/Programs
-/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/matteo/AppData/Loca
-l/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/matteo/Ap
-pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (14 pages, 256746 bytes).
+ <C:\Users\matteo\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcr
+m1200.pk><C:/Users/matteo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsf
+onts/cm/cmbx12.pfb><C:/Users/matteo/AppData/Local/Programs/MiKTeX/fonts/type1/p
+ublic/amsfonts/cm/cmcsc10.pfb><C:/Users/matteo/AppData/Local/Programs/MiKTeX/fo
+nts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/matteo/AppData/Local/Programs
+/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/matteo/AppData/Loca
+l/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/matteo/App
+Data/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/m
+atteo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C
+:/Users/matteo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr
+6.pfb><C:/Users/matteo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfont
+s/cm/cmr8.pfb><C:/Users/matteo/AppData/Local/Programs/MiKTeX/fonts/type1/public
+/amsfonts/cm/cmsy10.pfb><C:/Users/matteo/AppData/Local/Programs/MiKTeX/fonts/ty
+pe1/public/amsfonts/cm/cmsy6.pfb><C:/Users/matteo/AppData/Local/Programs/MiKTeX
+/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/matteo/AppData/Local/Progra
+ms/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/matteo/AppData/Lo
+cal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/matteo/
+AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (15 pages, 261110 bytes).
 PDF statistics:
- 336 PDF objects out of 1000 (max. 8388607)
- 92 named destinations out of 1000 (max. 500000)
+ 332 PDF objects out of 1000 (max. 8388607)
+ 86 named destinations out of 1000 (max. 500000)
  186 words of extra memory for PDF output out of 10000 (max. 10000000)
 

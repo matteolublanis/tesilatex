@@ -83,6 +83,90 @@
       \field{pages}{107\bibrangedash 138}
       \range{pages}{32}
     \endentry
+    \entry{alfares2004survey}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=2d0c581de79419554a2a85d06f120667}{%
+           family={Alfares},
+           familyi={A\bibinitperiod},
+           given={Hesham\bibnamedelima K},
+           giveni={H\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{2d0c581de79419554a2a85d06f120667}
+      \strng{fullhash}{2d0c581de79419554a2a85d06f120667}
+      \strng{fullhashraw}{2d0c581de79419554a2a85d06f120667}
+      \strng{bibnamehash}{2d0c581de79419554a2a85d06f120667}
+      \strng{authorbibnamehash}{2d0c581de79419554a2a85d06f120667}
+      \strng{authornamehash}{2d0c581de79419554a2a85d06f120667}
+      \strng{authorfullhash}{2d0c581de79419554a2a85d06f120667}
+      \strng{authorfullhashraw}{2d0c581de79419554a2a85d06f120667}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Annals of Operations Research}
+      \field{number}{1}
+      \field{title}{Survey, categorization, and comparison of recent tour scheduling literature}
+      \field{volume}{127}
+      \field{year}{2004}
+      \true{nocite}
+      \field{pages}{145\bibrangedash 175}
+      \range{pages}{31}
+    \endentry
+    \entry{ernst2004annotated}{article}{}{}
+      \name{author}{5}{}{%
+        {{hash=8e536bef045cf687ae274c4fe035e77e}{%
+           family={Ernst},
+           familyi={E\bibinitperiod},
+           given={Andreas\bibnamedelima T},
+           giveni={A\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+        {{hash=54780410f8ee527a71f5fada22b18022}{%
+           family={Jiang},
+           familyi={J\bibinitperiod},
+           given={Houyuan},
+           giveni={H\bibinitperiod}}}%
+        {{hash=2c8ba7cde2e3342b3f5b9f5278b9741f}{%
+           family={Krishnamoorthy},
+           familyi={K\bibinitperiod},
+           given={Mohan},
+           giveni={M\bibinitperiod}}}%
+        {{hash=d554750e939ddf99500200795911c2f4}{%
+           family={Owens},
+           familyi={O\bibinitperiod},
+           given={Bowie},
+           giveni={B\bibinitperiod}}}%
+        {{hash=2fad71d8b6313660c1cab2724a760254}{%
+           family={Sier},
+           familyi={S\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{a9eb4c2617e1c0b687962705e11a930e}
+      \strng{fullhash}{17c6225ae008e4ba34f2cd9a679d62be}
+      \strng{fullhashraw}{17c6225ae008e4ba34f2cd9a679d62be}
+      \strng{bibnamehash}{a9eb4c2617e1c0b687962705e11a930e}
+      \strng{authorbibnamehash}{a9eb4c2617e1c0b687962705e11a930e}
+      \strng{authornamehash}{a9eb4c2617e1c0b687962705e11a930e}
+      \strng{authorfullhash}{17c6225ae008e4ba34f2cd9a679d62be}
+      \strng{authorfullhashraw}{17c6225ae008e4ba34f2cd9a679d62be}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Annals of Operations Research}
+      \field{number}{1}
+      \field{title}{An annotated bibliography of personnel scheduling and rostering}
+      \field{volume}{127}
+      \field{year}{2004}
+      \true{nocite}
+      \field{pages}{21\bibrangedash 144}
+      \range{pages}{124}
+    \endentry
     \entry{VANDENBERGH2013367}{article}{}{}
       \name{author}{5}{}{%
         {{hash=5d1775e3e8d5d3db52b40f241ec89759}{%
