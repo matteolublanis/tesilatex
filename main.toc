@@ -5,27 +5,24 @@
 \contentsline {subsection}{\numberline {0.2}Obiettivo}{2}{subsection.0.2}%
 \contentsline {subsection}{\numberline {0.3}Struttura tesi}{3}{subsection.0.3}%
 \contentsline {section}{\numberline {1}Tour scheduling della forza lavoro}{4}{section.1}%
-\contentsline {section}{\numberline {2}Descrizione del problema}{5}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Descrizione generale}{5}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}Tipologie di contratto}{5}{subsection.2.2}%
-\contentsline {subsection}{\numberline {2.3}Struttura dei turni}{5}{subsection.2.3}%
-\contentsline {subsection}{\numberline {2.4}Vincoli settimanali}{5}{subsection.2.4}%
-\contentsline {subsection}{\numberline {2.5}Preferenze del personale}{6}{subsection.2.5}%
-\contentsline {subsection}{\numberline {2.6}Fabbisogno di personale}{6}{subsection.2.6}%
-\contentsline {subsection}{\numberline {2.7}Obiettivi del modello}{6}{subsection.2.7}%
-\contentsline {subsection}{\numberline {2.8}Sintesi}{6}{subsection.2.8}%
-\contentsline {section}{\numberline {3}Modello matematico}{7}{section.3}%
-\contentsline {subsection}{\numberline {3.0}Formulazione}{7}{subsection.3.0}%
-\contentsline {paragraph}{Funzione obiettivo}{7}{section*.3}%
-\contentsline {paragraph}{Vincoli orario e copertura}{7}{section*.4}%
-\contentsline {paragraph}{Vincoli straordinari}{7}{section*.5}%
-\contentsline {paragraph}{Vincoli stacco turni (da rivedere)}{7}{section*.6}%
-\contentsline {paragraph}{Vincoli riposo}{8}{section*.7}%
-\contentsline {paragraph}{Vincoli per l'equità}{8}{section*.8}%
-\contentsline {paragraph}{Vincoli di non negatività}{8}{section*.9}%
-\contentsline {paragraph}{Variabili}{9}{section*.10}%
-\contentsline {subsection}{\numberline {3.1}Indici e parametri}{9}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Variabili decisionali}{10}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Vincoli}{11}{subsection.3.3}%
-\contentsline {section}{\numberline {A}Appendice}{12}{appendix.Alph1}%
-\contentsline {subsection}{\numberline {A.1}Sottosezione dell'appendice}{12}{subsection.Alph1.1}%
+\contentsline {subsection}{\numberline {1.1}}{5}{subsection.1.1}%
+\contentsline {section}{\numberline {2}Descrizione del problema}{6}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Descrizione generale}{6}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Tipologie di contratto}{6}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Struttura dei turni}{6}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Vincoli settimanali}{6}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Preferenze del personale}{7}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Fabbisogno di personale}{7}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.7}Obiettivi del modello}{7}{subsection.2.7}%
+\contentsline {subsection}{\numberline {2.8}Sintesi}{7}{subsection.2.8}%
+\contentsline {section}{\numberline {3}Modello matematico}{8}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Orario e copertura}{8}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Straordinari}{10}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Equità}{11}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Stacco turni}{12}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Giorni di riposo}{13}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}Funzione obiettivo}{13}{subsection.3.6}%
+\contentsline {paragraph}{Vincoli di non negatività}{14}{section*.3}%
+\contentsline {paragraph}{Variabili}{14}{section*.4}%
+\contentsline {section}{\numberline {A}Appendice}{15}{appendix.Alph1}%
+\contentsline {subsection}{\numberline {A.1}Sottosezione dell'appendice}{15}{subsection.Alph1.1}%

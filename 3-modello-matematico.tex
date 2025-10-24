@@ -1,98 +1,182 @@
 \section{Modello matematico}
-\setcounter{subsection}{-1}
-\subsection{Formulazione}
+\subsection{Orario e copertura}
+Introduciamo gli insiemi:
+\begin{center}
+	$W=FT\cup PT \cup PTW$\\
+	$FT=\{w_1,...w_n\}$\\
+	$PT=\{w_1,...w_p\}$\\
+	$PTW=\{w_1,...w_k\}$\\
+	$FT\cap PT \cap PTW = \O$
+\end{center}
+ove $FT$, $PT$ e $PTW$ rappresentano rispettivamente gli insiemi dei lavoratori full-time, part-time e part-time fine settimana. Un lavoratore può appartenere ad una sola categoria, quindi un lavoratore non può essere sia full-time che part-time per esempio. L'insieme $W$ rappresenta l'unione dei tre insiemi. Appartenere ad un insieme, equivale a condividere lo stesso monte orario e paga oraria con gli altri elementi dell'insieme, quindi nessun lavoratore possiede un costo aggiuntivo rispetto ad altri. Inoltre, per questo problema considereremo il caso per cui tutti i lavoratori abbiano lo stesso tipo e livello contrattuale (rivedere con prof).\\
+Il fabbisogno settimanale è quasi costante nel corso dell'anno, le variazioni principali si notano in prossimità delle festività come Natale o Pasqua, periodi nei quali si nota un incremento del fabbisogno in risposta all'aumento della clientela. In situazioni di festività, si possono tollerare di più situazioni di eccesso di personale. Il supermercato ci ha fornito il fabbisogno standard non relativo a periodi festivi.\\
+Si specificano:
+\begin{center}
+	$D=\{lun, \dots , dom\}=\{1,\dots ,7\}$ l'insieme dei giorni.\\
+	$f_{d,k}$ il fabbisogno per lo slot $k$ del giorno $d$.\\
+	$K_d$ l'insieme degli slot del giorno $d$.
+\end{center}
+La giornata di lavoro inizia alle 08:00 e finisce alle 20:30, è quindi suddivisa in 25 slot temporali da 30 minuti ciascuno. L'orario è continuato ed è identico per tutti e sette i giorni della settimana, dunque vi sarà da definire un totale di 175 fabbisogni, ognuno per il singolo slot $k$ della giornata $d$.\\
+Definiamo ora:
+\begin{center}
+	$S=\{s_1, \dots , s_l\}$ l'insieme dei turni $s$
+\end{center}
+I turni $s$ sono caratterizzati da:
+\begin{itemize}\label{defturno}
+	\item $day(s)$: il giorno $d$ del turno $s$.
+	\item $start(s)$: lo slot di inizio del turno $s$.
+	\item $L_s$: durata ($\in [6,7,\dots, 12]$) del turno $s$.
+	\item $A_{s,k}$: copertura dello slot $k$ dal turno $s$ (1 se coperto, 0 altrimenti).
+\end{itemize}
+Il problema così individuato rimanda al problema del \textit{Set Covering}, ove bisogna trovare la più piccola sotto-collezione di set tale per cui l'unione dei suoi elementi sia equivalente all'insieme universo:
+\begin{align*}
+	\min \quad & \sum_{s\in S}x_s \\
+	\text{s.t} & \sum_{s:e\in s}x_s\ge 1, \forall e\in U\\
+	& x_s \in \{0, 1\}
+\end{align*}
+con la differenza che in questo caso la somma di set (turni) deve essere maggiore o uguale al fabbisogno specificato per lo slot considerato.\\
+Per definire se un lavoratore lavora o meno un certo turno, usiamo una variabile decisionale $x_{w,s}$, la quale varrà 1 nel caso in cui al lavoratore $w$ sia assegnato il turno $s$, 0 altrimenti. Unendola alla matrice di copertura $A_{s,k}$ possiamo così dire se un lavoratore $w$, prendendosi in carico il turno $s$, copra o meno lo slot $k$.\\
+I lavoratori si differenziano per il monte orario minimo in base alla tipologia di contratto:
+\begin{center}
+	$C_{w}\in \{20,24,48\}$ %rivedere
+\end{center}
+Una volta introdotto il necessario per l'orario e la copertura, possiamo iniziare a definire i vincoli: 
+\begin{align}
+	& \sum_{w \in W}\sum_{s \in S : day(s)=d} A_{s,k} x_{w,s} 
+	\ge f_{d,k} 
+	&& \forall d, k \label{vincolo:copertura}\\
+	& C_{w} \le \sum_{w \in W, s} 0.5*L_sx_{w,s} \le 48
+	&& \text{monte ore} \label{vincolo:monteorept}
+\end{align}
+Come già accennato prima parlando del $Set Covering$, la copertura del fabbisogno si specifica mediante il primo vincolo. Questo vincolo ci assicura che almeno $f_{d,k}$ lavoratori siano presenti nello slot temporale $k$ del giorno $d$. Con questo vincolo non è ammissibile una situazione di difetto di personale, ma è ammissibile un eccesso di personale, seppure più avanti verrà penalizzata. Si potrebbe introdurre una situazione di difetto modificando il valore di $f_{d,k}$ o cambiando il peso del vincolo.\\
+Ogni lavoratore deve lavorare almeno il monte orario minimo definito da contratto, ma può raggiungere le 48 ore facendo straordinari. Anche questa situazione verrà in seguito penalizzata.\\
+Gli ultimi vincoli riguardano il numero di turni giornalieri, che ricordiamo sono:
+\begin{displayquote}
+	\textit{Part time weekend: 20 ore settimanali, con disponibilità limitata ai giorni di venerdì, sabato e domenica.\\
+	\dots \\
+	I lavoratori full time possono coprire uno o due turni giornalieri, mentre i part time possono svolgerne solo uno.\\
+	Il tempo massimo di lavoro giornaliero per un singolo dipendente è di 12 ore, anche se nella pratica si tende a non superare le 8 ore.\\}
+\end{displayquote}
+Si descrivono quindi:
+\begin{align}
+	& \sum_{w \in FT, \, s : day(s)=d} x_{w,s} \le 2, 
+	&& \forall d \label{vincolo:ft}\\
+	& \sum_{w \in PT, \, s : day(s)=d} x_{w,s} \le 1, 
+	&& \forall d \label{vincolo:pt}\\
+	& x_{w\in PTW,s} = 1, 
+	&& day(s)=5 \land start(s)=16{:}30 \label{vincolo:weekend}\\[6pt]
+	& x_{w\in PTW,s} = 0, 
+	&& day(s)<5 \label{vincolo:weekend2}\\
+	& \sum_{w \in PTW, \, s : day(s)=d} x_{w,s} \le 2, 
+	&& d>5\label{vincolo:weekend3}
+\end{align}
+I primi due rappresentano i vincoli per i lavoratori full-time e part-time, mentre gli ultimi tre sono i vincoli per i part-time fine settimana. Per richiesta del datore, i lavoratori part-time fine settimana lavorano il turno della chiusura del venerdì, mentre il sabato e la domenica vengono trattati come i lavoratori full-time.\\
+Si può infine introdurre la funzione obiettivo per questa parte:
+\begin{equation}
+	f_1=\sum_{w \in W}\sum_{s \in S} L_s x_{w,s} 
+\end{equation}
+ovvero la somma totale delle ore lavorate dall'intero roster dei cassieri, che andrà minimizzata come da richiesta.
 
-\paragraph{Funzione obiettivo}
+\subsection{Straordinari}
+Gli straordinari vengono di molto penalizzati in quanto prevedono una retribuzione aggiuntiva, aumentando notevolemente il costo finale per il supermercato. Introduciamo quindi:
+\begin{center}
+	$O_w\in \mathbb{N}$
+\end{center}
+che rappresenta le ore straordinarie assegnate al lavoratore $w$. Questo valore è maggiore o uguale a 0 e si preferirebbe che valesse 0 per tutti i lavoratori del roster. Non vale 0 nel caso in cui:
+\begin{align}
+	& O_w \ge \sum_{s \in S : day(s)=d} A_{s,k} x_{w,s} - C_{w} 
+	&& \forall w \in W \label{vincolo:straordinari}
+\end{align}
+ovvero al lavoratore $w$ vengono assegnate più ore di quelle previste dal contratto. La somma di questi valori va minimizzata:
+\begin{equation}
+	f_2=\sum_{w \in W}O_w
+\end{equation}
+Si potrebbe cambiare il peso di questo obiettivo nella funzione finale per così riadattarsi. Risulta particolarmente nei periodi festivi, quando la situazione diventa imprevedibile per malattie impreviste e flusso della clientela.
+
+\subsection{Equità}
+I problemi riguardanti l'equità sono:
+\begin{itemize}
+	\item Carico orario settimanale uguale per tutti i lavoratori dello stesso tipo.
+	\item Carico orario giornaliero uguale per tutti i lavoratori dello stesso tipo, ad esempio scatta una situazione di inequità nel momento in cui un lavoratore part-time lavori 6 ore un giorno mentre un altro ne lavora part-time solo 3.
+	\item Nel caso dei lavoratori full-time e dei part-time, la gestione delle domeniche libere rientra nel principio di equità.
+	\item 
+\end{itemize}
+Per il primo punto, introduciamo la variabile:
+\begin{equation}
+	H_w=\sum_{w \in T, \, s} L_sx_{w,s}
+\end{equation}
+che rappresenta le ore totali assegnate al lavoratore $w$.\\
+O CALCOLO MEDIA O CALCOLO DIFFERENZA DA MONTE ORE PREVISTO\\
+Introduciamo altre due variabili:
+\begin{align}
+	& d_{w}^{+}\ge 0\\
+	& d_{w}^{-}\le 0\\
+	& d_{w}^{+},d_{w}^{-}\in \mathbb{N}
+\end{align}
+che rappresentano rispettivamente le ore straordinarie oppure quelle mancanti per raggiungere il monte orario previsto da contratto. Vale quindi:
+\begin{align}
+	&d_{w}^{+}\ge H_w-C_w\\
+	&d_{w}^{-}\le H_w-C_w
+\end{align}
+ove, se le ore assegnate sono di più rispetto a quelle previste, il valore di $d_{w}^{+}$ sarà uguale al surplus orario, mentre varrà il contrario per $d_{w}^{-}$ nel caso in cui venissero assegnate meno ore al dipendente. L'obiettivo è quello di avere uno stesso quantitativo orario per tutti i lavoratori dello stesso tipo, quindi si minimizza:
+\begin{equation}
+	f_3=\sum_{T\in W}\sum_{w\in T} \alpha d_{w}^{+} + \beta d_{w}^{-}
+\end{equation}
+cioè la somma delle deviazioni dal valore previsto da contratto per ogni tipo. Vale $\alpha \ge 0$, $\beta \le 0$ e in base a quale situazione sia preferibile (di eccesso o di difetto) posso decidere tra $\alpha \ge |\beta|$ oppure $\alpha < |\beta|$. Nel nostro caso consideriamo $\alpha > |\beta|$, in quanto una situazione di surplus è sfavorita per scelta del supermercato.\\
+MANCA QUESTIONE DURATA TURNI EQUA
+\subsection{Stacco turni}
+I dipendenti hanno esplicitamente chiesto uno stacco tra due turni giornalieri il più breve possibile. Questo permetterebbe di ridurre al minimo il tempo trascorso sul luogo di lavoro e aumentare la soddisfazione del personale. Il problema si pone solo nel caso in cui il lavoratore faccia due turni in un giorno:
+\begin{align}
+	split_{w,d} \ge \sum_{s : day(s)=d} x_{w,s} - 1
+	split_{w,d} \in \{0,1\}
+\end{align}
+è una variabile decisionale, che ci dice se il lavoratore $w$ è assegnato a due turni $s_1$ e $s_2$ nello stesso giorno $d$.\\
+I turni $s$, come sono descritti [\ref{defturno}], permettono il calcolo dello slot di fine turno:
+\begin{equation}
+	end(s)=start(s)+L(s)
+\end{equation}
+e da questo posso trovare il valore dello stacco:
+\begin{equation}
+	stacco_{w,d} \ge  split_{w,d} \cdot (start(s_2) - end(s_1)), \quad \forall w \in W
+\end{equation}
+che viene considerato solo nel caso in cui effettivamente il lavoratore abbia due turni lo stesso giorno. Devono valere di conseguenza anche:
+\begin{align*}
+	& x_{w,s_1} = x_{w,s_2} = 1,\\
+	& day(s_1) = day(s_2),\\
+	& start(s_2) > end(s_1). 
+\end{align*}
+Bisogna infine minimizzare:
+\begin{equation}
+	f_4=\sum_{d \in D}\sum_{w \in W} stacco_{w,d}
+\end{equation}
+ovvero gli stacchi di tutti i lavoratori.
+
+\subsection{Giorni di riposo}
+Si considera giorno di riposo un qualsiasi giorno della settimana nel quale il lavoratore non è stato assegnato a nessun turno:
+\begin{equation}
+	r_{w,d} \ge 1-\sum_{s\in S_d}x_{w,s}, \quad \forall w\in W \setminus PTW,\forall d\in D
+\end{equation}
+Durante la settimana, il lavoratore deve avere almeno un giorno di riposo e per evitare un sovraccarico di ore giornaliere può arrivare ad un massimo di due giorni di riposo settimanali:
+\begin{equation}
+	1 \le \sum_{d\in D} r_{w,d}\le 2
+\end{equation}
+Solo i full-time possono avere fino a due giorni di riposo a settimana, mentre i part-time per come sono organizzati possono averne solo uno. Per i part-time fine settimana il problema non si pone, in quanto durante la settimana non gli si può assegnare turni.\\
+Si introduce una nuova variabile binaria per indicare il riposo continuato per i lavoratori full-time:
+\begin{gather}
+	c_{w,d}\le r_{w,d}\\
+	c_{w,d}\le r_{w,d+1}\\
+	c_{w,d}\le r_{w,d} + r_{w,d+1} - 1\\
+	c_{w,d}\in \{0,1\}, \forall w\in FT, \forall d\in D
+\end{gather}
+che vale 1 solo nel caso in cui il lavoratore $w$ ha due giorni di riposo consecutivi $d$ e $d+1$ durante la settimana. Si vuole massimizzare questa quantità per preferenza del personale:
+\begin{equation}
+	f_5=\sum_{w\in FT}\sum_{d\in D}c_{w,d}
+\end{equation}
+
+\subsection{Funzione obiettivo}
 \begin{align}
     \min \; & 
-    \lambda_1 \sum_{w \in T}\sum_{s \in S} L_s x_{w,s} 
-    + \lambda_2 \sum_{w \in T} diff_w
-    + \lambda_3 \sum_{w \in T} O_w
-    + \lambda_4 \sum_{d \in D}\sum_{w \in T} stacco_{w,d}\label{obj}
-    + \lambda_5 \sum_{w\in T}\sum_{d\in D}c_{w,d}
-\end{align}
-
-\paragraph{Vincoli orario e copertura}
-\begin{align}
-    %
-    \text{s.t.} \quad 
-    & \sum_{w \in T}\sum_{s \in S : day(s)=d} A_{s,k} x_{w,s} 
-      \ge d_{d,k} 
-      && \forall d, k \label{vincolo:copertura}\\[6pt]
-    %
-    & C_{p,t} \le \sum_{w \in T, \, s} 0.5*L_sx_{w,s} \le 48
-    && \text{monte ore} \label{vincolo:monteorept}\\[6pt]
-    %
-    & \sum_{w \in PT, \, s : day(s)=d} x_{w,s} \le 1, 
-      && \forall d \label{vincolo:pt1}\\[6pt]
-    %
-    & \sum_{w \in FT, \, s : day(s)=d} x_{w,s} \le 2, 
-      && \forall d \label{vincolo:ft2}\\[6pt]
-    %
-    & x_{w\in PTW,s} = 1, 
-      && day(s)=5 \land start(s)=16{:}30 \label{vincolo:weekend}\\[6pt]
-    %
-    & x_{w\in PTW,s} = 0, 
-      && day(s)<5 
-      \label{vincolo:weekend2}\\[6pt]
-    %
-    & \sum_{w \in PTW, \, s : day(s)=d} x_{w,s} \le 2, 
-      && d>5\label{vincolo:ft3}
-\end{align}
-
-\paragraph{Vincoli straordinari}
-\begin{align}
-	%
-	& O_w \ge \sum_{w \in T}\sum_{s \in S : day(s)=d} A_{s,k} x_{w,s} - C_{p,t}
-	&& \text{straordinari} \label{vincolo:straordinari}
-\end{align}
-
-\paragraph{Vincoli stacco turni (da rivedere)}
-\begin{align}
-	%
-	& split_{w,d} \ge \sum_{s : day(s)=d} x_{w,s} - 1
-	& \text{se lavoratore fa due turni in giorno d}\label{split}\\[6pt]
-	%
-	& stacco_{w,d} \ge  split_{w,d} \cdot (start(s_2) - end(s_1))
-	& \text{per } x_{w,s_1} = x_{w,s_2} = 1, \label{vincolo:stacco} \\[4pt]
-	&& \text{con } day(s_1) = day(s_2), \notag \\
-	&& \text{e } start(s_2) > end(s_1). \notag 
-\end{align}
-
-\paragraph{Vincoli riposo}
-\begin{align}
-	%
-	& r_{w,d} \ge 1-\sum_{s\in S_d}x_{w,s}
-	&& \label{riposo}\\[6pt]
-	%
-	& 1 \le \sum_{d\in D} r_{w,d}\le 2
-	&& \text{almeno un giorno di riposo} \label{vincoloriposo2}\\[6pt]
-	%
-	& c_{w,d}\le r_{w,d}
-	&& \text{per riposo continuato} \label{vincoloriposo3}\\[6pt]
-	%
-	& c_{w,d}\le r_{w,d+1}
-	&& \label{vincoloriposo4}\\[6pt]
-	%
-	& c_{w,d}\le r_{w,d} + r_{w,d+1} - 1
-	&& \label{vincoloriposo5}\\[6pt]
-	%
-\end{align}
-
-\paragraph{Vincoli per l'equità}
-\begin{align}
-	%
-	& H_w=\sum_{w \in T, \, s} L_sx_{w,s}
-	&& \text{ore lavorate da lavoratore w}\label{orelavoratew}\\[6pt]
-	%
-	& Hmedia_t = \frac{1}{|W_t|} * \sum_{w \in W_t} H_w
-	&& \text{ore medie lavorate da tipo t}\label{oremediet}\\[6pt]
-	%
-	& diff_w \ge H_w - Hmedia_t
-	&& \text{deviazione assoluta}\label{diffwhwhmedia}\\[6pt]
-	%
-	& diff_w \ge Hmedia_t - H_w
-	&& \text{deviazione assoluta}\label{diffwhmediahw}\\[6pt]
+    \sum_{i=1}^5\lambda_if_i
 \end{align}
 
 \paragraph{Vincoli di non negatività}
@@ -171,57 +255,3 @@
     & \lambda_1,\lambda_2,\lambda_3,\lambda_4, \lambda_5 \in \mathbb{R}
     && \text{pesi obiettivi}
 \end{align*}
-
-\subsection{Indici e parametri}
-Indichiamo con $T$ l'insieme dei lavoratori suddivisi in tipi, così definito:
-\begin{center}
-    $T=\{FT, PT, PTW\}$\\
-    $FT=\{w_1,...w_n\}$ e stesso per gli altri
-    
-\end{center}
-ove FT sta per lavoratore full-time, PT per lavoratore part-time e PTW per lavoratore part-time fine settimana. Si considera un caso nel quale ogni lavoratore $w$ possiede lo stesso tipo e livello di contratto, cioè si differenziano solo per il monte orario da lavorare.\\
-Il fabbisogno viene espresso settimanalmente e in periodi non festivi è abbastanza regolare e può venir quindi riutilizzato, si definiscono:
-\begin{center}
-    $D=\{lun...dom\}\text{ l'insieme dei giorni}$.\\
-    $K_d\text{ l'insieme degli slot del giorno $d$}$.\\
-    $d_{d,k}\text{ il fabbisogno per lo slot $k$ del giorno $d$}$.\\
-\end{center}
-La giornata di lavoro inizia alle 08:00 e finisce alle 20:30, è quindi costituita da un totale di 25 slot temporali.\\
-L'obiettivo è trovare quali sono i turni migliori per rispondere alle necessità definite dal datore di lavoro, definiamo quindi l'insieme $S$, l'insieme dei turni possibili $s$, ove $s$ è definito da:
-\begin{itemize}
-    \item $day(s)$: il giorno $d$ del turno $s$.
-    \item $start(s)$: lo slot di inizio del turno $s$.
-    \item $L_s$: durata del turno $s$.
-    \item $A_{s,k}$: copertura dello slot $k$ dal turno $s$ (1 se coperto, 0 altrimenti).
-\end{itemize}
-Nella definizione dei turni, bisogna specificare anche i vincoli relativi a:
-\begin{itemize}
-    \item durata minima e massima (3-6 ore).
-    \item vincoli di turno per giornata per i PT.
-    \item i PTW possono lavorare solo il fine settimana.
-\end{itemize}
-\subsection{Variabili decisionali}
-Definiamo $x_{w, s}\in\{0,1\}$, variabile binaria che vale 1 se il lavoratore $w$ è assegnato al turno $s$, 0 altrimenti.\\
-Da questa, possiamo determinare il totale delle ore lavorate:
-\begin{center}
-    $H_{tot}=\sum_{t\in T}H_t$\\
-    $H_t=\sum_{s\in S}x_{w,s}$
-\end{center}
-Queste saranno poi utili per l'obiettivo di fairness del problema.
-\subsection{Vincoli}
-\begin{equation}
-    \sum_{w\in T}\sum_{s\in S:day(s)=d}A_{s,k}*x_{w,s}\ge d_{d,k}
-\end{equation}
-Vincolo di copertura.
-\begin{equation}
-    x_{w,s}=0
-\end{equation}
-Vincolo di non compatibilità.
-\begin{equation}
-    \sum_{w\in PT, s:day(s)=d} x_{w,s}\le1
-\end{equation}
-Vincolo di singolo turno per giorno per lavoratore part time.
-\begin{equation}
-    x_{w, s}\in\{0,1\}\text{, }\forall s\in S, t\in T
-\end{equation}
-Vincolo di non negatività e integrità.

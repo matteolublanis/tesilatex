@@ -83,6 +83,52 @@
       \field{pages}{107\bibrangedash 138}
       \range{pages}{32}
     \endentry
+    \entry{BRUSCO1995249}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=b60bc7a1b65143ca09913b7896e95821}{%
+           family={Brusco},
+           familyi={B\bibinitperiod},
+           given={Michael\bibnamedelima J.},
+           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=9527d1b2ca5adf995ac0bfea21650482}{%
+           family={Jacobs},
+           familyi={J\bibinitperiod},
+           given={Larry\bibnamedelima W.},
+           giveni={L\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+      }
+      \strng{namehash}{04917ca0d2cf302aaec8406f18e797d6}
+      \strng{fullhash}{04917ca0d2cf302aaec8406f18e797d6}
+      \strng{fullhashraw}{04917ca0d2cf302aaec8406f18e797d6}
+      \strng{bibnamehash}{04917ca0d2cf302aaec8406f18e797d6}
+      \strng{authorbibnamehash}{04917ca0d2cf302aaec8406f18e797d6}
+      \strng{authornamehash}{04917ca0d2cf302aaec8406f18e797d6}
+      \strng{authorfullhash}{04917ca0d2cf302aaec8406f18e797d6}
+      \strng{authorfullhashraw}{04917ca0d2cf302aaec8406f18e797d6}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Personnel-scheduling problems for continuously operating organizations have proven to be difficult to solve optimally. As a consequence, a number of alternative approaches have been devised for solving these problems. We provide computational results of a study of the staffing costs obtained using a prominent alternative formulation approach. The results demonstrate that excess staffing costs may result from the use of this approach. We subsequently develop a new local-search heuristic based on the simulated annealing algorithm to generate feasible integer personnel schedules in continuously operating organizations. The solution costs and computational effort associated with the new heuristic are shown to be generally superior to those of branch-and-bound integer programming.}
+      \field{issn}{0377-2217}
+      \field{journaltitle}{European Journal of Operational Research}
+      \field{number}{2}
+      \field{title}{Cost analysis of alternative formulations for personnel scheduling in continuously operating organizations}
+      \field{volume}{86}
+      \field{year}{1995}
+      \true{nocite}
+      \field{pages}{249\bibrangedash 261}
+      \range{pages}{13}
+      \verb{doi}
+      \verb https://doi.org/10.1016/0377-2217(94)00063-I
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/037722179400063I
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/037722179400063I
+      \endverb
+      \keyw{Scheduling,Service,Heuristics,Simulated annealing}
+    \endentry
     \entry{alfares2004survey}{article}{}{}
       \name{author}{1}{}{%
         {{hash=2d0c581de79419554a2a85d06f120667}{%
