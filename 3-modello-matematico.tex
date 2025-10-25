@@ -140,7 +140,7 @@ e, infine, da minimizzare:
 Ogni dipendente potrebbe esprimere la propria preferenza e si potrebbe risolvere il problema andando a cambiare i parametri appena visti. Come prima, $\alpha \ge 0$, $\beta \le 0$ e $\alpha > |\beta|$, in quanto un turno che superi le 4 ore risulta molto più pesante rispetto ad un turno di 3 ore.
 
 \subsection{Stacco turni}
-I dipendenti hanno esplicitamente chiesto uno stacco tra due turni giornalieri il più breve possibile. Questo permetterebbe di ridurre al minimo il tempo trascorso sul luogo di lavoro e aumentare la soddisfazione del personale. Il problema si pone solo nel caso in cui il lavoratore faccia due turni in un giorno:
+I dipendenti hanno richiesto uno stacco tra due turni giornalieri il più breve possibile. Questo permetterebbe di ridurre al minimo il tempo trascorso sul luogo di lavoro e aumentare la soddisfazione del personale. Il problema si pone solo nel caso in cui il lavoratore faccia due turni in un giorno:
 \begin{align}
 	& split_{w,d} \ge \sum_{s : day(s)=d} x_{w,s} - 1\\
 	& split_{w,d} \in \{0,1\}
