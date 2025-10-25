@@ -103,15 +103,14 @@ I problemi riguardanti l'equità sono:
 \end{itemize}
 Per il primo punto, introduciamo la variabile:
 \begin{equation}
-	H_w=\sum_{w \in T, \, s} L_sx_{w,s}
+	H_w=\sum_{w \in T, \, s} 0.5*L_sx_{w,s}
 \end{equation}
 che rappresenta le ore totali assegnate al lavoratore $w$.\\
-O CALCOLO MEDIA O CALCOLO DIFFERENZA DA MONTE ORE PREVISTO\\
 Introduciamo altre due variabili:
 \begin{align}
-	& d_{w}^{+}\ge 0\\
-	& d_{w}^{-}\le 0\\
-	& d_{w}^{+},d_{w}^{-}\in \mathbb{N}
+	& d_{w}^{+}\ge 0,\quad d_{w}^{-}\le 0
+	&& \forall w\in W\\
+	& d_{w}^{+},d_{w}^{-}\in \mathbb{R}
 \end{align}
 che rappresentano rispettivamente le ore straordinarie oppure quelle mancanti per raggiungere il monte orario previsto da contratto. Vale quindi:
 \begin{align}
@@ -120,18 +119,34 @@ che rappresentano rispettivamente le ore straordinarie oppure quelle mancanti pe
 \end{align}
 ove, se le ore assegnate sono di più rispetto a quelle previste, il valore di $d_{w}^{+}$ sarà uguale al surplus orario, mentre varrà il contrario per $d_{w}^{-}$ nel caso in cui venissero assegnate meno ore al dipendente. L'obiettivo è quello di avere uno stesso quantitativo orario per tutti i lavoratori dello stesso tipo, quindi si minimizza:
 \begin{equation}
-	f_3=\sum_{T\in W}\sum_{w\in T} \alpha d_{w}^{+} + \beta d_{w}^{-}
+	f_3=\sum_{T\in W}\sum_{w\in T} \alpha_1 d_{w}^{+} + \beta_1 d_{w}^{-}
 \end{equation}
 cioè la somma delle deviazioni dal valore previsto da contratto per ogni tipo. Vale $\alpha \ge 0$, $\beta \le 0$ e in base a quale situazione sia preferibile (di eccesso o di difetto) posso decidere tra $\alpha \ge |\beta|$ oppure $\alpha < |\beta|$. Nel nostro caso consideriamo $\alpha > |\beta|$, in quanto una situazione di surplus è sfavorita per scelta del supermercato.\\
-MANCA QUESTIONE DURATA TURNI EQUA
+Altro problema è la durata dei turni. Sono permessi turni da 3 fino a 6 ore, ma una durata eccessiva dei turni non è ben vista dal personale e potrebbe portare a situazioni di squilibrio in cui alcuni dipendenti lavorano un solo turno da 6 ore al giorno mentre altri ne lavorano due da 3/4 ore ciascuno. Per questione di praticità, possiamo imporre un'unica preferenza per l'intero personale verso il turno da 4 ore. Introduciamo quindi:
+\begin{align}
+	&dur_{s}^{+}\ge 0,\quad dur_{s}^{-}\le 0
+	&& \forall s\in S \\
+	& dur_{s}^{+}, dur_{s}^{-}\in \mathbb{R}
+\end{align}
+che indicano la durata di tutti i turni $s$ attivi, aggiungiamo anche:
+\begin{align}
+	&dur_{s}^{+}\ge 0.5*L_s x_{w,s} - 4.0 \\
+	&dur_{s}^{-}\le 0.5*L_s x_{w,s} - 4.0
+\end{align}
+e, infine, da minimizzare:
+\begin{equation}
+	f_4=\sum_{s \in S} \alpha_2 dur_{s}^{+} + \beta_2 dur_{s}^{-}
+\end{equation}
+Ogni dipendente potrebbe esprimere la propria preferenza e si potrebbe risolvere il problema andando a cambiare i parametri appena visti. Come prima, $\alpha \ge 0$, $\beta \le 0$ e $\alpha > |\beta|$, in quanto un turno che superi le 4 ore risulta molto più pesante rispetto ad un turno di 3 ore.
+
 \subsection{Stacco turni}
 I dipendenti hanno esplicitamente chiesto uno stacco tra due turni giornalieri il più breve possibile. Questo permetterebbe di ridurre al minimo il tempo trascorso sul luogo di lavoro e aumentare la soddisfazione del personale. Il problema si pone solo nel caso in cui il lavoratore faccia due turni in un giorno:
 \begin{align}
-	split_{w,d} \ge \sum_{s : day(s)=d} x_{w,s} - 1
-	split_{w,d} \in \{0,1\}
+	& split_{w,d} \ge \sum_{s : day(s)=d} x_{w,s} - 1\\
+	& split_{w,d} \in \{0,1\}
 \end{align}
 è una variabile decisionale, che ci dice se il lavoratore $w$ è assegnato a due turni $s_1$ e $s_2$ nello stesso giorno $d$.\\
-I turni $s$, come sono descritti [\ref{defturno}], permettono il calcolo dello slot di fine turno:
+I turni $s$, per come sono descritti [\ref{defturno}], permettono il calcolo dello slot di fine turno:
 \begin{equation}
 	end(s)=start(s)+L(s)
 \end{equation}
@@ -147,7 +162,7 @@ che viene considerato solo nel caso in cui effettivamente il lavoratore abbia du
 \end{align*}
 Bisogna infine minimizzare:
 \begin{equation}
-	f_4=\sum_{d \in D}\sum_{w \in W} stacco_{w,d}
+	f_5=\sum_{d \in D}\sum_{w \in W} stacco_{w,d}
 \end{equation}
 ovvero gli stacchi di tutti i lavoratori.
 
@@ -160,98 +175,131 @@ Durante la settimana, il lavoratore deve avere almeno un giorno di riposo e per 
 \begin{equation}
 	1 \le \sum_{d\in D} r_{w,d}\le 2
 \end{equation}
-Solo i full-time possono avere fino a due giorni di riposo a settimana, mentre i part-time per come sono organizzati possono averne solo uno. Per i part-time fine settimana il problema non si pone, in quanto durante la settimana non gli si può assegnare turni.\\
+Solo i full-time e i part-time possono avere fino a due giorni di riposo a settimana. Per i part-time fine settimana il problema non si pone, in quanto durante la settimana non gli si può assegnare turni.\\
 Si introduce una nuova variabile binaria per indicare il riposo continuato per i lavoratori full-time:
 \begin{gather}
 	c_{w,d}\le r_{w,d}\\
 	c_{w,d}\le r_{w,d+1}\\
 	c_{w,d}\le r_{w,d} + r_{w,d+1} - 1\\
-	c_{w,d}\in \{0,1\}, \forall w\in FT, \forall d\in D
+	c_{w,d}\in \{0,1\}, \forall w\in W \setminus PTW, \forall d\in D
 \end{gather}
 che vale 1 solo nel caso in cui il lavoratore $w$ ha due giorni di riposo consecutivi $d$ e $d+1$ durante la settimana. Si vuole massimizzare questa quantità per preferenza del personale:
 \begin{equation}
-	f_5=\sum_{w\in FT}\sum_{d\in D}c_{w,d}
+	f_6=\sum_{w\in FT}\sum_{d\in D}c_{w,d}
 \end{equation}
 
 \subsection{Funzione obiettivo}
 \begin{align}
     \min \; & 
-    \sum_{i=1}^5\lambda_if_i
+    \sum_{i=1}^6\lambda_if_i
+    && \lambda_i \in \mathbb{R}
 \end{align}
+I $\lambda_i$ rappresentano i pesi che noi diamo ai vari obiettivi: più $lambda_i$ è elevato, più l'obiettivo relativo incide nella funzione obiettivo generale, ottenendo di fatto più importanza nella ricerca dell'ottimo. 
 
-\paragraph{Vincoli di non negatività}
-\begin{align}
-	%
-	& O_{w} \ge 0
-	&& \text{ore straordinari lavoratore w}\label{vincolononnegstraordinari}\\[6pt]
-	%
-	& stacco_{w,d}\ge 0
-	&& \text{stacco giorno d lavoratore w}\label{vincolononegstacco}\\[6pt]
-	%
-	& d_{d,k}\ge 1
-	&& \label{vincolononnegd}\\[6pt]
-	%
-	& diff_w \ge 0
-	&& \label{vincolononnegdiffw}
-\end{align}
-
-\paragraph{Variabili}
+\subsection{Formulazione}
+\paragraph{Funzione obiettivo}
 \begin{align*}
+	\min \; & 
+	\sum_{i=1}^6\lambda_if_i
+	&& \lambda_i \in \mathbb{R}
+\end{align*}
+
+\paragraph{Vincoli, variabili orario e copertura}
+\begin{align*}
+	& f_1=\sum_{w \in W}\sum_{s \in S} L_s x_{w,s}\\
+	& \sum_{w \in W}\sum_{s \in S : day(s)=d} A_{s,k} x_{w,s} 
+	\ge f_{d,k} 
+	&& \forall d, k \\
+	& C_{w} \le \sum_{w \in W, s} 0.5*L_sx_{w,s} \le 48
+	&& \text{monte ore} \\
+	& \sum_{w \in FT, \, s : day(s)=d} x_{w,s} \le 2, 
+	&& \forall d \\
+	& \sum_{w \in PT, \, s : day(s)=d} x_{w,s} \le 1, 
+	&& \forall d \\
+	& x_{w\in PTW,s} = 1, 
+	&& day(s)=5 \land start(s)=16{:}30 \\[6pt]
+	& x_{w\in PTW,s} = 0, 
+	&& day(s)<5 \\
+	& \sum_{w \in PTW, \, s : day(s)=d} x_{w,s} \le 2, 
+	&& d>5 \\
+	& x_{w,s} \in \{0,1\}, 
+	&& \forall w \in T, s \in S\\
 	%
-    & x_{w,s} \in \{0,1\}, 
-    && \forall w \in T, s \in S\\[6pt]
-    %
-    & T=\{FT, PT, PTW\}
-    && \text{insieme dei lavoratori}\\[6pt]
-    %
-    & D=\{1,...,7\}
-    && \text{insieme dei giorni}\\[6pt]
-    %
-    & K_d
-    && \text{insieme slot temporali del giorno d} \\[6pt]
-    %
-    & S
-    && \text{insieme dei turni ammissibili s} \\[6pt]
-    %
-    & d_{d,k}\in \mathbb{N}
-    && \text{fabbisogno slot k giorno d}\\[6pt]
-    %
-    & A_{s,k}\in \{0,1\}
-    && \text{copertura turno s per slot k}\\[6pt]
-    %
-    & L_{s}\in \mathbb[6,7,...,12]
-    && \text{durata turno s}\\[6pt]
-    %
-    & C_{p,t}\in \{20,24,48\} 
-    && \text{ore contrattuali lavoratore tipo t}\\[6pt]
-    %
-    & stacco_{w,d}\in \mathbb{R}
-    && \text{stacco tra due turni nello stesso giorno lavoratore w}\\[6pt]
-    %
-    & split_{w,d}\in \{0,1\}
-    && \text{lavoratore w fa due turni giorno d}\\[6pt]
-    %
-    & O_{w}\in \mathbb{N}
-    && \text{ore straordinarie lavoratore w}\\[6pt]
-    %
-    & r_{w,d}\in \{0,1\}
-    && \text{riposo per lavoratore w giorno d}\\[6pt]
-    %
-    & H_{w}\in \mathbb{N}
-    && \text{ore programmate lavoratore w}\\[6pt]
-    %
-    & H_{media_t\text{insieme dei turni ammissibili s}}\in \mathbb{R}
-    && \text{ore medie lavoratori tipo t}\\[6pt]
-    %
-    & diff_{w}\in \mathbb{R}
-    && \text{deviazione assoluta ore programmate da ideali}\\[6pt]
-    %
-    & diff_{w}\in \mathbb{R}
-    && \text{deviazione assoluta ore programmate da ideali}\\[6pt]
-    %
-    & c_{w,d}\in \{0,1\}
-    && \text{riposo continuato di due giorni}\\[6pt]
-    %
-    & \lambda_1,\lambda_2,\lambda_3,\lambda_4, \lambda_5 \in \mathbb{R}
-    && \text{pesi obiettivi}
+	& W=FT\cup PT \cup PTW
+	&& \text{insieme dei lavoratori}\\
+	%
+	& FT\cap PT \cap PTW = \O
+	&& \\
+	& D=\{1,...,7\}
+	&& \text{insieme dei giorni}\\
+	%
+	& K_d
+	&& \text{insieme slot temporali del giorno d} \\
+	%
+	& S=\{s_1, \dots , s_l\}
+	&& \text{insieme dei turni ammissibili s} \\
+	%
+	& d_{d,k}\in \mathbb{N}
+	&& \text{fabbisogno slot k giorno d}\\
+	%
+	& A_{s,k}\in \{0,1\}
+	&& \text{copertura turno s per slot k}\\
+	%
+	& L_{s}\in \mathbb[6,7,...,12]
+	&& \text{durata turno s}\\
+	%
+	& C_{w}\in \{20,24,48\} 
+	&& \text{ore contrattuali lavoratore w}
+\end{align*}
+
+\paragraph{Vincoli, variabili straordinari}
+\begin{align*}
+	& f_2=\sum_{w \in W}O_w\\
+	& O_w \ge \sum_{s \in S : day(s)=d} A_{s,k} x_{w,s} - C_{w} 
+	&& \forall w \in W \\
+	&O_w\in \mathbb{N}
+	&& \text{ore di straordinari lavoratore w}
+\end{align*}
+
+\paragraph{Vincoli, variabili equità}
+\begin{align*}
+	& f_3=\sum_{T\in W}\sum_{w\in T} \alpha_1 d_{w}^{+} + \beta_1 d_{w}^{-}\\
+	& f_4=\sum_{s \in S} \alpha_2 dur_{s}^{+} + \beta_2 dur_{s}^{-}\\
+	& d_{w}^{+}\ge 0, d_{w}^{-}\le 0
+	&&\forall w\in W\\
+	&d_{w}^{+}\ge H_w-C_w\\
+	&d_{w}^{-}\le H_w-C_w\\
+	&dur_{s}^{+}\ge 0, dur_{s}^{-}\le 0
+	&&\forall s\in S\\
+	&dur_{s}^{+}\ge 0.5*L_s x_{w,s} - 4.0\\
+	&dur_{s}^{-}\le 0.5*L_s x_{w,s} - 4.0\\
+	& H_w=\sum_{w \in T, \, s} 0.5*L_sx_{w,s}
+	&& \text{ore assegnate a lavoratore w}\\
+	& d_{w}^{+},d_{w}^{-},dur_{s}^{+},dur_{s}^{-} \in \mathbb{R}\\
+	& \alpha_1, \alpha_2\in \mathbb{R}^+\\
+	& \beta_1, \beta_2 \in \mathbb{R}^-
+\end{align*}
+
+\paragraph{Vincoli, variabili stacco turni}
+\begin{align*}
+	& f_5=\sum_{d \in D}\sum_{w \in W} stacco_{w,d}\\
+	& split_{w,d} \ge \sum_{s : day(s)=d} x_{w,s} - 1\\
+	& end(s)=start(s)+L(s)\\
+	&stacco_{w,d} \ge  split_{w,d} \cdot (start(s_2) - end(s_1)), \quad \forall w \in W\\
+	& x_{w,s_1} = x_{w,s_2} = 1\\
+	& day(s_1) = day(s_2)\\
+	& start(s_2) > end(s_1) \\
+	& split_{w,d} \in \{0,1\}
+\end{align*}
+
+\paragraph{Vincoli, variabili riposo}
+\begin{align*}
+	& f_6=\sum_{w\in FT}\sum_{d\in D}c_{w,d}\\
+	& r_{w,d} \ge 1-\sum_{s\in S_d}x_{w,s}, \quad \forall w\in W \setminus PTW,\forall d\in D\\
+	& 1 \le \sum_{d\in D} r_{w,d}\le 2\\
+	& c_{w,d}\le r_{w,d}\\
+	& c_{w,d}\le r_{w,d+1}\\
+	& c_{w,d}\le r_{w,d} + r_{w,d+1} - 1\\
+	& c_{w,d}\in \{0,1\}, \forall w\in W \setminus PTW, \forall d\in D\\
+	& r_{w,d} \in \mathbb{N}
 \end{align*}

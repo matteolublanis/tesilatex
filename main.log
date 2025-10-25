@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.22)  24 OCT 2025 14:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.22)  25 OCT 2025 16:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1272,7 +1272,7 @@ Package biblatex Info: Reference segment=0 on input line 5.
 \openout2 = `title.aux'.
 
  (title.tex
-<figures/frontespizio.png, id=101, 205.9695pt x 85.41pt>
+<figures/frontespizio.png, id=105, 205.9695pt x 85.41pt>
 File: figures/frontespizio.png Graphic file (type png)
 <use figures/frontespizio.png>
 Package pdftex.def Info: figures/frontespizio.png  used on input line 4.
@@ -1389,24 +1389,32 @@ Underfull \hbox (badness 10000) in paragraph at lines 58--59
 [12]
 
 [13]
-Overfull \hbox (0.15056pt too wide) detected at line 257
-[]
- []
 
-)
+LaTeX Warning: Command \O invalid in math mode on input line 253.
+
+
+LaTeX Warning: Command \O invalid in math mode on input line 253.
+
+
 
 [14]
+
+[15]
+
+[16])
+
+[17]
 \openout2 = `A-appendice.aux'.
 
  (A-appendice.tex)
 
-[15
+[18
 
 
 
 ]
 
-[16
+[19
 
 
 ]
@@ -1414,7 +1422,7 @@ Overfull \hbox (0.15056pt too wide) detected at line 257
 
  (ringraziamenti.tex)
 
-[17
+[20
 
 ] (main.aux (title.aux) (0-introduzione.aux) (1-schedulazionepersonale.aux)
 (2-descrizione-istanza.aux) (3-modello-matematico.aux) (A-appendice.aux)
@@ -1424,19 +1432,19 @@ LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-09-02>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 66F2A3097D0D8686701DB713AAF54AF9;3423.
+(rerunfilecheck)             Checksum: 288AC11EB83F0C3A2C9C03C8581B2D5B;3540.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 34738 strings out of 468081
- 660086 string characters out of 5425304
- 1537938 words of memory out of 5000000
- 62736 multiletter control sequences out of 15000+600000
+ 34744 strings out of 468081
+ 660106 string characters out of 5425304
+ 1542726 words of memory out of 5000000
+ 62733 multiletter control sequences out of 15000+600000
  637294 words of font info for 76 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 107i,11n,110p,1183b,1825s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 107i,10n,110p,1183b,1825s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\matteo\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcr
 m1200.pk><C:/Users/matteo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsf
 onts/cm/cmbx12.pfb><C:/Users/matteo/AppData/Local/Programs/MiKTeX/fonts/type1/p
@@ -1455,9 +1463,9 @@ pe1/public/amsfonts/cm/cmsy6.pfb><C:/Users/matteo/AppData/Local/Programs/MiKTeX
 ms/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/matteo/AppData/Lo
 cal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/matteo/
 AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (18 pages, 279415 bytes).
+Output written on main.pdf (21 pages, 283838 bytes).
 PDF statistics:
- 361 PDF objects out of 1000 (max. 8388607)
- 90 named destinations out of 1000 (max. 500000)
- 210 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 386 PDF objects out of 1000 (max. 8388607)
+ 99 named destinations out of 1000 (max. 500000)
+ 218 words of extra memory for PDF output out of 10000 (max. 10000000)
 
