@@ -19,7 +19,7 @@
 \contentsline {subsection}{\numberline {3.1}Orario e copertura}{9}{subsection.3.1}%
 \contentsline {subsection}{\numberline {3.2}Straordinari}{11}{subsection.3.2}%
 \contentsline {subsection}{\numberline {3.3}Equità}{12}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}Stacco turni}{14}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.4}Stacco turni}{13}{subsection.3.4}%
 \contentsline {subsection}{\numberline {3.5}Giorni di riposo}{14}{subsection.3.5}%
 \contentsline {subsection}{\numberline {3.6}Funzione obiettivo}{15}{subsection.3.6}%
 \contentsline {subsection}{\numberline {3.7}Formulazione}{15}{subsection.3.7}%
