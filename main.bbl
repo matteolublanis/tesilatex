@@ -274,6 +274,40 @@
       \endverb
       \keyw{Workforce,Staffing,Scheduling,Literature review}
     \endentry
+    \entry{etd-04172014-181428}{phdtesis}{}{}
+      \name{author}{1}{}{%
+        {{hash=69e569b84db0ce2fc0b2dcf3e9946914}{%
+           family={Cortopassi},
+           familyi={C\bibinitperiod},
+           given={Serena},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {Università di Pisa}%
+      }
+      \strng{namehash}{69e569b84db0ce2fc0b2dcf3e9946914}
+      \strng{fullhash}{69e569b84db0ce2fc0b2dcf3e9946914}
+      \strng{fullhashraw}{69e569b84db0ce2fc0b2dcf3e9946914}
+      \strng{bibnamehash}{69e569b84db0ce2fc0b2dcf3e9946914}
+      \strng{authorbibnamehash}{69e569b84db0ce2fc0b2dcf3e9946914}
+      \strng{authornamehash}{69e569b84db0ce2fc0b2dcf3e9946914}
+      \strng{authorfullhash}{69e569b84db0ce2fc0b2dcf3e9946914}
+      \strng{authorfullhashraw}{69e569b84db0ce2fc0b2dcf3e9946914}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Modello di Ottimizzazione per la Schedulazione del Personale Infermieristico di una Residenza Assistita}
+      \field{type}{Tesi di laurea triennale in Matematica}
+      \field{year}{2014}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://etd.adm.unipi.it/t/etd-04172014-181428/
+      \endverb
+      \verb{url}
+      \verb https://etd.adm.unipi.it/t/etd-04172014-181428/
+      \endverb
+    \endentry
   \enddatalist
 \endrefsection
 \endinput
