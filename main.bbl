@@ -19,69 +19,50 @@
 
 \refsection{0}
   \datalist[entry]{ynt/global//global/global/global}
-    \entry{dantzig1954comment}{article}{}{}
-      \name{author}{1}{}{%
-        {{hash=212fe65a17e797b6dbce0c3731498b2c}{%
-           family={Dantzig},
-           familyi={D\bibinitperiod},
-           given={George\bibnamedelima B},
-           giveni={G\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+    \entry{MELACHRINOUDIS1992121}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=3c750e1897a8e6a91c84f4c691fbb36f}{%
+           family={Melachrinoudis},
+           familyi={M\bibinitperiod},
+           given={Emanuel},
+           giveni={E\bibinitperiod}}}%
+        {{hash=b89b2d3291c9ab04b60b2f73282cbefc}{%
+           family={Olafsson},
+           familyi={O\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
       }
-      \list{publisher}{1}{%
-        {INFORMS}%
-      }
-      \strng{namehash}{212fe65a17e797b6dbce0c3731498b2c}
-      \strng{fullhash}{212fe65a17e797b6dbce0c3731498b2c}
-      \strng{fullhashraw}{212fe65a17e797b6dbce0c3731498b2c}
-      \strng{bibnamehash}{212fe65a17e797b6dbce0c3731498b2c}
-      \strng{authorbibnamehash}{212fe65a17e797b6dbce0c3731498b2c}
-      \strng{authornamehash}{212fe65a17e797b6dbce0c3731498b2c}
-      \strng{authorfullhash}{212fe65a17e797b6dbce0c3731498b2c}
-      \strng{authorfullhashraw}{212fe65a17e797b6dbce0c3731498b2c}
+      \strng{namehash}{f3f891e68b69f00072708b003755f2e0}
+      \strng{fullhash}{f3f891e68b69f00072708b003755f2e0}
+      \strng{fullhashraw}{f3f891e68b69f00072708b003755f2e0}
+      \strng{bibnamehash}{f3f891e68b69f00072708b003755f2e0}
+      \strng{authorbibnamehash}{f3f891e68b69f00072708b003755f2e0}
+      \strng{authornamehash}{f3f891e68b69f00072708b003755f2e0}
+      \strng{authorfullhash}{f3f891e68b69f00072708b003755f2e0}
+      \strng{authorfullhashraw}{f3f891e68b69f00072708b003755f2e0}
       \field{sortinit}{1}
       \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{Journal of the Operations Research Society of America}
-      \field{number}{3}
-      \field{title}{A comment on Edie's “Traffic delays at toll booths”}
-      \field{volume}{2}
-      \field{year}{1954}
+      \field{abstract}{Since customer volume in a supermarket store is constantly fluctuating during a day and through the week, cashier scheduling is not an easy task. To create an accurate schedule, a supermarket manager must spend a good deal of time trying to match cashier shifts to customer demand. In this paper, a shift selection integer linear programming model is presented which has been implemented in Stop & Shop supermarket stores in Boston Massachusetts. The model runs on a personal computer within an electronic spreadsheet environment, making it user friendly for managers. It considers both hourly labor demand constraints and availability of labor constraints for each day of the week.}
+      \field{issn}{0360-8352}
+      \field{journaltitle}{Computers and Industrial Engineering}
+      \field{number}{1}
+      \field{title}{A scheduling system for supermarket cashiers}
+      \field{volume}{23}
+      \field{year}{1992}
       \true{nocite}
-      \field{pages}{339\bibrangedash 341}
-      \range{pages}{3}
-    \endentry
-    \entry{edie1954traffic}{article}{}{}
-      \name{author}{1}{}{%
-        {{hash=38e613e4cbde10519b5fcc595280000f}{%
-           family={Edie},
-           familyi={E\bibinitperiod},
-           given={Leslie\bibnamedelima C},
-           giveni={L\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
-      }
-      \list{publisher}{1}{%
-        {INFORMS}%
-      }
-      \strng{namehash}{38e613e4cbde10519b5fcc595280000f}
-      \strng{fullhash}{38e613e4cbde10519b5fcc595280000f}
-      \strng{fullhashraw}{38e613e4cbde10519b5fcc595280000f}
-      \strng{bibnamehash}{38e613e4cbde10519b5fcc595280000f}
-      \strng{authorbibnamehash}{38e613e4cbde10519b5fcc595280000f}
-      \strng{authornamehash}{38e613e4cbde10519b5fcc595280000f}
-      \strng{authorfullhash}{38e613e4cbde10519b5fcc595280000f}
-      \strng{authorfullhashraw}{38e613e4cbde10519b5fcc595280000f}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Journal of the operations research society of America}
-      \field{number}{2}
-      \field{title}{Traffic delays at toll booths}
-      \field{volume}{2}
-      \field{year}{1954}
-      \true{nocite}
-      \field{pages}{107\bibrangedash 138}
-      \range{pages}{32}
+      \field{pages}{121\bibrangedash 124}
+      \range{pages}{4}
+      \verb{doi}
+      \verb https://doi.org/10.1016/0360-8352(92)90078-X
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/036083529290078X
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/036083529290078X
+      \endverb
     \endentry
     \entry{BRUSCO1995249}{article}{}{}
       \name{author}{2}{}{%
@@ -307,6 +288,122 @@
       \verb{url}
       \verb https://etd.adm.unipi.it/t/etd-04172014-181428/
       \endverb
+    \endentry
+    \entry{7367407}{inproceedings}{}{}
+      \name{author}{7}{}{%
+        {{hash=9fdb1851f6d9a43ce4559aac48167f89}{%
+           family={Lin},
+           familyi={L\bibinitperiod},
+           given={Dingding},
+           giveni={D\bibinitperiod}}}%
+        {{hash=019a7f873831cf5009db4e658b587441}{%
+           family={Tong},
+           familyi={T\bibinitperiod},
+           given={Yue},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=0052e3afb93f33557504009f85bf19b1}{%
+           family={Niu},
+           familyi={N\bibinitperiod},
+           given={Ganggang},
+           giveni={G\bibinitperiod}}}%
+        {{hash=2166909fc4a18d001197af7cab5e5954}{%
+           family={Xue},
+           familyi={X\bibinitperiod},
+           given={Yongqing},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=0284af02945e4deddaf5068e1dab7252}{%
+           family={Shi},
+           familyi={S\bibinitperiod},
+           given={Xin},
+           giveni={X\bibinitperiod}}}%
+        {{hash=d81378376de2b4426d8cf02bf8a7dfba}{%
+           family={Ren},
+           familyi={R\bibinitperiod},
+           given={Changrui},
+           giveni={C\bibinitperiod}}}%
+        {{hash=f33f701390d65abdf3e601920aeb0d54}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Zongying},
+           giveni={Z\bibinitperiod}}}%
+      }
+      \strng{namehash}{a82d93c2809de33074df60a4dd0b04d4}
+      \strng{fullhash}{b24958e308df5041f15d354095606df7}
+      \strng{fullhashraw}{b24958e308df5041f15d354095606df7}
+      \strng{bibnamehash}{a82d93c2809de33074df60a4dd0b04d4}
+      \strng{authorbibnamehash}{a82d93c2809de33074df60a4dd0b04d4}
+      \strng{authornamehash}{a82d93c2809de33074df60a4dd0b04d4}
+      \strng{authorfullhash}{b24958e308df5041f15d354095606df7}
+      \strng{authorfullhashraw}{b24958e308df5041f15d354095606df7}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2015 IEEE International Conference on Service Operations and Logistics, and Informatics (SOLI)}
+      \field{title}{Scheduling workforce for retail stores with employee preferences}
+      \field{year}{2015}
+      \true{nocite}
+      \field{pages}{37\bibrangedash 42}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10.1109/SOLI.2015.7367407
+      \endverb
+      \keyw{Job shop scheduling; Schedules; Linear programming; Conferences; Logistics; workforce scheduling; retail store; employee preferences; mixed integer programming}
+    \endentry
+    \entry{MACVICAR2017589}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=bcc87e99a3a9db9bc7996a664bda2e4a}{%
+           family={Mac-Vicar},
+           familyi={M\bibinithyphendelim V\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=ae6eb39447b764446566e2d10813833d}{%
+           family={Ferrer},
+           familyi={F\bibinitperiod},
+           given={Juan\bibnamedelima Carlos},
+           giveni={J\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=fdabd5c14c4a26204cc39488339ab3ff}{%
+           family={Muñoz},
+           familyi={M\bibinitperiod},
+           given={Juan\bibnamedelima Carlos},
+           giveni={J\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=3f1344a7a13c5d006a1449c8a2960579}{%
+           family={Henao},
+           familyi={H\bibinitperiod},
+           given={César\bibnamedelima Augusto},
+           giveni={C\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \strng{namehash}{b87b4327813b4773e13d045fe94c6e85}
+      \strng{fullhash}{ba9cbfb3baaa1074fe39b147bdab3c27}
+      \strng{fullhashraw}{ba9cbfb3baaa1074fe39b147bdab3c27}
+      \strng{bibnamehash}{b87b4327813b4773e13d045fe94c6e85}
+      \strng{authorbibnamehash}{b87b4327813b4773e13d045fe94c6e85}
+      \strng{authornamehash}{b87b4327813b4773e13d045fe94c6e85}
+      \strng{authorfullhash}{ba9cbfb3baaa1074fe39b147bdab3c27}
+      \strng{authorfullhashraw}{ba9cbfb3baaa1074fe39b147bdab3c27}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Retailers must frequently deal with alterations in planned customer service levels due to unexpected demand variations or unscheduled employee absences. Although personnel scheduling techniques have been extensively studied and successfully applied, previous treatments of scheduling adjustments in response to demand and employee contingencies have not systematically considered all of the relevant issues. After presenting a mathematical specification of the problem, this study develops various algorithms that search for the best adjustments among all available contingency recovery resources, including transfers of multiskilled employees between different store areas. The proposed formulations also permit interaction between the user/decision maker and the affected employees. The underlying objective is to maximize profits, favoring solutions with fewer schedule modifications in order to minimize worker dissatisfaction. Due to the complexity of the basic model, the problem is divided and simplified using two greedy heuristics. Both algorithms can be implemented with real-world size problems and reach good solutions within minutes. Multiskilled employees prove to be an important reserve capacity for recovery of service levels in the face of unexpected variations. Empirical results using real data from a Chilean chain retailer show that in the worst scenario, the proposed model's schedule adjustments reduced lost profits due to unexpected variations by 18\%.}
+      \field{issn}{0360-8352}
+      \field{journaltitle}{Computers and Industrial Engineering}
+      \field{title}{Real-time recovering strategies on personnel scheduling in the retail industry}
+      \field{volume}{113}
+      \field{year}{2017}
+      \true{nocite}
+      \field{pages}{589\bibrangedash 601}
+      \range{pages}{13}
+      \verb{doi}
+      \verb https://doi.org/10.1016/j.cie.2017.09.045
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S0360835217304618
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S0360835217304618
+      \endverb
+      \keyw{Labor contingency,Multiskilling,Personnel scheduling,Real-time adjustment,Retail services,Workforce flexibility}
     \endentry
   \enddatalist
 \endrefsection
