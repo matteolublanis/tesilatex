@@ -1,0 +1,62 @@
+\section{Descrizione del problema}
+
+\subsection{Introduzione}
+La formulazione di un piano orario per i propri dipendenti risulta fattibile fin quando la dimensione del personale da gestire rimane contenuta e fin quando non si tengono in considerazione variabili secondarie come preferenze del personale e limiti giuridici.
+ 
+Consideriamo il problema di turnazione per un roster di cassieri di un ipermercato, appartenente alla grande distribuzione organizzata, affermatosi nella realtà bresciana. Il piano di turnazione viene stilato settimanalmente dal caporeparto delle casse e può richiedere fino a due giorni di lavoro intenso, spesso non riuscendo a trovare una soluzione adeguata al flusso della clientela e alle esigenze del punto vendita. 
+
+Si richiede, quindi, di formulare una piano di turnazione standard e poi di risolvere il problema di assegnamento dei dipendenti ai corrispettivi turni, sia rispettando i vincoli contrattuali e sia andando incontro a esigenze di varia natura (aziendali e dei singoli dipendenti), in modo tale da non solo ottimizzare i tempi lavorativi necessari alla pianificazione settimanale ma anche riuscire a ridurre i costi e a massimizzare la soddisfazione del personale.\\
+
+\subsection{Settimana lavorativa}
+L'ipermercato opera 7 giorni su 7, con un orario continuato per la clientela dalle 08:00 fino alle 20:00. Tralasciando le festività nazionali (Natale, Ferragosto, Festa dei lavoratori, $\cdots$), è aperto tutto l'anno.
+
+La giornata lavorativa, per quasi tutti i cassieri, inizia alle 08:00 e finisce mezz'ora dopo la chiusura, ovvero alle 20:30, in modo tale da poter eseguire le attività necessarie, come conteggio dei contanti e pulizie. Alle 07:00 è richiesta invece la spazzatrice per poter pulire le corsie: solo alcuni dipendenti possiedono la formazione necessaria per poter adoperare la spazzatrice, dipendenti ai quali sarà richiesto di iniziare il turno prima rispetto agli altri.
+
+\subsection{Tipologia personale, caratteristiche turnazione}
+Il personale è suddiviso in tre categorie contrattuali:
+\begin{itemize}
+	\item Full time: 40 ore settimanali;
+	\item Part time: 24 ore settimanali;
+	\item Part time weekend: 20 ore settimanali, con disponibilità limitata ai giorni di venerdì, sabato e domenica.
+\end{itemize}
+Ogni singolo turno può durare dalle 3 alle 6 ore ed è un multiplo di slot da 30 minuti (viene pagata la mezz'ora come unità): ad esempio, potrei assegnare il lavoratore $w$ a 8 slot temporali, dalle 08:00 fino alle 12:00. Non sono previste pause in un turno, ma sono previsti due turni giornalieri per i lavoratori full-time e part-time fine settimana (solo il sabato e la domenica per loro); quindi, ci sarà uno stacco tra due turni giornalieri, che può variare da una singola mezz'ora fino a quattro ore.
+Un dipendente può lavorare fino a 12 ore al giorno, ma è una situazione estremamente indesiderata: si tende ad assegnare fino ad un massimo di 8 ore al giorno ad ogni singolo dipendente, con piccole variazioni di mezz'ora in positivo o in negativo. Ad un lavoratore si possono assegnare fino ad un massimo di 48 ore settimanali (ore previste da contratto più straordinari), ma si vuole rimanere il più possibile vicini ai monte ore previsti da contratto per ogni lavoratore: questo vale anche per i part-time, i quali prima delle 40 ore lavorerebbero ore supplementari.
+
+Tra l'ultimo turno del giorno precedente e il primo turno del giorno preso in considerazione, vi deve essere un riposo di almeno 11 ore previsto per legge. Considerando la struttura degli orari, si rispetta tranquillamente il vincolo, però risulta comunque preferibile una pausa tra due turni in giorni consecutivi la più lunga possibile, così da permettere un riposo maggiore al dipendente.
+
+\subsection{Richieste del caporeparto}
+Il caporeparto è il soggetto che predispone il fabbisogno per ogni singolo slot temporale, in modo tale da poter pianificare il personale rispondendo in maniera adeguata al flusso della clientela e alle esigenze del punto vendita. Il caporeparto fornisce una tabella settimanale, di cui ogni singola cella rappresentano il numero di dipendenti richiesto per un certo slot orario: ad esempio, il sabato, essendo il giorno più intenso per l'ipermercato, quindi avrà un fabbisogno molto più elevato rispetto magari ad un giorno infrasettimanale come il martedì o la domenica sera.
+
+Il fabbisogno è un numero indicativo di quante persone siano necessarie in quel momento; non è un limite obbligatorio, quindi possono esserci situazioni di sotto o sovra copertura. La situazione di sovracopertura è preferibile rispetto a quella di sottocopertura solo nel caso in cui vi siano dipendenti che possano andare in scatolame durante situazioni di basso flusso della clientela: una situazione di eccesso di personale in cassa non solo risulterebbe inutile, ma verrebbe anche malvisto dai clienti, che vedrebbero dei dipendenti fermi.
+
+Il caporeparto vuole riuscire a coprire il fabbisogno richiesto, limitando il più possibile il monte ore lavorato totale, così da limitare le spese del personale. 
+
+Infine, il caporeparto vuole assicurarsi di riuscire a rispondere a situazioni critiche, in quanto il disagio arrecato da imprevisti potrebbe danneggiare l'immagine dell'ipermercato.
+
+\subsection{Skill del personale}
+Skill particolari individuate durante la descrizione del problema sono:
+\begin{itemize}
+	\item Cassa-Reparto: alcuni cassieri possono essere assegnati sia nel reparto scatolame che alle casse, differenziandoli così dai puri cassieri, che una volta assegnati allo slot temporale dovranno per forza stare in cassa. 
+	\item Formazione spazzatrice: alcuni dipendenti possiedono la formazione necessaria per adoperare la spazzatrice; tali dipendenti possono iniziare a lavorare prima delle 08:00 per poter così pulire l'ipermercato entro l'apertura.
+\end{itemize}
+
+\subsection{Preferenze del personale}
+Oltre ai vincoli contrattuali, si vuole tenere conto di alcune preferenze espresse dai dipendenti, che contribuiscono a migliorare la soddisfazione e l’equità complessiva della pianificazione.\\
+In particolare, vengono considerate le seguenti preferenze:
+\begin{itemize}
+	\item che vi sia equità nella distribuzione del carico lavorativo;
+	\item avere giorni di riposo consecutivi;
+	\item ridurre al minimo gli stacchi tra due turni nello stesso giorno (favorendo turni continuativi);
+	\item disporre del riposo domenicale, ove possibile.
+\end{itemize}
+
+\subsection{Obiettivi finali}
+La formulazione del piano dei turni mira al raggiungimento di più obiettivi:
+\begin{itemize}
+	\item Minimizzare i costi del personale;
+	\item Massimizzare la soddisfazione del personale;
+	\item Mantenere flessibilità operativa, in modo da poter gestire eventuali imprevisti (assenze, malattie, permessi, variazioni della domanda).
+\end{itemize}
+In sintesi, il problema affrontato è un problema di ottimizzazione combinatoria tipico del rostering/staff scheduling.
+
+Richiede di assegnare, per un periodo prefissato (una o due settimane, un mese o addirittura un anno), un insieme di turni ai lavoratori disponibili, in modo da soddisfare i vincoli di copertura, orario e riposo, cercando contemporaneamente di ottimizzare più criteri di tipo economico e organizzativo.
