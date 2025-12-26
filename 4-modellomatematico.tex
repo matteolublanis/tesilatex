@@ -1,0 +1,108 @@
+\section{Modello matematico}
+\subsection{Formulazione}
+\paragraph{Funzione obiettivo}
+\begin{align*}
+	\min \; & 
+	\sum_{i=1}^6\lambda_if_i
+	&& \lambda_i \in \mathbb{R}
+\end{align*}
+
+\paragraph{Vincoli, variabili orario e copertura}
+\begin{align*}
+	& f_1=\sum_{w \in W}\sum_{s \in S} L_s x_{w,s}\\
+	& \sum_{w \in W}\sum_{s \in S : day(s)=d} A_{s,k} x_{w,s} 
+	\ge f_{d,k} 
+	&& \forall d, k \\
+	& C_{w} \le \sum_{w \in W, s} 0.5*L_sx_{w,s} \le 48
+	&& \text{monte ore} \\
+	& \sum_{w \in FT, \, s : day(s)=d} x_{w,s} \le 2, 
+	&& \forall d \\
+	& \sum_{w \in PT, \, s : day(s)=d} x_{w,s} \le 1, 
+	&& \forall d \\
+	& x_{w\in PTW,s} = 1, 
+	&& day(s)=5 \land start(s)=16{:}30 \\[6pt]
+	& x_{w\in PTW,s} = 0, 
+	&& day(s)<5 \\
+	& \sum_{w \in PTW, \, s : day(s)=d} x_{w,s} \le 2, 
+	&& d>5 \\
+	& x_{w,s} \in \{0,1\}, 
+	&& \forall w \in T, s \in S\\
+	%
+	& W=FT\cup PT \cup PTW
+	&& \text{insieme dei lavoratori}\\
+	%
+	& FT\cap PT \cap PTW = \O
+	&& \\
+	& D=\{1,...,7\}
+	&& \text{insieme dei giorni}\\
+	%
+	& K_d
+	&& \text{insieme slot temporali del giorno d} \\
+	%
+	& S=\{s_1, \dots , s_l\}
+	&& \text{insieme dei turni ammissibili s} \\
+	%
+	& d_{d,k}\in \mathbb{N}
+	&& \text{fabbisogno slot k giorno d}\\
+	%
+	& A_{s,k}\in \{0,1\}
+	&& \text{copertura turno s per slot k}\\
+	%
+	& L_{s}\in \mathbb[6,7,...,12]
+	&& \text{durata turno s}\\
+	%
+	& C_{w}\in \{20,24,48\} 
+	&& \text{ore contrattuali lavoratore w}
+\end{align*}
+
+\paragraph{Vincoli, variabili straordinari}
+\begin{align*}
+	& f_2=\sum_{w \in W}O_w\\
+	& O_w \ge \sum_{s \in S : day(s)=d} A_{s,k} x_{w,s} - C_{w} 
+	&& \forall w \in W \\
+	&O_w\in \mathbb{N}
+	&& \text{ore di straordinari lavoratore w}
+\end{align*}
+
+\paragraph{Vincoli, variabili equità}
+\begin{align*}
+	& f_3=\sum_{T\in W}\sum_{w\in T} \alpha_1 d_{w}^{+} + \beta_1 d_{w}^{-}\\
+	& f_4=\sum_{s \in S} \alpha_2 dur_{s}^{+} + \beta_2 dur_{s}^{-}\\
+	& d_{w}^{+}\ge 0, d_{w}^{-}\le 0
+	&&\forall w\in W\\
+	&d_{w}^{+}\ge H_w-C_w\\
+	&d_{w}^{-}\le H_w-C_w\\
+	&dur_{s}^{+}\ge 0, dur_{s}^{-}\le 0
+	&&\forall s\in S\\
+	&dur_{s}^{+}\ge 0.5*L_s x_{w,s} - 4.0\\
+	&dur_{s}^{-}\le 0.5*L_s x_{w,s} - 4.0\\
+	& H_w=\sum_{w \in T, \, s} 0.5*L_sx_{w,s}
+	&& \text{ore assegnate a lavoratore w}\\
+	& d_{w}^{+},d_{w}^{-},dur_{s}^{+},dur_{s}^{-} \in \mathbb{R}\\
+	& \alpha_1, \alpha_2\in \mathbb{R}^+\\
+	& \beta_1, \beta_2 \in \mathbb{R}^-
+\end{align*}
+
+\paragraph{Vincoli, variabili stacco turni}
+\begin{align*}
+	& f_5=\sum_{d \in D}\sum_{w \in W} stacco_{w,d}\\
+	& split_{w,d} \ge \sum_{s : day(s)=d} x_{w,s} - 1\\
+	& end(s)=start(s)+L(s)\\
+	&stacco_{w,d} \ge  split_{w,d} \cdot (start(s_2) - end(s_1)), \quad \forall w \in W\\
+	& x_{w,s_1} = x_{w,s_2} = 1\\
+	& day(s_1) = day(s_2)\\
+	& start(s_2) > end(s_1) \\
+	& split_{w,d} \in \{0,1\}
+\end{align*}
+
+\paragraph{Vincoli, variabili riposo}
+\begin{align*}
+	& f_6=\sum_{w\in FT}\sum_{d\in D}c_{w,d}\\
+	& r_{w,d} \ge 1-\sum_{s\in S_d}x_{w,s}, \quad \forall w\in W \setminus PTW,\forall d\in D\\
+	& 1 \le \sum_{d\in D} r_{w,d}\le 2\\
+	& c_{w,d}\le r_{w,d}\\
+	& c_{w,d}\le r_{w,d+1}\\
+	& c_{w,d}\le r_{w,d} + r_{w,d+1} - 1\\
+	& c_{w,d}\in \{0,1\}, \forall w\in W \setminus PTW, \forall d\in D\\
+	& r_{w,d} \in \mathbb{N}
+\end{align*}
