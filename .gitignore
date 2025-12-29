@@ -1,0 +1,18 @@
+# LaTeX Auxiliary Files (Safe to ignore)
+.aux
+.bbl
+.bcf
+.blg
+.dvi
+.log
+.lot
+.out
+.run.xml
+.synctex.gz
+.toc
+.fls
+.fdb_latexmk
+
+# Intermediate files
+main.synctex
+.lof
