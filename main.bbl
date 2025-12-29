@@ -194,6 +194,57 @@
       \field{pages}{21\bibrangedash 144}
       \range{pages}{124}
     \endentry
+    \entry{BRUCKER2011467}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=373121fe1e94871b2272a3840f703686}{%
+           family={Brucker},
+           familyi={B\bibinitperiod},
+           given={Peter},
+           giveni={P\bibinitperiod}}}%
+        {{hash=dae9f4a7f61571c2baa1bf04fdd1fcc8}{%
+           family={Qu},
+           familyi={Q\bibinitperiod},
+           given={Rong},
+           giveni={R\bibinitperiod}}}%
+        {{hash=67b65fd37e1c5a4c91e0a504b087c819}{%
+           family={Burke},
+           familyi={B\bibinitperiod},
+           given={Edmund},
+           giveni={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{aa213761945fba35b56eafda376d1117}
+      \strng{fullhash}{aa213761945fba35b56eafda376d1117}
+      \strng{fullhashraw}{aa213761945fba35b56eafda376d1117}
+      \strng{bibnamehash}{aa213761945fba35b56eafda376d1117}
+      \strng{authorbibnamehash}{aa213761945fba35b56eafda376d1117}
+      \strng{authornamehash}{aa213761945fba35b56eafda376d1117}
+      \strng{authorfullhash}{aa213761945fba35b56eafda376d1117}
+      \strng{authorfullhashraw}{aa213761945fba35b56eafda376d1117}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Due to its complexity, its challenging features, and its practical relevance, personnel scheduling has been heavily investigated in the last few decades. However, there is a relatively low level of study on models and complexity in these important problems. In this paper, we present mathematical models which cover specific aspects in the personnel scheduling literature. Furthermore, we address complexity issues by identifying polynomial solvable and NP-hard special cases.}
+      \field{issn}{0377-2217}
+      \field{journaltitle}{European Journal of Operational Research}
+      \field{number}{3}
+      \field{title}{Personnel scheduling: Models and complexity}
+      \field{volume}{210}
+      \field{year}{2011}
+      \true{nocite}
+      \field{pages}{467\bibrangedash 473}
+      \range{pages}{7}
+      \verb{doi}
+      \verb https://doi.org/10.1016/j.ejor.2010.11.017
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S0377221710007897
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S0377221710007897
+      \endverb
+      \keyw{Complexity,Mathematical model,Personnel scheduling}
+    \endentry
     \entry{VANDENBERGH2013367}{article}{}{}
       \name{author}{5}{}{%
         {{hash=5d1775e3e8d5d3db52b40f241ec89759}{%
@@ -241,7 +292,6 @@
       \field{title}{Personnel scheduling: A literature review}
       \field{volume}{226}
       \field{year}{2013}
-      \true{nocite}
       \field{pages}{367\bibrangedash 385}
       \range{pages}{19}
       \verb{doi}
@@ -404,6 +454,34 @@
       \verb https://www.sciencedirect.com/science/article/pii/S0360835217304618
       \endverb
       \keyw{Labor contingency,Multiskilling,Personnel scheduling,Real-time adjustment,Retail services,Workforce flexibility}
+    \endentry
+    \entry{RENATOBRUNIPERSONNELSCHEDULING}{materialelezione}{}{}
+      \name{author}{1}{}{%
+        {{hash=47ed270092c6797d691ee79c48440e65}{%
+           family={Bruni},
+           familyi={B\bibinitperiod},
+           given={Renato},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{47ed270092c6797d691ee79c48440e65}
+      \strng{fullhash}{47ed270092c6797d691ee79c48440e65}
+      \strng{fullhashraw}{47ed270092c6797d691ee79c48440e65}
+      \strng{bibnamehash}{47ed270092c6797d691ee79c48440e65}
+      \strng{authorbibnamehash}{47ed270092c6797d691ee79c48440e65}
+      \strng{authornamehash}{47ed270092c6797d691ee79c48440e65}
+      \strng{authorfullhash}{47ed270092c6797d691ee79c48440e65}
+      \strng{authorfullhashraw}{47ed270092c6797d691ee79c48440e65}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Problemi di Personnel Scheduling}
+      \verb{urlraw}
+      \verb https://www.diag.uniroma1.it/~bruni/files/OC11_Scheduling.pdf
+      \endverb
+      \verb{url}
+      \verb https://www.diag.uniroma1.it/~bruni/files/OC11_Scheduling.pdf
+      \endverb
     \endentry
   \enddatalist
 \endrefsection

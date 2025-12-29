@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.22)  26 DEC 2025 13:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.22)  29 DEC 2025 17:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1272,7 +1272,7 @@ Package biblatex Info: Reference segment=0 on input line 5.
 \openout2 = `title.aux'.
 
  (title.tex
-<figures/frontespizio.png, id=86, 205.9695pt x 85.41pt>
+<figures/frontespizio.png, id=90, 205.9695pt x 85.41pt>
 File: figures/frontespizio.png Graphic file (type png)
 <use figures/frontespizio.png>
 Package pdftex.def Info: figures/frontespizio.png  used on input line 4.
@@ -1328,17 +1328,19 @@ l.13 \include{0-introduzione}
 \openout2 = `0-introduzione.aux'.
 
  (0-introduzione.tex
-Underfull \hbox (badness 10000) in paragraph at lines 10--11
+
+[2
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 38--39
 
  []
 
 
 
-[2
+[3])
 
-])
-
-[3]
+[4]
 \openout2 = `1-descrizione-problema.aux'.
 
  (1-descrizione-problema.tex
@@ -1348,20 +1350,20 @@ Underfull \hbox (badness 10000) in paragraph at lines 8--9
 
 
 
-[4
+[5
 
 
 
 ]
 
-[5])
+[6])
 
-[6]
+[7]
 \openout2 = `2-statodellarte.aux'.
 
  (2-statodellarte.tex)
 
-[7
+[8
 
 
 
@@ -1380,7 +1382,7 @@ LaTeX Warning: Command \O invalid in math mode on input line 12.
 
 
 
-[8
+[9
 
 
 
@@ -1391,22 +1393,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 63--64
 
 
 
-[9]
-
 [10]
+
+[11]
 Underfull \hbox (badness 10000) in paragraph at lines 120--122
 
  []
 
 
 
-[11]
-
 [12]
 
-[13])
+[13]
 
-[14]
+[14])
+
+[15]
 \openout2 = `4-modellomatematico.aux'.
 
  (4-modellomatematico.tex
@@ -1418,20 +1420,20 @@ LaTeX Warning: Command \O invalid in math mode on input line 56.
 
 
 
-[15
+[16
 
 
 
 ]
 
-[16])
+[17])
 
-[17]
+[18]
 \openout2 = `A-appendice.aux'.
 
  (A-appendice.tex)
 
-[18
+[19
 
 
 
@@ -1441,8 +1443,12 @@ Package biblatex Warning: No driver for 'phdtesis'.
 (biblatex)                Using fallback driver on input line 31.
 
 
+Package biblatex Warning: No driver for 'materialelezione'.
+(biblatex)                Using fallback driver on input line 31.
 
-[19
+
+
+[20
 
 
 ]
@@ -1450,7 +1456,7 @@ Package biblatex Warning: No driver for 'phdtesis'.
 
  (ringraziamenti.tex)
 
-[20
+[21
 
 ] (main.aux (title.aux) (0-introduzione.aux) (1-descrizione-problema.aux)
 (2-statodellarte.aux) (3-definizioneformale.aux) (4-modellomatematico.aux)
@@ -1459,24 +1465,17 @@ Package biblatex Warning: No driver for 'phdtesis'.
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-09-02>
  ***********
-
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: A250C3F53CF7E281BEC7CEAA5EA5FE7B;3038
-(rerunfilecheck)             After:  9E5258DD4D3403752EB64729EE4ED0F1;3099.
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: 4EF6F01F27DEC21CDE212B939E406E52;3408.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 34778 strings out of 468081
- 661469 string characters out of 5425304
- 1539403 words of memory out of 5000000
- 62760 multiletter control sequences out of 15000+600000
+ 34794 strings out of 468081
+ 662018 string characters out of 5425304
+ 1539582 words of memory out of 5000000
+ 62772 multiletter control sequences out of 15000+600000
  637294 words of font info for 76 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  107i,10n,110p,1592b,1825s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1498,9 +1497,9 @@ pe1/public/amsfonts/cm/cmsy6.pfb><C:/Users/matteo/AppData/Local/Programs/MiKTeX
 ms/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/matteo/AppData/Lo
 cal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/matteo/
 AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (21 pages, 284472 bytes).
+Output written on main.pdf (22 pages, 293246 bytes).
 PDF statistics:
- 373 PDF objects out of 1000 (max. 8388607)
- 99 named destinations out of 1000 (max. 500000)
- 178 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 392 PDF objects out of 1000 (max. 8388607)
+ 103 named destinations out of 1000 (max. 500000)
+ 186 words of extra memory for PDF output out of 10000 (max. 10000000)
 

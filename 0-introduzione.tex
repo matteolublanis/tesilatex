@@ -1,16 +1,45 @@
 \section*{Introduzione}
 \addcontentsline{toc}{section}{Introduzione}
+\subsection{Personnel Scheduling: definizione e caratteristiche}
+Un problema di Personnel Scheduling consiste nel trovare il modo migliore per attribuire i turni ai lavoratori, in modo tale sia da rispettare una serie di vincoli di servizio e contrattuali e sia da massimizzare le preferenze del personale riducendo comunque al minimo i costi previsti \cite{RENATOBRUNIPERSONNELSCHEDULING}.
+
 Negli ultimi decenni, i problemi di schedulazione del personale sono stati studiati ampiamente. Una delle cause principali dietro questo interesse sta il lato economico: il costo del lavoro rappresenta ad oggi, per molte realtà aziendali, uno degli elementi principali della spesa aziendale e riuscire a minimizzarlo può portare grossi benefici all'azienda.\\
-La prima formulazione di questo problema venne proposta negli anni '50 da George Dantzig e William Edie, ma ad oggi risulta parecchio antiquata, in quanto:
+La prima formulazione di questo problema venne proposta negli anni '50 da George Dantzig e William Edie, ma ad oggi risulta antiquata in quanto:
 \begin{itemize}
-	\item Non esistevano diverse tipologie di contratto, ma solo i contratti full-time.
-	\item Ogni dipendente è interscambiabile, non vengono quindi tenute in considerazione le skill del singolo individuo.
+	\item Non esistevano diverse tipologie di contratto, solo contratti full-time.
+	\item Ogni dipendente è interscambiabile, non vengono tenute in considerazione le skill del singolo individuo.
 	\item Come obiettivo vi era solo quello di minimizzare il costo del personale, non considerando altri fattori come preferenze o indisposizioni. 
 \end{itemize}
-Ad oggi, i modelli sono diventati molto più complessi e prevedono obiettivi che possono andare in conflitto tra loro, come ad esempio la minimizzazione del costo del personale e le preferenze soggettive del personale. Inoltre, sono aumentati gli strumenti risolutivi a disposizione, variando dai metodi esatti fino alle euristiche: un problema che veniva risolto a mano può venire ora risolto con buoni risultati, non per forza ottimi, velocemente.\\
-\subsection{Obiettivo della tesi}
-Questa tesi si pone come obiettivo quello di risolvere il problema di personnel scheduling per il reparto di cassa di un supermercato. Il fine ultimo è quello di trovare la miglior pianificazione settimanale possibile per suddetto supermercato e sviluppare uno strumento applicativo software per permettere l'assegnazione dei turni ai dipendenti.
-\subsection{Struttura tesi}
+Baker fornì una classificazione dei problemi di Personnel Scheduling in tre gruppi\cite{VANDENBERGH2013367}:
+\begin{itemize}
+	\item Shift Scheduling: si pianifica su un orizzonte di pianificazione giornaliero, implicando che il fabbisogno di personale per ciascun turno può essere gestito in modo indipendente per determinare le allocazioni appropriate; rappresenta il problema più facile da risolvere delle tre categorie, ma non risponde a situazioni più complesse (esempio, la necessità dei turni che si sovrappongono, tipico problema per i call center).
+	\item Days off Scheduling: al posto di pianificare i turni di lavoro, si pianificano i giorni di riposo per i dipendenti; problema tipico per aziende che lavorano sette giorni su sette, mentre il lavoratore ne lavora solo cinque/sei (una variante del problema potrebbe richiedere che i giorni di riposo siano consecutivi).
+	\item Tour scheduling: una combinazione delle due categorie viste precedentemente, bisogna assegnare un tour (giorni della settimana e ore del giorno) da lavorare ad un particolare dipendente. Questa categoria risulta molto più complicata rispetto alle due precedenti e la complessità del problema, seppur dipenda da più fattori, è fortemente influenzata dalla durata minima dell'intervallo di pianificazione (solitamente, dai 15 minuti alle 8 ore).
+\end{itemize}
+Altre pubblicazioni suddividono il problema in moduli che poi possono essere uniti (demand modeling, days off scheduling, shift scheduling, $\cdot$), altre ancora danno una tassonomia del problema più dettagliata basata sulle seguenti caratteristiche:
+\begin{itemize}
+	\item Caratteristiche del personale;
+	\item Vincoli, misure della performance e flessibilità;
+	\item Metodi risolutivi e incorporazione dell'incertezza;
+	\item Area applicativa e applicatività della ricerca.
+\end{itemize}
+In Ricerca Operativa, il Personnel Scheduling è un problema di tipo NP-hard, o peggio NP-complete: la complessità deriva principalmente da tutte le possibili combinazioni dei turni che si possono ottenere, rendendo la ricerca di un ottimo molto più complessa e lunga. Per modellizare il problema, può essere d'aiuto la definizione del problema di Set Covering, che riesce a modellizzare in maniera adeguata come l'unione dei turni assegnati debba rispondere al fabbisogno necessario. Nel problema di Set Covering bisogna trovare la più piccola sotto-collezione di set tale per cui l'unione dei suoi elementi sia equivalente all'insieme universo:
+\begin{align*}
+	\min \quad & \sum_{s\in S}x_s \\
+	\text{s.t} & \sum_{s:e\in s}x_s\ge 1, \forall e\in U\\
+	& x_s \in \{0, 1\}
+\end{align*}
+Nel caso del Personnel Scheduling, i sottoinsiemi rappresentano i turni e gli elementi gli slot temporali, il secondo vincolo cambierà in:
+\begin{center}
+	$\sum_{s:e\in s}x_s\ge f, \forall e\in U$
+\end{center}
+ove $f$ rappresenta il fabbisogno necessario per slot temporale.
+
+Il problema è in continua evoluzione e necessita quindi modelli complessi e flessibili a eventuali cambiamenti. Gli strumenti risolutivi oggi disponibili (Gurobi, CPLEX, FICO Xpress, Google OR-Tools) integrano algoritmi sempre più raffinati: un problema che decenni fa veniva approcciato manualmente ottenendo risultati approssimativi, può ora essere risolto con precisione, garantendo soluzioni di alta qualità o, in molti casi, l’ottimalità globale.\\
+
+\subsection{Obiettivo e struttura della tesi}
+Questa tesi si pone come obiettivo quello di risolvere il problema di personnel scheduling (tour scheduling) per il reparto di cassa di un supermercato. Il fine ultimo è quello di trovare la miglior pianificazione settimanale possibile per suddetto supermercato e sviluppare uno strumento applicativo software per permettere un'assegnazione dei turni semplificata ai dipendenti.
+
 Nel Capitolo 1 viene presentato informalmente il problema reale considerato, descrivendone i soggetti coinvolti, le preferenze espresse, ciò che si vuole ottenere e i vincoli di varia natura.
 
 Nel Capitolo 2 viene delineato lo stato dell'arte nel settore, andando a individuare una definizione tecnica precisa per il tipo di problema individuato e andando a descrivere altre eventuali applicazioni degli stessi concetti che andremo a trattare nel corso della tesi.
@@ -26,12 +55,3 @@ Negli appendici infine vengono riportati, per ordine:
 	\item Una guida sintetica per l'utilizzo del programma finale, accompagnata da alcuni frammenti di codice commentati.
 	\item Valori dei coefficienti di penalità assegnati ai termini della funzione obiettivo.
 \end{itemize}
-
-
-
-%Il problema così individuato rimanda al problema del \textit{Set Covering}, ove bisogna trovare la più piccola sotto-collezione di set tale per cui l'unione dei suoi elementi sia equivalente all'insieme universo:
-%\begin{align*}
-%	\min \quad & \sum_{s\in S}x_s \\
-%	\text{s.t} & \sum_{s:e\in s}x_s\ge 1, \forall e\in U\\
-%	& x_s \in \{0, 1\}
-%\end{align*}
