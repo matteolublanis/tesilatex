@@ -32,6 +32,38 @@ Le misure finanziarie prevedono costi differenti, come costo del personale, poss
 Spesso gli operatori vogliono anche garantire equità nella gestione degli orari per i dipendenti, che si può tradurre in più punti: distribuzione equa di weekend di riposo, un numero di turni sfavorevole bilanciato tra i vari dipendenti, gestione bilanciata per tipo di turno, quantità bilanciata di giorni di lavoro e di riposo (viene citato il lavoro di Lezaun e altri\cite{lezaun2007rostering}), gestione delle preferenze dei dipendenti (ad esempio, preferenze per certi tipi di turni o anche volere lavorare con specifici collaboratori), numero di giorni di riposo consecutivi), $\dots$.
 
 \subsection{Metodi Risolutivi e Incertezza}
+In letteratura, si trova un insieme veramente ampio e diversificato di tecniche risolutive adottate. Si dividono le tecniche usate in tre gruppi:
+\begin{itemize}
+	\item Programmazione matematica: programmazione intera, programmazione dinamica, goal programming, euristiche costruttive o migliorative.
+	\item Simulazione, programmazione a vincoli, queuing.
+	\item Altro: soluzioni meno frequenti come approssimazione lineare a tratti di una curva, analytic hierarchy process (AHP), modelli di fogli di calcolo e data envelopment analysis (DEA).
+\end{itemize}
+Il primo gruppo rappresenta il gruppo più ampio: il problema del personnel scheduling viene modellato come un programma lineare, intero o misto intero e la formulazione più usata è quella del Set Covering, introdotta da Dantzig. Il problema del \textit{Set Covering} consiste nel trovare la più piccola sotto-collezione di insiemi (sottoinsiemi dell'insieme universo) tale per cui l'unione dei suoi elementi sia equivalente all'insieme universo:
+\begin{align*}
+	\min \quad & \sum_{s\in S}x_s \\
+	\text{s.t} & \sum_{s:e\in s}x_s\ge 1, \forall e\in U\\
+	& x_s \in \{0, 1\}
+\end{align*}
+In particolare, nel caso del personnel scheduling, al posto dell'1 nel secondo vincolo si avrà il fabbisogno necessario per lo slot temporale considerato. Questa formulazione è molto comoda, perché permette di aggiungere a proprio piacimento vincoli aggiuntivi in base alle proprie necessità. 
+
+Una tecnica che aiuta molto, in particolare per problemi di larga scala, è quella della decomposizione del problema: viene separato il problema in due parti, una più facile e una più complessa e per ognuna posso scegliere il metodo risolutivo da utilizzare. Diversi modi di applicare la decomposizione furono proposti da: Detienne e altri\cite{detienne2009cut} sfruttarono la decomposizione di Bender (problema principale rilassato è un problema di zaino multidimensionale a multiscelta, mentre ogni sotto problema è un problema di b-matching\footnote{Generalizzazione del problema base di matching per un grafo. Sia dato un grafo $G=(V,E)$, ad ogni vertice $v\in V$ viene assegnato una capacità $b(v)\in \mathbb{N}^+$: un b-matching è un sottoinsieme di archi tale che, per ogni $v$, il numero di archi incidenti a $v$ non superi la sua capacità $b(v)$.}, Bard e Wan\cite{bard2008workforce} \cite{bard2006task}. Assieme alla decomposizione, un'altra tecnica buona per problemi di grandi dimensioni è quella della generazione di colonne: quando le variabili in gioco sono troppe, si rischia di eccedere il limite di memoria assegnato per il problema, quindi vengono generate dinamicamente quando necessario\cite{IBMColonne} (vengono citati per questo approccio Beliën e Demeulemeester\cite{belien2008branch}). Tramite la decomposizione, si riesce ad utilizzare a rappresentare il problema con altri modelli oltre a quello del set covering, come ad esempio problemi di maximum flow.
+
+Ultimo approccio molto utilizzato all'interno della programmazione matematica è quello delle metaeuristiche, che sono progettate in modo tale da trovare soluzioni ammissibili buone in tempi relativamente brevi o accettabili dai limiti imposti. Gli svantaggi delle metaeuristiche sosta nel fatto che non possono in modo dimostrabile né produrre soluzioni ottime né ridurre lo spazio di ricerca delle soluzioni. Gli algoritmi preferiti sono la tabu search e gli algoritmi genetici all'uso di algoritmi di ricottura simulata. Altre alternative sono: scatter search, ricerca locale iterata, variable neighborhood search, particle swarm optimization, algoritmi memetici, reti neurali, $\dots$.
+
+Trattando invece l'incertezza, si differenziano tre tipi di incertezze che si possono ritrovare all'interno di questi problemi:
+\begin{itemize}
+	\item Incertezza della richiesta: carico del lavoro imprevedibile.
+	\item Incertezza dell'arrivo: pattern imprevedibile dell'arrivo carico di lavoro (fallimenti della macchina, arrivo di chiamate per i call center).
+	\item Incertezza della capacità: deviazione tra forza lavoro pianificata e effettiva.
+\end{itemize}
+Si dividono inoltre gli approcci in due tipi:
+\begin{itemize}
+	\item Deterministico: viene ignorata ogni forma di incertezza.
+	\item Stocastico: viene considerata l'incertezza (non per forza tutti i tipi visti prima).
+\end{itemize}
+L'approccio deterministico è quello dominante. Non incorporare l'incertezza all'interno del modello non equivale però a considerare il carico di lavoro costante in ogni momento: vengono fatte analisi del carico di lavoro osservando i dati storici e facendone una stima. Per andare contro la variabilità del carico di lavoro, negli approcci deterministici può risultare d'aiuto l'utilizzo di buffer di capacità in modo tale da rendere il roster del personale molto più robusto.
+
+Cause di incertezza relative ai dipendenti possono essere: malattie dei dipendenti, ritardi negli arrivi, perdita di capacità per via di risorse fuori servizio. L'incertezza di arrivo è di principale interesse per i sistemi di call center, i quali spesso devono aggiungere anche l'incertezza di richiesta.
 
 \subsection{Aree di Applicazione}
 
