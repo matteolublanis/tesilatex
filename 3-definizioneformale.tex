@@ -1,7 +1,7 @@
 \section{Definizione formale}
 \subsection{Problema base}
 \paragraph{Insieme dei lavoratori}
-Indichiamo con $w$ un dipendente generico appartenente al roster. I dipendenti si differenziano tra loro principalmente per gli orari contrattuali assegnali, introduciamo quindi gli insiemi:
+Si indica con $w$ un dipendente generico appartenente al roster. I dipendenti si differenziano tra loro principalmente per gli orari contrattuali assegnali, introduciamo quindi gli insiemi:
 \begin{center}
 	$W=FT\cup PT \cup PTW$\\
 	$FT=\{w_1,...w_n\}$, full-time\\
@@ -44,7 +44,7 @@ I lavoratori si differenziano per il monte orario minimo in base alla tipologia 
 \begin{center}
 	$C_{w}\in \{20,24,48\}$ %rivedere
 \end{center}
-Una volta introdotto il necessario per l'orario e la copertura, possiamo iniziare a definire i vincoli relativi: 
+Una volta introdotto il necessario per l'orario e la copertura, si può iniziare a definire i vincoli relativi: 
 \begin{align}
 	& \sum_{w \in W}\sum_{s \in S : day(s)=d} A_{s,k} x_{w,s} 
 	\ge f_{d,k} 
@@ -52,10 +52,10 @@ Una volta introdotto il necessario per l'orario e la copertura, possiamo iniziar
 	& C_{w} \le \sum_{w \in W, s} 0.5*L_sx_{w,s} \le 48
 	&& \text{monte ore} \label{vincolo:monteorept}
 \end{align}
-La copertura del fabbisogno si specifica mediante il primo vincolo. Questo vincolo ci assicura che almeno $f_{d,k}$ lavoratori siano presenti nello slot temporale $k$ del giorno $d$. Con questo vincolo non è ammissibile una situazione di difetto di personale, ma è ammissibile un eccesso di personale. Si potrebbe ammettere una situazione di difetto modificando il valore di $f_{d,k}$ o cambiando il peso del vincolo (introducendo ad esempio una nuova variabile $p_f$, il cui valore può ridurre o aumentare $f_{d,k}$). 
+La copertura del fabbisogno si specifica mediante il primo vincolo. Questo vincolo assicura che almeno $f_{d,k}$ lavoratori siano presenti nello slot temporale $k$ del giorno $d$. Con questo vincolo non è ammissibile una situazione di difetto di personale, ma è ammissibile un eccesso di personale. Si potrebbe ammettere una situazione di difetto modificando il valore di $f_{d,k}$ o cambiando il peso del vincolo (introducendo ad esempio una nuova variabile $p_f$, il cui valore può ridurre o aumentare $f_{d,k}$). 
 
 Ogni lavoratore deve lavorare almeno il monte orario minimo definito da contratto, ma può raggiungere le 48 ore facendo straordinari.\\
-Gli ultimi vincoli riguardano il numero di turni giornalieri, che ricordiamo sono:
+Gli ultimi vincoli riguardano il numero di turni giornalieri, che si ricorda sono:
 \begin{displayquote}
 	\textit{Part time weekend: 20 ore settimanali, con disponibilità limitata ai giorni di venerdì, sabato e domenica.\\
 	\dots \\
