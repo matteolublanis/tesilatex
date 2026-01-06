@@ -1,7 +1,20 @@
 \section{Definizione formale}
+In questa sezione, si offre una descrizione formale del problema mediante l'utilizzo di un modello di Programmazione Lineare Mista Intera (MILP), che verrà poi inserito come input in Gurobi, un risolutore matematico. Un modello si struttura nel seguente modo:
+\begin{align*}
+	\max_{x\in \mathbb{Z}^n} \quad & c^Tx \\
+	\text{s.t.} \quad & Ax \leq b, \\
+	& x \geq 0
+\end{align*}
+ove $\max_{x\in \mathbb{Z}^n} c^Tx$ rappresenta la funzione obiettivo che deve essere massimizzata o minimizzata, mentre le altre due righe rappresentano i vincoli del modello. Questa sezione è suddivisa in tre parti:
+\begin{enumerate}
+	\item Problema base: viene definito formalmente il minimo necessario per avere un modello base funzionante, senza andare incontro a vincoli aggiuntivi come skill o preferenze del personale.
+	\item Problema esteso: vengono aggiunti i vincoli mancanti al problema base, analizzando anche quali elementi potrebbero andare in conflitto con quelli precedenti.
+	\item Possibili riutilizzi e riadattamenti: vengono analizzati i possibili riutilizzi dei concetti visti in questo problema. \textbf{DA RIVEDERE TITOLO DI QUESTA PARTE}
+\end{enumerate}
 \subsection{Problema base}
-\paragraph{Insieme dei lavoratori}
-Si indica con $w$ un dipendente generico appartenente al roster. I dipendenti si differenziano tra loro principalmente per gli orari contrattuali assegnali, introduciamo quindi gli insiemi:
+
+\paragraph{Insieme dei cassieri}
+Si indica con $w$ un cassiere generico appartenente al roster. I cassieri si differenziano tra loro principalmente per gli orari contrattuali assegnati, introduciamo gli insiemi:
 \begin{center}
 	$W=FT\cup PT \cup PTW$\\
 	$FT=\{w_1,...w_n\}$, full-time\\
@@ -9,18 +22,16 @@ Si indica con $w$ un dipendente generico appartenente al roster. I dipendenti si
 	$PTW=\{w_1,...w_k\}$, part-time weekend\\
 	$FT\cap PT = \O$\\
 	$FT\cap PTW = \O$\\
-	$PT\cap PTW = \O$\\
+	$PT\cap PTW = \O$
 \end{center}
-ove $W$ rappresenta l'insieme di tutti i dipendenti. Per adesso, le uniche differenze che vi sono tra i diversi $w$ sostano solo nel monte orario: appartenere ad un insieme, equivale a condividere la stessa paga oraria (stesso inquadramento lavorativo e stessa tipologia di contratto, nessuna anzianità) e lo stesso minimo di ore da lavorare con tutti gli altri dipendenti appartenenti allo stesso insieme.
+ove $W$ rappresenta l'insieme di tutti i dipendenti. Per adesso, le uniche differenze che vi sono tra i diversi cassieri sostano solo nel monte orario: appartenere ad un insieme, equivale a condividere la stessa paga oraria (stesso inquadramento lavorativo e stessa tipologia di contratto, nessuna anzianità) e lo stesso minimo di ore da lavorare con tutti gli altri dipendenti appartenenti allo stesso sottoinsieme.
+
 \paragraph{Copertura oraria e turni}
-Durante una giornata, l'obiettivo del responsabile di reparto è quello di coprire sempre o quasi il flusso della clientela in maniera adeguata. Rifacendoci al problema del \textit{Set Covering}, è possibile modellare la giornata lavorativa in diversi slot, i quali dovranno essere coperti da $f$ dipendenti, con $f$ o specificato dal caporeparto o individuato in seguito ad un'analisi delle vendite durante il corso dell'anno del supermercato. Definiamo quindi:
+Durante una giornata, l'obiettivo del caporeparto è quello di coprire il flusso della clientela in maniera adeguata. Rifacendoci al problema del \textit{Set Covering} e all'articolo di Brucker\cite{BRUCKER2011467}, si definiscono:
 \begin{center}
+	$D=\{lun, \dots , dom\}=\{1,\dots ,7\}$ l'insieme dei giorni settimanali, che rappresenta la finestra temporale (da 0, lunedì alle 7, fino all'ultimo slot, domenica alle 20).
 	$f_{d,k}$ il fabbisogno per lo slot $k$ del giorno $d$.\\
 	$K_d$ l'insieme degli slot del giorno $d$.
-\end{center}
-La finestra temporale che andiamo a modellizzare è di una settimana. Definiamo quindi:
-\begin{center}
-	$D=\{lun, \dots , dom\}=\{1,\dots ,7\}$ l'insieme dei giorni.
 \end{center}
 Gli slot temporali possono avere durata variabile, dall'intera giornata lavorativa fino a soli 15 minuti: abbiamo deciso di utilizzare uno slot temporale da mezz'ora. La giornata di lavoro inizia alle 08:00 e finisce alle 20:30, è quindi suddivisa in 25 slot temporali. L'orario è continuato ed è identico per tutti e sette i giorni della settimana, dunque vi sarà da definire un totale di 175 fabbisogni, ognuno per il singolo slot $k$ della giornata $d$.
 I turni assegnati ai dipendenti saranno gli insiemi del \textit{Set Covering}. Specifichiamo:

@@ -3,46 +3,46 @@
 \subsection{Introduzione}
 La formulazione di un piano orario per i propri dipendenti risulta fattibile fin quando la dimensione del personale da gestire rimane contenuta e fin quando non si tengono in considerazione variabili secondarie come preferenze del personale e limiti giuridici.
  
-Si considera il problema di turnazione per un roster di cassieri di un ipermercato, appartenente alla grande distribuzione organizzata, affermatosi nella realtà bresciana. Il piano di turnazione viene stilato settimanalmente dal caporeparto delle casse e può richiedere fino a due/tre giorni di lavoro intenso, spesso non riuscendo a trovare una soluzione adeguata al flusso della clientela e alle esigenze del punto vendita, creando inoltre disagio all'interno del personale. 
+Si considera il problema di turnazione per un roster di cassieri di un ipermercato, appartenente alla grande distribuzione organizzata. Il piano di turnazione viene stilato settimanalmente dal caporeparto delle casse e può richiedere fino a due/tre giorni di lavoro intenso, spesso non riuscendo a trovare una soluzione adeguata al flusso della clientela e alle esigenze del punto vendita, creando inoltre disagio all'interno del personale. 
 
-Si richiede, quindi, di formulare una piano di turnazione standard e poi di risolvere il problema di assegnamento dei dipendenti ai corrispettivi turni, sia rispettando i vincoli contrattuali e sia andando incontro a esigenze di varia natura (aziendali e dei singoli dipendenti), in modo tale da non solo ottimizzare i tempi lavorativi necessari alla pianificazione settimanale ma anche riuscire a ridurre i costi e a massimizzare la soddisfazione del personale.\\ 
+Si richiede di formulare un piano di turnazione standard e poi di risolvere il problema di assegnamento dei dipendenti ai corrispettivi turni, sia rispettando i vincoli contrattuali e sia andando incontro a esigenze di varia natura (aziendali e dei singoli dipendenti), in modo tale da non solo ridurre i costi legati alla pianificazione dei turni ma anche massimizzare la soddisfazione del personale.
 
 \subsection{Settimana lavorativa}
-L'ipermercato opera 7 giorni su 7, con un orario continuato per la clientela dalle 08:00 fino alle 20:00. Tralasciando le festività nazionali (Natale, Ferragosto, Festa dei lavoratori, $\dots$), è aperto tutto l'anno.
+L'ipermercato opera 7 giorni su 7, con un orario continuato per la clientela dalle 08:00 fino alle 20:00. Tralasciando le festività nazionali (Natale, Ferragosto, Festa dei lavoratori, $\dots$), il punto vendita è aperto tutto l'anno.
 
-L'orario per un cassiere normale va dalle 08:00 fino alle 20:30, mezz'ora dopo la chiusura dell'ipermercato, in modo tale da poter eseguire le attività finali necessarie, come conteggio dei contanti e pulizie. Alle 07:00 è richiesta invece l'utilizzo della spazzatrice per poter pulire le corsie: solo alcuni dipendenti possiedono la formazione necessaria per poter adoperare la spazzatrice, dipendenti ai quali sarà richiesto di iniziare il turno prima rispetto agli altri.
+L'orario per un cassiere normale va dalle 08:00 fino alle 20:30, mezz'ora dopo la chiusura dell'ipermercato, in modo tale da poter eseguire le attività finali necessarie, come conteggio dei contanti e pulizie. Alle 07:00 è richiesto invece l'utilizzo della spazzatrice per poter pulire le corsie: solo alcuni dipendenti possiedono la formazione necessaria per poter adoperare la spazzatrice, dipendenti ai quali potrà essere richiesto di iniziare il turno prima rispetto agli altri.
 
 \subsection{Tipologia personale, caratteristiche turnazione}
 Il personale è suddiviso in tre categorie contrattuali:
 \begin{itemize}
 	\item Full time: 40 ore settimanali;
-	\item Part time: 24    settimanali;
+	\item Part time: 24 ore settimanali;
 	\item Part time weekend: 20 ore settimanali, con disponibilità limitata ai giorni di venerdì, sabato e domenica.
 \end{itemize}
 Ogni singolo turno può durare dalle 3 alle 6 ore. Non sono previste pause in un turno, ma sono previsti due turni giornalieri per i lavoratori full-time e part-time fine settimana (solo il sabato e la domenica per loro); quindi, ci sarà uno stacco tra due turni giornalieri, che può variare da una mezz'ora fino a quattro ore e mezza.
-Un dipendente può lavorare fino a 12 ore al giorno, ma è una situazione indesiderata: si tende ad assegnare fino ad un massimo di 8 ore al giorno ad ogni singolo dipendente, con piccole variazioni di mezz'ora in positivo o in negativo in base alle esigenze. Ad un dipendente si possono assegnare fino ad un massimo di 48 ore settimanali (ore previste da contratto più straordinari), ma si vuole rimanere il più possibile vicini ai monte ore previsti da contratto: questo vale anche per i part-time, i quali prima delle 40 ore lavorerebbero ore supplementari e non straordinarie.
+Un dipendente può lavorare fino a 12 ore al giorno, ma è una situazione indesiderata: si tende ad assegnare fino ad un massimo di 8 ore al giorno ad ogni singolo dipendente, con piccole variazioni di mezz'ora in positivo o in negativo in base alle esigenze. Ad un dipendente si possono assegnare fino ad un massimo di 48 ore settimanali (ore previste da contratto più straordinari), ma si vuole rimanere il più possibile vicini ai monte ore previsti da contratto; questo vale anche per i part-time, seppure per essi le ore lavorate oltre le 20/24 sono considerate supplementari (è prevista una maggiorazione minore rispetto agli straordinari), fin quando non si raggiungono le 40.
 
-Tra l'ultimo turno del giorno precedente e il primo turno del giorno preso in considerazione, vi deve essere un riposo di almeno 11 ore previsto per legge. Considerando la struttura degli orari (senza considerare chi deve passare la spazzatrice), si rispetta tranquillamente il vincolo, però risulta comunque preferibile una pausa tra due turni in giorni consecutivi la più lunga possibile, così da permettere un riposo maggiore al dipendente.
+Tra l'ultimo turno del giorno precedente e il primo turno del giorno preso in considerazione, vi deve essere un riposo di almeno 11 ore previsto per legge. Considerando la struttura degli orari (senza considerare chi deve passare la spazzatrice), si rispetta tranquillamente il vincolo, però in ogni caso risulta preferibile una pausa tra due turni in giorni consecutivi la più lunga possibile, così da permettere un riposo adeguato al dipendente.
 
 \subsection{Richieste del caporeparto}
-Il caporeparto è il soggetto che predispone il fabbisogno per ogni singolo slot temporale, in modo tale da poter pianificare il personale rispondendo in maniera adeguata al flusso della clientela e alle esigenze del punto vendita. Il caporeparto fornisce una tabella settimanale, di cui ogni singola cella rappresentano il numero di dipendenti richiesto per un certo slot orario: ad esempio, il sabato, essendo il giorno più intenso per l'ipermercato, avrà un fabbisogno molto più elevato rispetto ad un giorno infrasettimanale come il martedì.
+Il caporeparto è il soggetto che predispone il fabbisogno per ogni singolo slot temporale, in modo tale da poter pianificare il personale rispondendo in maniera adeguata al flusso della clientela e alle esigenze del punto vendita. Il caporeparto fornisce una tabella settimanale, di cui ogni singola cella rappresenta il numero di dipendenti richiesto per un certo slot orario di uno specifico giorno: ad esempio, il sabato, essendo il giorno più intenso per l'ipermercato, avrà un fabbisogno molto più elevato rispetto ad un giorno infrasettimanale come il martedì. Al momento, non viene fatta una compilazione automatica sulla base dei dati delle vendite e dei documenti dell'ufficio.
 
-Il fabbisogno è un numero indicativo di quante persone siano necessarie in quel momento; non è un limite obbligatorio, quindi possono esserci situazioni di sotto o sovra copertura. La situazione di sovracopertura è preferibile rispetto a quella di sottocopertura solo nel caso in cui vi siano dipendenti che possano andare in scatolame durante situazioni di basso flusso della clientela: una situazione di eccesso di personale in cassa non solo risulterebbe inutile, ma verrebbe anche malvisto dai clienti, che vedrebbero dei dipendenti fermi.
+Il fabbisogno è un numero indicativo di quante persone siano necessarie in quel momento; non è un limite obbligatorio, quindi possono esserci situazioni di sotto o sovra copertura. La situazione di sovracopertura è preferibile rispetto a quella di sottocopertura, in particolare nel caso in cui vi siano dipendenti che possano andare in scatolame durante situazioni di basso flusso della clientela: una situazione di eccesso di personale in cassa non solo risulterebbe inutile, ma verrebbe anche malvisto dai clienti.
 
 Il caporeparto vuole riuscire a coprire il fabbisogno richiesto, limitando il più possibile il monte ore lavorato totale, così da limitare le spese del personale. 
 
-Infine, il caporeparto vuole assicurarsi di riuscire a rispondere a situazioni critiche, in quanto il disagio arrecato da imprevisti potrebbe danneggiare l'immagine dell'ipermercato.
+Infine, il caporeparto vuole assicurarsi di riuscire a rispondere a situazioni critiche, come malattie o guasti alle casse, in quanto il disagio arrecato da imprevisti potrebbe danneggiare l'immagine dell'ipermercato.
 
 \subsection{Skill del personale}
-Skill particolari individuate durante la descrizione del problema sono:
+Skill particolari individuate durante la raccolta delle informazioni del problema sono:
 \begin{itemize}
-	\item Cassa-Reparto: alcuni cassieri possono essere assegnati sia nel reparto scatolame che alle casse, differenziandoli così dai puri cassieri, che una volta assegnati allo slot temporale dovranno per forza stare in cassa. 
-	\item Formazione spazzatrice: alcuni dipendenti possiedono la formazione necessaria per adoperare la spazzatrice; tali dipendenti possono iniziare a lavorare prima delle 08:00 per poter così pulire l'ipermercato entro l'apertura.
+	\item Cassa-Reparto: alcuni cassieri possono essere assegnati sia nel reparto scatolame che alle casse, differenziandoli così dai puri cassieri. 
+	\item Formazione spazzatrice: alcuni cassieri possiedono la formazione necessaria per adoperare la spazzatrice; tali dipendenti possono iniziare a lavorare prima delle 08:00 per poter così pulire l'ipermercato entro l'apertura.
+	\item Jolly: come cassa-reparto, solo che può essere assegnato ad altri reparti; può essere specifico per particolari reparti o può ricoprire qualsiasi ruolo all'interno dell'ipermercato.
 \end{itemize}
 
 \subsection{Preferenze del personale}
-Oltre ai vincoli contrattuali, si vuole tenere conto di alcune preferenze espresse dai dipendenti, che contribuiscono a migliorare la soddisfazione e l’equità complessiva della pianificazione.\\
-In particolare, vengono considerate le seguenti preferenze:
+Oltre ai vincoli contrattuali, si vuole tenere conto di alcune preferenze espresse dai dipendenti, che contribuiscono a migliorare la soddisfazione e l’equità complessiva della pianificazione. In particolare, vengono considerate le seguenti preferenze:
 \begin{itemize}
 	\item che vi sia equità nella distribuzione del carico lavorativo;
 	\item avere giorni di riposo consecutivi;
