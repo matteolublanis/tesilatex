@@ -1,2 +1,53 @@
 \section{Modello matematico}
-\subsection{Formulazione}
+\subsection{Formulazione del problema base}
+\paragraph{Funzione obiettivo e vincoli}
+\begin{align*}
+	&min \sum_{w \in W}\sum_{s \in S} 0.5 L_s x_{w,s} + \sum_{d \in D}\sum_{w \in W} stacco_{w,d}\\
+	&s.t \\
+	& \sum_{w \in W}\sum_{s \in S : day(s)=d} A_{s,k} x_{w,s} 
+	\ge f_{d,k} 
+	&& \forall d, k\\
+	& C_{w} \le \sum_{w \in W, s} 0.5*L_sx_{w,s} \le 48\\
+	& \sum_{w \in FT, \, s : day(s)=d} x_{w,s} \le 2, 
+	&& \forall d\\
+	& \sum_{w \in PT, \, s : day(s)=d} x_{w,s} \le 1, 
+	&& \forall d\\
+	& x_{w\in PTW,s} = 1, 
+	&& day(s)=5 \land start(s)=16{:}30\\
+	& x_{w\in PTW,s} = 0, 
+	&& day(s)<5\\
+	& \sum_{w \in PTW, \, s : day(s)=d} x_{w,s} \le 2, 
+	&& d>5\\
+	& split_{w,d} \ge \sum_{s : day(s)=d} x_{w,s} - 1\\
+	&stacco_{w,d} \ge  split_{w,d} \cdot (start(s_2) - end(s_1)),
+	&& \forall w \in W\\
+	& x_{w,s_1} = x_{w,s_2} = 1,\\
+	& day(s_1) = day(s_2),\\
+	& start(s_2) > end(s_1)\\
+	&r_{w,d} \ge 1-\sum_{s\in S_d}x_{w,s}, 
+	&&\forall w\in W \setminus PTW,\forall d\in D\\
+	&1 \le \sum_{d\in D} r_{w,d}\le 2
+\end{align*}
+\paragraph{Variabili e insiemi}
+\begin{align*}
+	&W=FT\cup PT \cup PTW
+	&& \text{insieme dei cassieri}\\
+	&D=\{lun, \dots , dom\}=\{1,\dots ,7\} 
+	&&\text{finestra temporale}\\
+	&f_{d,k} 
+	&&\text{fabbisogno per lo slot $k$ del giorno $d$}\\
+	&T_d 
+	&&\text{insieme degli slot temporali del giorno $d$}\\
+	&s\in S, S=\{s_1, \dots , s_l\}
+	&&\text{insieme dei turni $s$}\\
+	&s(day, start, L_s, A_{s,k})
+	&&\text{giorno, slot d'inizio, durata, copertura}\\
+	&end(s)=start(s)+L(s)\\
+	&x_{w,s}\in \{0,1\}
+	&&\text{assegnazione $s$ a $w$}\\
+	&C_{w}\in \{20,24,48\}
+	&&\text{monte orario}\\
+	&split_{w,d} \in \{0,1\}\\
+	&stacco_{w,d}\in \mathbb{N}\\
+	&r_{w,d}\in \mathbb{N}
+\end{align*}

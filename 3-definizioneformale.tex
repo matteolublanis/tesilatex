@@ -11,129 +11,144 @@ ove $\max_{x\in \mathbb{Z}^n} c^Tx$ rappresenta la funzione obiettivo che deve e
 	\item Problema esteso: vengono aggiunti i vincoli mancanti al problema base, analizzando anche quali elementi potrebbero andare in conflitto con quelli precedenti.
 	\item Possibili estensioni. 
 \end{enumerate}
+
 \subsection{Problema base}
 
 \paragraph{Insieme dei cassieri}
-Si indica con $w$ un cassiere generico appartenente al roster. I cassieri si differenziano tra loro principalmente per gli orari contrattuali assegnati, introduciamo gli insiemi:
-\begin{center}
-	$W=FT\cup PT \cup PTW$\\
-	$FT=\{w_1,...w_n\}$, full-time\\
-	$PT=\{w_1,...w_p\}$, part-time\\
-	$PTW=\{w_1,...w_k\}$, part-time weekend\\
-	$FT\cap PT = \O$\\
-	$FT\cap PTW = \O$\\
-	$PT\cap PTW = \O$
-\end{center}
-ove $W$ rappresenta l'insieme di tutti i cassieri. Per adesso, le uniche differenze che vi sono tra i diversi cassieri sostano solo nel monte orario: appartenere ad un insieme, equivale a condividere la stessa paga oraria (stesso inquadramento lavorativo e stessa tipologia di contratto, nessuna anzianità) e lo stesso minimo di ore da lavorare con tutti gli altri dipendenti appartenenti allo stesso sottoinsieme.
+Si definisce l'insieme $C$ come l'insieme dei cassieri. Al momento, i cassieri si differenziano solo per il monte orario previsto da contratto:
+\begin{equation*}
+	C=FT\cup PT\cup PTW
+\end{equation*}
+Appartenere a categorie differenti equivale soltanto ad avere monte orari differneti: per il momento, tutti i cassieri condividono la stessa paga oraria (non vi sono differenze di anzianità o di livello contrattuale). Un cassiere $c$ può essere quindi definito nel seguente modo:
+\begin{equation*}
+	c(Mh, info, altro)
+\end{equation*}
+ove $Mh$ sta a indicare il monte ore, $info$ rappresenta i dati del cassiere (non utili per la risoluzione ma a livello pratico nell'assegnazione dei turni) e $altro$ che possono essere dati aggiuntivi (skill possedute ad esempio).
 
 \paragraph{Copertura oraria e turni}
-Durante una giornata, l'obiettivo del caporeparto è quello di coprire il flusso della clientela in maniera adeguata. Rifacendoci al problema del \textit{Set Covering} e all'articolo di Brucker\cite{BRUCKER2011467}, si definiscono:
+Durante una giornata, l'obiettivo del caporeparto è quello di coprire il flusso della clientela in maniera adeguata. Rifacendoci al problema del \textit{Set Covering}, all'articolo di Brucker\cite{BRUCKER2011467} e a quello di Gusmeroli e Bettinelli\cite{gusmeroli2024mixedintegerlinearprogramcreate}, si definiscono:
 \begin{center}
-	$D=\{lun, \dots , dom\}=\{1,\dots ,7\}$ l'insieme dei giorni settimanali, che rappresenta la finestra temporale (da 0, lunedì alle 7, fino all'ultimo slot, domenica alle 20).\\
+	$D=\{1,\dots ,m\}$ i giorni della finestra temporale.\\
 	$f_{d,k}$ il fabbisogno per lo slot $k$ del giorno $d$.\\
-	$K_d$ l'insieme degli slot del giorno $d$.
+	$T_d$ l'insieme degli slot temporali del giorno $d$.
 \end{center}
-Gli slot temporali possono avere durata variabile, dall'intera giornata lavorativa fino a soli 15 minuti: si è deciso di utilizzare uno slot temporale di mezz'ora. La giornata di lavoro inizia alle 08:00 e finisce alle 20:30 (verrà modificato non appena si introdurranno i vincoli per la spazzatrice), è quindi suddivisa in 25 slot temporali. L'orario è continuato ed è identico per tutti e sette i giorni della settimana, dunque vi sarà da definire un totale di 175 fabbisogni, ognuno per il singolo slot $k$ della giornata $d$.
-I turni assegnati ai dipendenti saranno gli insiemi tipici del \textit{Set Covering}. Specifichiamo:
+Nel caso studiato, $m$ vale 7. Gli slot temporali nei problemi di scheduling possono avere durata variabile, dall'intera giornata lavorativa fino a soli 15 minuti: si è deciso di utilizzare uno slot temporale di mezz'ora. La giornata di lavoro inizia alle 08:00 e finisce alle 20:30 (verrà modificato non appena si introdurranno i vincoli per la spazzatrice), è quindi suddivisa in 25 slot temporali. L'orario è continuato ed è identico per tutti e sette i giorni della settimana, dunque vi sarà da definire un totale di 175 fabbisogni, ognuno per il singolo slot $k$ della giornata $d$. Il fabbisogno viene rappresentato mediante l'utilizzo di una matrice, dove i giorni rappresentano le righe e gli slot le colonne.
+I turni assegnati ai dipendenti saranno gli insiemi tipici del \textit{Set Covering}. Si specificano ora i turni:
 \begin{center}
-	$S=\{s_1, \dots , s_l\}$ l'insieme dei turni $s$
+	$s(day, start, end, dur)\in S$
 \end{center}
-I turni $s$ sono caratterizzati da:
-\begin{itemize}\label{defturno}
-	\item $day(s)$: il giorno $d$ del turno $s$.
-	\item $start(s)$: lo slot di inizio del turno $s$.
-	\item $L_s$: durata ($\in \{6,7,\dots, 12\}$, misurata in slot) del turno $s$.
-	\item $A_{s,k}$: copertura dello slot $k$ dal turno $s$ (1 se coperto, 0 altrimenti).
+$S$ rappresenta l'insieme dei turni $s$, i quali sono caratterizzati da:
+\begin{itemize}
+	\item day: giorno del turno.
+	\item start: slot d'inizio del turno.
+	\item end: slot di fine del turno.
+	\item dur: durata del turno espressa in quantitativo di slot.
 \end{itemize}
-Gli slot temporali dovranno essere coperti da almeno $f_{d,k}$ turni. Per definire se un cassiere lavora o meno un certo turno, usiamo una variabile decisionale:
+Si definisce anche l'insieme $S(d)$, ovvero l'insieme dei turni del giorno $d$.
+I turni $s$, come per il fabbisogno, vengono pregenerati. La durata varia dalle 3 alle 5 ore, quindi dai 6 ai 10 slot temporali. Gli slot temporali dovranno essere coperti da almeno $f_{d,k}$ turni. Per definire se un cassiere lavora o meno un certo turno, si usa una variabile decisionale:
 \begin{center}
-	$x_{w,s}\in \{0,1\}$
+	$x(c,s)\in \{0,1\}$
 \end{center}
-la quale varrà 1 nel caso in cui al cassiere $w$ sia assegnato il turno $s$, 0 altrimenti. Unendola alla matrice di copertura $A_{s,k}$ possiamo così dire se un cassiere $w$, prendendosi in carico il turno $s$, copra o meno lo slot $k$.
+la quale varrà 1 nel caso in cui al cassiere $c$ sia assegnato il turno $s$, 0 altrimenti.
 
-I cassieri si differenziano per il monte orario minimo in base alla tipologia di contratto:
+Si definisce il monte orario:
 \begin{center}
-	$C_{w}\in \{20,24,48\}$
+	$Mh_c\in \{16,24,48\}$
 \end{center}
-Una volta introdotto il necessario per l'orario e la copertura, si può iniziare a definire i vincoli relativi: 
-\begin{align}
-	& \sum_{w \in W}\sum_{s \in S : day(s)=d} A_{s,k} x_{w,s} 
-	\ge f_{d,k} 
-	&& \forall d, k \label{vincolo:copertura}\\
-	& C_{w} \le \sum_{w \in W, s} 0.5*L_sx_{w,s} \le 48
-	&& \text{monte ore} \label{vincolo:monteorept}
-\end{align}
-La copertura del fabbisogno si specifica mediante il primo vincolo. Questo vincolo assicura che almeno $f_{d,k}$ cassieri siano presenti nello slot temporale $k$ del giorno $d$. Con questo vincolo non è ammissibile una situazione di difetto di personale, ma è ammissibile un eccesso di personale. Si potrebbe ammettere una situazione di difetto modificando il valore di $f_{d,k}$ o cambiando il peso del vincolo (introducendo ad esempio una nuova variabile $p_f$, il cui valore può ridurre o aumentare $f_{d,k}$).
+In quanto sono permessi straordinari, seppur penalizzati, ogni cassiere dovrà lavorare il monte orario previsto fino ad un massimo da stabilire:
+\begin{equation}
+	Mh_c\le 0.5*\sum_{s\in S}x(c,s)dur(s)\le maxOre_c
+\end{equation}
+ove $maxOre_c$ può essere stabilito diverso per ogni singolo cassiere oppure essere costante per tutti. Si moltiplica per 0.5 in quanto due slot rappresentano un'ora. Per adesso, viene considerato costante e pari a 48, come descritto nel problema informale: lasciarlo così alto però potrebbe portare problemi indesiderati, come ad esempio l'assegnazione di parecchie ore di straordinari ai dipendenti part-time, per questo più avanti verrà analizzato il problema e verrà penalizzata la situazione di straordinari. 
 
-Ogni cassiere deve lavorare almeno il monte orario minimo definito da contratto, ma può raggiungere le 48 ore facendo straordinari.
-
-Gli ultimi vincoli riguardano il numero di turni giornalieri, che si ricorda sono:
+I cassieri part-time sono gli unici ai quali viene assegnato un singolo turno al giorno, mentre ai full-time e ai part-time fine settimana possono essere assegnati due turni giornalieri:
 \begin{displayquote}
-	\textit{Part time weekend: 20 ore settimanali, con disponibilità limitata ai giorni di venerdì, sabato e domenica.\dots\\
-	\dots ma sono previsti due turni giornalieri per i cassieri full-time e part-time fine settimana (solo il sabato e la domenica per loro)\dots Ai cassieri part-time viene assegnato un solo turno giornaliero.\\
-	Un dipendente può lavorare fino a 12 ore al giorno, ma è una situazione indesiderata: si tende ad assegnare fino ad un massimo di 8 ore al giorno ad ogni singolo dipendente\dots}
+	\textit{Part time weekend: 16 ore settimanali, con disponibilità limitata ai giorni di venerdì, sabato e domenica.\dots\\
+		\dots ma sono previsti due turni giornalieri per i cassieri full-time e part-time fine settimana (solo il sabato e la domenica per loro)\dots Ai cassieri part-time viene assegnato un solo turno giornaliero.\\
+		Un dipendente può lavorare fino a 12 ore al giorno, ma è una situazione indesiderata: si tende ad assegnare fino ad un massimo di 8 ore al giorno ad ogni singolo dipendente\dots}
 \end{displayquote}
-Si definiscono i seguenti vincoli:
+Si esprimono il relativo vincolo per il numero di turni giornalieri:
+\begin{equation}
+	0\le \sum_{S(d)}x(c,s)\le j \quad \forall d\in D, \forall c\in C, 
+	k =
+	\begin{cases}
+		2 & \text{se } c\in FT || (c\in PTW \land d\in {sab,dom})\\
+		1 & \text{se } c\in PT \\
+		0 & \text{altrimenti}
+	\end{cases}
+\end{equation}
+Per il numero di ore giornaliere si esplicita:
+\begin{equation}
+		0.5*\sum_{S(d)}x_{c,s}dur(s)\le 12 \quad \forall c\in C
+\end{equation}
+in quanto ogni cassiere può lavorare fino ad un massimo di 12 ore.
+
+Si vuole assicurare che non vengano assegnati due turni che siano in concomitanza l'uno con l'altro per lo stesso cassiere:
 \begin{align}
-	& \sum_{w \in FT, \, s : day(s)=d} x_{w,s} \le 2, 
-	&& \forall d \label{vincolo:ft}\\
-	& \sum_{w \in PT, \, s : day(s)=d} x_{w,s} \le 1, 
-	&& \forall d \label{vincolo:pt}\\
-	& x_{w\in PTW,s} = 1, 
-	&& day(s)=5 \land start(s)=16{:}30 \label{vincolo:weekend}\\[6pt]
-	& x_{w\in PTW,s} = 0, 
-	&& day(s)<5 \label{vincolo:weekend2}\\
-	& \sum_{w \in PTW, \, s : day(s)=d} x_{w,s} \le 2, 
-	&& d>5\label{vincolo:weekend3}
+	&x(c,s(d,s_1,e_1, dur_1))\le 1-x(c,s(d,s_2,e_2, dur_2)) \label{nonsovrapposizione}\\
+	&\forall c\in C:(e_1\ge s_2||s_1\le e_2)\land (s_1\ge e_2+1||s_2\ge e_1+1)\notag
 \end{align}
-I primi due vincoli rappresentano i vincoli per i cassieri full-time e part-time, mentre gli ultimi tre sono i vincoli per i part-time fine settimana. Per richiesta del caporeparto, i cassieri part-time fine settimana il venerdì lavorano solo il turno della chiusura (dalle 16:30 alle 20:30), mentre il sabato e la domenica vengono trattati come cassieri full-time.
+Per praticità, si definiscono le variabili:
+\begin{align*}
+	& l(c,d)\in {0,1}\\
+	& copre(s,d,k)\in {0,1}
+\end{align*}
+dove $l(c,d)$ indica se un cassiere $c$ lavora il giorno $d$, mentre $copre(s,d,k)$ indica se il turno $s$ copre lo slot $k$ del giorno $d$. Uno slot $k$ si può considerare coperto dal turno $s$ se il turno inizia prima (o in concomitanza) e finisce dopo (o in concomitanza) dello slot $k$.
+
+Si garantisce la copertura dello slot mediante il seguente vincolo:
+\begin{equation}
+	\sum_{S(d)}\sum_{c\in C}x(c,s)copre(s,d,k)\ge f(d,k) \quad \forall d\in D, \forall k
+\end{equation}
 
 Si può infine introdurre la funzione obiettivo per questa parte:
 \begin{equation}
-	f_1=\sum_{w \in W}\sum_{s \in S} 0.5 L_s x_{w,s} 
+	f_1=\sum_{c \in C}\sum_{s \in S} 0.5 dur(s) x(c,s) 
 \end{equation}
 ovvero la somma totale delle ore lavorate dall'intero roster dei cassieri, che andrà minimizzata come da richiesta.
 
 \paragraph{Stacco turni}
-I cassieri hanno richiesto uno stacco tra due turni giornalieri il più breve possibile. Questo permetterebbe di ridurre al minimo il tempo trascorso sul luogo di lavoro e aumentare la soddisfazione del personale. Il problema si pone solo nel caso in cui il cassiere faccia due turni in un giorno:
+I cassieri hanno richiesto uno stacco tra due turni giornalieri il più breve possibile. Questo permetterebbe di ridurre al minimo il tempo trascorso sul luogo di lavoro e aumentare la soddisfazione del personale. Il problema si pone solo nel caso in cui il cassiere faccia due turni in un giorno. Si definisce la seguente variabile binaria:
+\begin{equation*}
+	split(c,s1(d), s2(d)) \in \{0,1\}
+\end{equation*}
+che indica se al lavoratore $c$ vengono assegnati due turni ($s1$ e $s2$) lo stesso giorno $d$. Deve valere:
 \begin{align}
-	& split_{w,d} \ge \sum_{s : day(s)=d} x_{w,s} - 1\\
-	& split_{w,d} \in \{0,1\}
+	& split(c,s1(d), s2(d)) \le x(c,s1(d))\\
+	& split(c,s1(d), s2(d)) \le x(c,s2(d))\\
+	& split(c,s1(d), s2(d)) \ge x(c,s1(d))+x(c,s2(d))-1
 \end{align}
-è una variabile decisionale, che ci dice se il cassiere $w$ è assegnato a due turni $s_1$ e $s_2$ nello stesso giorno $d$.
-
-I turni $s$, per come sono \hyperref[defturno]{definiti}, permettono il calcolo dello slot di fine turno:
+per assicurarsi che i turni $s1$ e $s2$ siano stati effettivamente assegnati al cassiere $c$ per il giorno $d$. In quanto ci siamo assicurati della non \hyperref[nonsovrapposizione]{non sovrapposizione}, possiamo definire la variabile di stacco:
+\begin{equation*}
+	stacco(c,d)\in \mathbb{N}
+\end{equation*}
+una variabile intera che indica lo stacco tra due turni espresso in numero di slot temporali. Lo stacco sarà determinato da:
+\begin{align}
+	&stacco(c,d)\ge split(c,s1(d), s2(d))*(start(s2)-end(s1)) \notag \\
+	& \forall c\in C, \forall d\in D, \forall s1,s2\in S:day(s1)=day(s2)
+\end{align}
+che andrà infine minimizzato:
 \begin{equation}
-	end(s)=start(s)+L(s)
+	f_2=\sum_{d \in D}\sum_{c \in C} stacco(c,d)
 \end{equation}
-e da questo si può trovare il valore dello stacco:
-\begin{equation}
-	stacco_{w,d} \ge  split_{w,d} \cdot (start(s_2) - end(s_1)), \quad \forall w \in W
-\end{equation}
-che viene considerato solo nel caso in cui effettivamente il cassiere abbia due turni lo stesso giorno. Devono valere di conseguenza anche:
-\begin{align*}
-	& x_{w,s_1} = x_{w,s_2} = 1,\\
-	& day(s_1) = day(s_2),\\
-	& start(s_2) > end(s_1). 
-\end{align*}
-Bisogna infine minimizzare:
-\begin{equation}
-	f_2=\sum_{d \in D}\sum_{w \in W} stacco_{w,d}
-\end{equation}
-ovvero gli stacchi di tutti i cassieri.
 
 \paragraph{Giorni di riposo}
-Si considera giorno di riposo un qualsiasi giorno della settimana nel quale il cassiere non è stato assegnato a nessun turno:
+Si definisce la variabile:
+\begin{equation*}
+	riposo(c,d)\in {0,1}
+\end{equation*}
+che vale 1 se e solo se il cassiere $c$ non è stato assegnato a nessun turno il giorno $d$, 0 altrimenti. Vale quindi:
 \begin{equation}
-	r_{w,d} \ge 1-\sum_{s\in S_d}x_{w,s}, \quad \forall w\in W \setminus PTW,\forall d\in D
+	riposo_{c,d} \ge 1-0.5*\sum_{s\in S_d}x_{c,s}, \quad \forall c\in FT\cup PT, \forall d\in D
 \end{equation}
-Durante la settimana, il cassiere deve avere almeno un giorno di riposo e per evitare un sovraccarico di ore giornaliere può arrivare ad un massimo di due giorni di riposo settimanali:
+Non si studia il problema per i lavoratori part-time fine settimana, in quanto possono essere assegnati il sabato e la domenica.
+
+Durante la settimana, il cassiere deve avere almeno un giorno di riposo e per evitare un sovraccarico di ore giornaliere (avendo per esempio solo 4 giorni lavorativi da 10 ore ciascuno e 3 di riposo) può arrivare ad un massimo di due giorni di riposo settimanali:
 \begin{equation}
-	1 \le \sum_{d\in D} r_{w,d}\le 2
+	1 \le \sum_{d\in D} riposo_{c,d}\le 2
 \end{equation}
-Per i part-time fine settimana il problema non si pone, in quanto durante la settimana non gli si può assegnare turni.
 
 \subsection{Problema esteso}
+
 \paragraph{Straordinari}
 Gli straordinari vengono penalizzati in quanto prevedono una retribuzione maggiorata, aumentando notevolemente il costo finale per il punto vendita. Si introduce:
 \begin{center}
@@ -174,7 +189,7 @@ che rappresentano rispettivamente le ore straordinarie oppure quelle mancanti pe
 	&d_{w}^{+}\ge H_w-C_w\\
 	&d_{w}^{-}\le H_w-C_w
 \end{align}
-ove, se le ore assegnate sono di più rispetto a quelle previste, il valore di $d_{w}^{+}$ sarà uguale al surplus orario, mentre varrà il contrario per $d_{w}^{-}$ nel caso in cui venissero assegnate meno ore al dipendente. L'obiettivo è quello di avere uno stesso quantitativo orario per tutti i cassieri dello stesso tipo, quindi si minimizza:
+ove, se le ore assegnate sono di più rispetto a quelle previste, il valore di $d_{w}^{+}$ sarà uguale al surplus orario, mentre varrà il contrario per $d_{w}^{-}$ nel caso in cui venissero assegnate meno ore al cassiere. L'obiettivo è quello di avere uno stesso quantitativo orario per tutti i cassieri dello stesso tipo, quindi si minimizza:
 \begin{equation}
 	f_4=\sum_{T\in W}\sum_{w\in T} \alpha_1 d_{w}^{+} + \beta_1 d_{w}^{-}
 \end{equation}
@@ -235,10 +250,10 @@ I vincoli visti fino ad adesso valgono anche per questo tipo di dipendenti, solo
 	&& 0 < \rho < 1
 \end{align}
 
-\paragraph{Spazzatrice} \textbf{RIVEDERE}
+\paragraph{Spazzatrice}
 La spazzatrice, per via delle sue dimensioni, può solo essere operata prima dell'apertura dell'ipermercato alla clientela. Il compito viene assegnato principalmente a due cassieri appartenenti al personale interno disponibile, poiché la variabilità del personale addetto alle pulizie, dovuta al fatto che l'ipermercato si affida ad un'azienda esterna, rende più affidabile l’impiego di dipendenti interni. Vengono definiti due nuovi slot per giornata (7:00, 7:30), che possono essere coperti soltanto dal personale formato. Si introduce così una nuova differenza:
 \begin{equation}
-	WP\subset W
+	WP\subset W,\text{ può appartenere a una qualsiasi categoria contrattuale.}
 \end{equation}
 Solo i cassieri appartenenti a questo insieme possono essere assegnati agli slot temporali appena definiti:
 \begin{equation} 
@@ -259,7 +274,7 @@ I $\lambda_i$ rappresentano i pesi che noi diamo ai vari obiettivi: più $lambda
 
 \subsection{Possibili estensioni}
 \begin{itemize}
-	\item I dati possono essere ottenuti mediante l'analisi dei dati delle vendite invece di dovere affidarsi al lavoro manuale del caporeparto.
+	\item I dati possono essere ottenuti mediante l'analisi dei dati delle vendite invece di doversi affidare al lavoro manuale del caporeparto.
 	\item La finestra temporale può essere aumentata da una settimana ad un mese per un'eventuale analisi statistica più robusta.
 	\item Il modello può essere riutilizzato in altri reparti del supermercato o tutt'altro settore che richieda la schedulazione del personale.
 	\item Nel caso in cui il carico di lavoro sia distribuito in maniera equa, si può schedulare il personale in gruppi di persone e non a livello di singolo dipendente; si creano così degli orari che possono circolare in maniera costante (esempio, gruppo 1 assegnato alla mattina mentre il gruppo 2 al pomerigio, mentre la settimana successiva vengono invertiti).
