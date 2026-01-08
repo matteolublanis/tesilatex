@@ -52,12 +52,12 @@ I turni $s$, come per il fabbisogno, vengono pregenerati. La durata varia dalle 
 la quale varrà 1 nel caso in cui al cassiere $c$ sia assegnato il turno $s$, 0 altrimenti.
 
 Si definisce il monte orario:
-\begin{center}
-	$Mh_c\in \{16,24,48\}$
-\end{center}
+\begin{equation*}
+	Mh(c)\in \{16,24,48\} \quad \forall c\in C
+\end{equation*}
 In quanto sono permessi straordinari, seppur penalizzati, ogni cassiere dovrà lavorare il monte orario previsto fino ad un massimo da stabilire:
 \begin{equation}
-	Mh_c\le 0.5*\sum_{s\in S}x(c,s)dur(s)\le maxOre_c
+	Mh(c)\le 0.5*\sum_{s\in S}x(c,s)dur(s)\le maxOre_c
 \end{equation}
 ove $maxOre_c$ può essere stabilito diverso per ogni singolo cassiere oppure essere costante per tutti. Si moltiplica per 0.5 in quanto due slot rappresentano un'ora. Per adesso, viene considerato costante e pari a 48, come descritto nel problema informale: lasciarlo così alto però potrebbe portare problemi indesiderati, come ad esempio l'assegnazione di parecchie ore di straordinari ai dipendenti part-time, per questo più avanti verrà analizzato il problema e verrà penalizzata la situazione di straordinari. 
 
@@ -152,16 +152,15 @@ Durante la settimana, il cassiere deve avere almeno un giorno di riposo e per ev
 \paragraph{Straordinari}
 Gli straordinari vengono penalizzati in quanto prevedono una retribuzione maggiorata, aumentando notevolemente il costo finale per il punto vendita. Si introduce:
 \begin{center}
-	$O_w\in \mathbb{N}$
+	$O_c\in \mathbb{N}$
 \end{center}
-che rappresenta le ore straordinarie assegnate al cassiere $w$. Questo valore è maggiore o uguale a 0 e si preferirebbe che valesse 0 per tutti i cassieri del roster. Non vale 0 nel caso in cui:
-\begin{align}
-	& O_w \ge \sum_{s \in S : day(s)=d} A_{s,k} x_{w,s} - C_{w} 
-	&& \forall w \in W \label{vincolo:straordinari}
-\end{align}
-ovvero quando al cassiere $w$ vengono assegnate più ore di quelle previste dal contratto. La somma di questi valori va minimizzata:
+che rappresenta le ore straordinarie assegnate al cassiere $c$. Questo valore è maggiore o uguale a 0 e si preferirebbe che valesse 0 per tutti i cassieri del roster. Non vale 0 nel caso in cui:
 \begin{equation}
-	f_3=\sum_{w \in W}O_w
+	O_c \ge \sum_{s \in S} x(c,s)*dur(s)- Mh(c) \quad \forall c \in C\label{vincolo:straordinari}
+\end{equation}
+ovvero quando al cassiere $c$ vengono assegnate più ore di quelle previste dal contratto. La somma di questi valori va minimizzata:
+\begin{equation}
+	f_3=\sum_{c \in C}O_c
 \end{equation}
 Non si fanno distinzioni tra supplementari e straordinari: sono entrambi penalizzati allo stesso modo. Il peso assegnato a questo obiettivo può variare in base al periodo, rendendo più favorevoli gli straordinari in periodi più critici, come quelli festivi.
 
