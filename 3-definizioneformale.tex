@@ -29,8 +29,8 @@ ove $Mh$ sta a indicare il monte ore, $info$ rappresenta i dati del cassiere (no
 Durante una giornata, l'obiettivo del caporeparto è quello di coprire il flusso della clientela in maniera adeguata. Rifacendoci al problema del \textit{Set Covering}, all'articolo di Brucker\cite{BRUCKER2011467} e a quello di Gusmeroli e Bettinelli\cite{gusmeroli2024mixedintegerlinearprogramcreate}, si definiscono:
 \begin{center}
 	$D=\{1,\dots ,m\}$ i giorni della finestra temporale.\\
-	$f_{d,k}$ il fabbisogno per lo slot $k$ del giorno $d$.\\
-	$T_d$ l'insieme degli slot temporali del giorno $d$.
+	$f(d,k)$ il fabbisogno per lo slot $k$ del giorno $d$.\\
+	$T(d)$ l'insieme degli slot temporali del giorno $d$.
 \end{center}
 Nel caso studiato, $m$ vale 7. Gli slot temporali nei problemi di scheduling possono avere durata variabile, dall'intera giornata lavorativa fino a soli 15 minuti: si è deciso di utilizzare uno slot temporale di mezz'ora. La giornata di lavoro inizia alle 08:00 e finisce alle 20:30 (verrà modificato non appena si introdurranno i vincoli per la spazzatrice), è quindi suddivisa in 25 slot temporali. L'orario è continuato ed è identico per tutti e sette i giorni della settimana, dunque vi sarà da definire un totale di 175 fabbisogni, ognuno per il singolo slot $k$ della giornata $d$. Il fabbisogno viene rappresentato mediante l'utilizzo di una matrice, dove i giorni rappresentano le righe e gli slot le colonne.
 I turni assegnati ai dipendenti saranno gli insiemi tipici del \textit{Set Covering}. Si specificano ora i turni:
@@ -250,27 +250,28 @@ Da controllare, possibile riposo di 4 giorni se si fanno sabato e domenica di ri
 %gimme love
 \paragraph{Cassa-reparto}
 Fino ad adesso, la situazione di sovracopertura dello slot temporale era ammessa e non veniva considerata. Si introduce:
-\begin{align}
-	& \Delta_{d,k} = \sum_{w \in W}\sum_{s \in S : day(s)=d} A_{s,k} x_{w,s} - f_{d,k}  
-	&&\forall d,k\\
-	& \Delta_{d,k}\ge 0
-\end{align}
-ove $\Delta_{d,k}$ indica di quanto viene superato il fabbisogno. Per come sono definiti i vincoli, $\Delta_{d,k}$ non può essere minore di 0, in quanto una situazione di difetto di personale non è ammessa. Si vuole ora minimizzare la situazione di sovracopertura:
 \begin{equation}
-	f_8=\sum_{d\in D}\sum_{k\in K_d}\Delta_{d,k}
+	\Delta(d,k)\in \mathbb{N}
 \end{equation}
-Questo è fondamentale, in quanto permette di rendere significativa la differenza tra un cassiere normale e un cassiere che può anche essere assegnato in scatolame. 
-
-Un cassiere che può andare in scatolame avrà un peso minore nel conteggio della copertura del fabbisogno, in quanto, se si presentasse una situazione per cui il numero di cassieri presenti in cassa supera di gran lunga quello necessario, può uscire in corsia, riducendo così il lavoro per il personale di reparto e rimanendo comunque disponibile a rientrare in cassa nel momento in cui il flusso della clientela dovesse aumentare. Si definisce l'insieme di questi lavoratori:
+che indica di quanto viene superato il fabbisogno $f(d,k)$. Vale:
 \begin{equation}
-	WS\subset W
+	\Delta(d,k) = \sum_{c \in C}\sum_{s \in S(d)} copre(s,d,k)x(c,s) - f(d,k)  \quad \forall d,k\\
+\end{equation}
+$\Delta(d,k)$ non può essere minore di 0, in quanto una situazione di difetto di personale non è ammessa (cambiando i vincoli, si potrebbe introdurre anche questa situazione). Si vuole ora minimizzare la situazione di sovracopertura:
+\begin{equation}
+	f_8=\sum_{d\in D}\sum_{k\in T(d)}\Delta(d,k)
+\end{equation}
+
+Un cassiere che può andare in scatolame avrà un peso minore nel conteggio della copertura del fabbisogno, in quanto, se si presentasse una situazione per cui il numero di cassieri presenti in cassa supera quello necessario, può uscire in corsia, riducendo così il lavoro per il personale di reparto e rimanendo comunque disponibile a rientrare in cassa nel momento in cui il flusso della clientela dovesse aumentare. Si definisce la skill:
+\begin{equation}
+	c(Mh, info, cassareparto)
 \end{equation}
 I vincoli visti fino ad adesso valgono anche per questo tipo di dipendenti, solo conteranno di meno quando si andrà a considerare il problema della sovracopertura per i motivi appena spiegati:
 \begin{align}
-	& \Delta_{d,k} = \sum_{w \in W}\sum_{s \in S : day(s)=d} pesoCopertura_w*A_{s,k} x_{w,s} - f_{d,k}
+	& \Delta(d,k) = \sum_{c \in C}\sum_{s \in S(d)} pesoCopertura(c)*copre(s,d,k)x_{w,s} - f(d,k)
 	&& \forall d,k\\
-	& pesoCopertura_w=\{1, \rho\}
-	&& 0 < \rho < 1
+	& pesoCopertura(c)=\{\rho_1, \rho_2\}
+	&& \rho_1 = 2, \rho_2 = 1
 \end{align}
 
 \paragraph{Spazzatrice}
