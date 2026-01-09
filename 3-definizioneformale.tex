@@ -138,13 +138,13 @@ Si definisce la variabile:
 \end{equation*}
 che vale 1 se e solo se il cassiere $c$ non è stato assegnato a nessun turno il giorno $d$, 0 altrimenti. Vale quindi:
 \begin{equation}
-	riposo_{c,d} \ge 1-0.5*\sum_{s\in S_d}x_{c,s}, \quad \forall c\in FT\cup PT, \forall d\in D
+	riposo(c,d) \ge 1-0.5*\sum_{s\in S_d}x_{c,s}, \quad \forall c\in FT\cup PT, \forall d\in D
 \end{equation}
 Non si studia il problema per i lavoratori part-time fine settimana, in quanto possono essere assegnati il sabato e la domenica.
 
 Durante la settimana, il cassiere deve avere almeno un giorno di riposo e per evitare un sovraccarico di ore giornaliere (avendo per esempio solo 4 giorni lavorativi da 10 ore ciascuno e 3 di riposo) può arrivare ad un massimo di due giorni di riposo settimanali:
 \begin{equation}
-	1 \le \sum_{d\in D} riposo_{c,d}\le 2
+	1 \le \sum_{d\in D} riposo(c,d)\le 2
 \end{equation}
 
 \subsection{Problema esteso}
@@ -152,15 +152,15 @@ Durante la settimana, il cassiere deve avere almeno un giorno di riposo e per ev
 \paragraph{Straordinari}
 Gli straordinari vengono penalizzati in quanto prevedono una retribuzione maggiorata, aumentando notevolemente il costo finale per il punto vendita. Si introduce:
 \begin{center}
-	$O_c\in \mathbb{N}$
+	$O(c)\in \mathbb{N}$
 \end{center}
 che rappresenta le ore straordinarie assegnate al cassiere $c$. Questo valore è maggiore o uguale a 0 e si preferirebbe che valesse 0 per tutti i cassieri del roster. Non vale 0 nel caso in cui:
 \begin{equation}
-	O_c \ge \sum_{s \in S} x(c,s)*dur(s)- Mh(c) \quad \forall c \in C\label{vincolo:straordinari}
+	O(c) \ge \sum_{s \in S} x(c,s)*dur(s)- Mh(c) \quad \forall c \in C\label{vincolo:straordinari}
 \end{equation}
 ovvero quando al cassiere $c$ vengono assegnate più ore di quelle previste dal contratto. La somma di questi valori va minimizzata:
 \begin{equation}
-	f_3=\sum_{c \in C}O_c
+	f_3=\sum_{c \in C}O(c)
 \end{equation}
 Non si fanno distinzioni tra supplementari e straordinari: sono entrambi penalizzati allo stesso modo. Il peso assegnato a questo obiettivo può variare in base al periodo, rendendo più favorevoli gli straordinari in periodi più critici, come quelli festivi.
 
@@ -172,56 +172,80 @@ I problemi riguardanti l'equità sono:
 	\item Nel caso dei cassieri full-time e dei part-time, la gestione delle domeniche libere rientra nel principio di equità. 
 \end{itemize}
 Per il primo punto, si introduce la variabile:
+\begin{equation*}
+	H(c)\in \mathbb{R}
+\end{equation*}
+che rappresenta le ore totali assegnate al cassiere $c$. Vale:
 \begin{equation}
-	H_w=\sum_{w \in T, \, s} 0.5*L_sx_{w,s}
+	H(c)=\sum_{s\in S} 0.5*dur(s)*x(c,s)
 \end{equation}
-che rappresenta le ore totali assegnate al cassiere $w$.
-
-Si definiscono altre due variabili:
-\begin{align}
-	& d_{w}^{+}\ge 0,\quad d_{w}^{-}\le 0
-	&& \forall w\in W\\
-	& d_{w}^{+},d_{w}^{-}\in \mathbb{R}
-\end{align}
+che rappresenta le ore totali assegnate al cassiere $w$. Si definiscono altre due variabili:
+\begin{align*}
+	& ore(c)^{+}\ge 0,\quad ore(c)^{-}\ge 0
+	&& \forall c\in C\\
+	& ore(c)^{+},ore(c)^{-}\in \mathbb{R}
+\end{align*}
 che rappresentano rispettivamente le ore straordinarie oppure quelle mancanti per raggiungere il monte orario previsto da contratto. Vale quindi:
 \begin{align}
-	&d_{w}^{+}\ge H_w-C_w\\
-	&d_{w}^{-}\le H_w-C_w
+	&ore(c)^{+}\ge H(c)-Mh(c)\\
+	&ore(c)^{-}\ge Mh(c)-H(c)
 \end{align}
-ove, se le ore assegnate sono di più rispetto a quelle previste, il valore di $d_{w}^{+}$ sarà uguale al surplus orario, mentre varrà il contrario per $d_{w}^{-}$ nel caso in cui venissero assegnate meno ore al cassiere. L'obiettivo è quello di avere uno stesso quantitativo orario per tutti i cassieri dello stesso tipo, quindi si minimizza:
+ove, se le ore assegnate sono di più rispetto a quelle previste, il valore di $ore(c)^{+}$ sarà uguale al surplus orario, mentre varrà il contrario per $ore(c)^{-}$ nel caso in cui venissero assegnate meno ore al cassiere. L'obiettivo è quello di avere uno stesso quantitativo orario per tutti i cassieri dello stesso tipo, quindi si minimizza:
 \begin{equation}
-	f_4=\sum_{T\in W}\sum_{w\in T} \alpha_1 d_{w}^{+} + \beta_1 d_{w}^{-}
+	f_4=\sum_{c\in C} \alpha_1 ore(c)^{+} + \beta_1 ore(c)^{-}
 \end{equation}
-cioè la somma delle deviazioni dal valore previsto da contratto per ogni tipo. Vale $\alpha \ge 0$, $\beta \le 0$ e in base a quale situazione sia preferibile (di eccesso o di difetto) posso decidere se avere $\alpha \ge |\beta|$ oppure $\alpha < |\beta|$. Nel caso analizzato si considera $\alpha > |\beta|$, in quanto una situazione di surplus è sfavorita per scelta del supermercato; inoltre, per come sono definiti i vincoli attualmente, non è prevista una situazione di difetto di ore rispetto al monte ore.
+cioè la somma delle deviazioni dal valore previsto da contratto per ogni tipo. Vale $\alpha, \beta \ge 0$ e in base a quale situazione sia preferibile (di eccesso o di difetto) posso decidere se avere $\alpha \ge \beta$ oppure $\alpha < \beta$. Nel caso analizzato si considera $\alpha > \beta$, in quanto una situazione di surplus è sfavorita per scelta del supermercato; inoltre, per come sono definiti i vincoli attualmente, non è prevista una situazione di difetto di ore rispetto al monte ore.
 
-Altro problema da considerare è la durata dei turni. Sono permessi turni dalle 3 fino a 6 ore, ma una durata eccessiva dei turni non è ben accetta dal personale e potrebbe portare a situazioni di squilibrio, in cui alcuni dipendenti lavorano un solo turno da 6 ore al giorno mentre altri ne lavorano due da 3/4 ore ciascuno. Per questione di praticità, possiamo imporre un'unica preferenza per l'intero personale verso il turno da 4 ore (si potrebbe andare a specificare per ogni dipendente una preferenza specifica). Si introduce:
-\begin{align}
-	&dur_{s}^{+}\ge 0,\quad dur_{s}^{-}\le 0
-	&& \forall s\in S \\
-	& dur_{s}^{+}, dur_{s}^{-}\in \mathbb{R}
-\end{align}
-che indicano la durata di tutti i turni $s$ attivi, aggiungiamo anche:
-\begin{align}
-	&dur_{s}^{+}\ge 0.5*L_s x_{w,s} - 4.0 \\
-	&dur_{s}^{-}\le 0.5*L_s x_{w,s} - 4.0
-\end{align}
-e, infine, da minimizzare:
+Altro problema da considerare è la durata dei turni. Sono permessi turni dalle 3 fino alle 5 ore, ma una durata eccessiva dei turni non è ben accetta dal personale e potrebbe portare a situazioni di squilibrio, in cui alcuni dipendenti lavorano un solo turno da 5 ore al giorno mentre altri ne lavorano due da 3/4 ore ciascuno. Per questione di praticità, possiamo imporre un'unica preferenza per l'intero personale verso il turno da 4 ore (si potrebbe andare a specificare per ogni dipendente una preferenza specifica). Si introduce:
 \begin{equation}
-	f_5=\sum_{s \in S} \alpha_2 dur_{s}^{+} + \beta_2 dur_{s}^{-}
+	pen(s) =
+	\begin{cases}
+		p_3 &\text{se } dur(s)=6\\
+		p_{3.5} &\text{se } dur(s)=7\\
+		0 &\text{se } dur(s)=8\\
+		p_{4.5} &\text{se } dur(s)=9\\
+		p_5 &\text{se } dur(s)=10
+	\end{cases}
 \end{equation}
-Ogni cassiere potrebbe esprimere la propria preferenza e si potrebbe risolvere il problema andando a cambiare i parametri appena visti. Come prima, $\alpha \ge 0$, $\beta \le 0$ e $\alpha > |\beta|$, in quanto un turno che superi le 4 ore risulta molto più pesante rispetto ad un turno di 3 ore.
+che indica le penalità relative ai tipi di turni separati per durata. Si minimizza quindi:
+\begin{equation}
+	f_5=\sum_{s \in S, c\in C}pen(s)x(c,s) 
+\end{equation}
+Ogni cassiere potrebbe esprimere la sua preferenza singola: si potrebbe risolvere il problema utilizzando la soluzione vista nel punto precedente per il problema del carico delle ore. 
+
+I cassieri full-time e part-time hanno espresso la loro preferenza verso il riposo domenicale. La finestra temporale attuale è:
+\begin{equation*}
+	D={1,\dots,m}\quad \text{con } m=7
+\end{equation*}
+La domenica è identificata da $d=7$, nel caso in cui si volesse ampliare la finestra temporale si potrebbe applicare gli stessi vincoli a tutti i $d$ multipli di 7 (se la finestra temporale inizia di lunedì, altrimenti richiede più accorgimenti). Possiamo definire il riposo domenicale come:
+\begin{equation*}
+	riposoDomenicale(c)\in {0,1}
+\end{equation*}
+che varrà 1 se il cassiere viene lasciato a riposo di domenica, quindi:
+\begin{equation}
+	riposoDomenicale(c)\le riposo(c,d) \quad \forall d\in D: 7\mid d
+\end{equation}
+Infine, massimizziamo:
+\begin{equation}
+	f_6=\sum_{c\in (FT\cup PT)}riposoDomenicale(c)
+\end{equation}
+
 \paragraph{Riposo continuato}
 Si introduce una nuova variabile binaria per indicare il riposo continuato per i cassieri full-time:
-\begin{gather}
-	c_{w,d}\le r_{w,d}\\
-	c_{w,d}\le r_{w,d+1}\\
-	c_{w,d}\le r_{w,d} + r_{w,d+1} - 1\\
-	c_{w,d}\in \{0,1\}, \forall w\in W \setminus PTW, \forall d\in D
-\end{gather}
-che vale 1 solo nel caso in cui il cassiere $w$ ha due giorni di riposo consecutivi $d$ e $d+1$ durante la settimana. Si vuole massimizzare questa quantità in quanto richiesto dal personale:
+\begin{equation*}
+	riposoContinuato(c,d)\in {0,1}
+\end{equation*}
+che indica se per due giorni consecutivi il lavoratore è stato a riposo. Per fare valere questa definizione, si specifica:
+\begin{align}
+	&riposoContinuato(c,d)\le riposo(c,d)\\
+	&riposoContinuato(c,d)\le riposo(c,d+1)\\
+	&riposoContinuato(c,d)\le riposo(c,d)+riposo(c,d+1)-1\\
+\end{align}
+Si vuole massimizzare questa quantità in quanto richiesto dal personale:
 \begin{equation}
-	f_6=\sum_{w\in FT}\sum_{d\in D}c_{w,d}
+	f_7=\sum_{c\in (FT\cup PT)}\sum_{d\in D}riposoContinuato(c,d)
 \end{equation}
+Da controllare, possibile riposo di 4 giorni se si fanno sabato e domenica di riposo. Da aggiungere preferenza per domenica libera e controllare per sabato
 
 %gimme love
 \paragraph{Cassa-reparto}
@@ -233,7 +257,7 @@ Fino ad adesso, la situazione di sovracopertura dello slot temporale era ammessa
 \end{align}
 ove $\Delta_{d,k}$ indica di quanto viene superato il fabbisogno. Per come sono definiti i vincoli, $\Delta_{d,k}$ non può essere minore di 0, in quanto una situazione di difetto di personale non è ammessa. Si vuole ora minimizzare la situazione di sovracopertura:
 \begin{equation}
-	f_7=\sum_{d\in D}\sum_{k\in K_d}\Delta_{d,k}
+	f_8=\sum_{d\in D}\sum_{k\in K_d}\Delta_{d,k}
 \end{equation}
 Questo è fondamentale, in quanto permette di rendere significativa la differenza tra un cassiere normale e un cassiere che può anche essere assegnato in scatolame. 
 
@@ -250,23 +274,29 @@ I vincoli visti fino ad adesso valgono anche per questo tipo di dipendenti, solo
 \end{align}
 
 \paragraph{Spazzatrice}
-La spazzatrice, per via delle sue dimensioni, può solo essere operata prima dell'apertura dell'ipermercato alla clientela. Il compito viene assegnato principalmente a due cassieri appartenenti al personale interno disponibile, poiché la variabilità del personale addetto alle pulizie, dovuta al fatto che l'ipermercato si affida ad un'azienda esterna, rende più affidabile l’impiego di dipendenti interni. Vengono definiti due nuovi slot per giornata (7:00, 7:30), che possono essere coperti soltanto dal personale formato. Si introduce così una nuova differenza:
+La spazzatrice, per via delle sue dimensioni, può solo essere operata prima dell'apertura dell'ipermercato alla clientela. Il compito viene assegnato principalmente a due cassieri appartenenti al personale interno disponibile, poiché la variabilità del personale addetto alle pulizie, dovuta al fatto che l'ipermercato si affida ad un'azienda esterna, rende più affidabile l’impiego di dipendenti interni. Vengono definiti due nuovi slot per giornata (prima 1=08:00 e 25=20:00, ora 1=07:00 e 27=20:00), che possono essere coperti soltanto dal personale formato. Si introduce così una nuova categoria:
 \begin{equation}
-	WP\subset W,\text{ può appartenere a una qualsiasi categoria contrattuale.}
+	c(Mh, info, cassareparto, spazzatrice)
 \end{equation}
-Solo i cassieri appartenenti a questo insieme possono essere assegnati agli slot temporali appena definiti:
-\begin{equation} 
-	\sum_{w \in WP}\sum_{s \in S : day(s)=d} A_{s,k} x_{w,s}\ge f_{d,k} \quad \forall d\in D, k={07:00, 07:30}
-\end{equation}
-Per via del vincolo del riposo obbligatorio tra due giornate, questi cassieri non possono venire pianificati in chiusura se il giorno dopo iniziano alle 07:00:
+Si introduce una nuova skill, la quale, se non è presente, non permette la copertura di alcuni slot temporali, in quanto prevede attività diverse da quelle viste fino ad adesso:
+\begin{align}
+	&\sum_{c\in C:c(spazzatrice)=0}\sum_{s\in S:copre(s,d,k)=1}x(c,s)=0 \quad \forall d\in D, k={1, 2}\\
+	&\sum_{c\in C:c(spazzatrice)=1}\sum_{s\in S:copre(s,d,k)=1}x(c,s)\ge f_{d,k} \quad \forall d\in D, k={1, 2}
+\end{align}
+Per via del vincolo del riposo obbligatorio tra due giornate, questi cassieri non possono venire pianificati in chiusura (ultimo slot) se il giorno dopo iniziano alle 07:00:
+\begin{align}
+	&x(c,s_1)\le 1-x(c,s_2) \quad \forall s_1,s_2\in S:day(s_1)=d\land copre(s_1,d,27)=1,\\
+	&day(s_2)=d+1\land copre(s_2, d+1, 1)=1 \quad \forall d\in (D\setminus {7}) \notag
+\end{align}
+In quanto la finestra temporale è limitata ad una singola settimana, il problema del controllo del rispetto del vincolo delle 11 ore di riposo tra la domenica e il lunedì può essere spostato dalla definizione del modello al problema dell'assegnamento dei turni, oppure può essere risolto alla radice impedendo l'assegnazione del cassiere addetto alla pulizia con la spazzatrice allo slot della chiusura della domenica:
 \begin{equation}
-	A_{s_1,(20:00)} x_{w,s_1}\le 1 - A_{s_2,(07:00)} x_{w,s_2} \quad s_1:day(s_1)=d, s_2:day(s_2)=d+1,\forall d\in (D\setminus {7})
+	x(c,s)=0 \quad \forall s\in S: copre(s,7,27)=1, \forall c\in C:c(spazzatrice)=1
 \end{equation}
 
 \subsection{Funzione obiettivo}
 \begin{align}
     \min \; & 
-    \sum_{i=1}^7\lambda_if_i
+    \sum_{i=1}^8\lambda_if_i
     && \lambda_i \in \mathbb{R}
 \end{align}
 I $\lambda_i$ rappresentano i pesi che noi diamo ai vari obiettivi: più $lambda_i$ è elevato, più l'obiettivo relativo incide nella funzione obiettivo generale, ottenendo di fatto più importanza nella ricerca dell'ottimo. 
