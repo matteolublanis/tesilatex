@@ -79,7 +79,7 @@ Si esprimono il relativo vincolo per il numero di turni giornalieri:
 \end{equation}
 Per il numero di ore giornaliere si esplicita:
 \begin{equation}
-		0.5*\sum_{S(d)}x_{c,s}dur(s)\le 12 \quad \forall c\in C
+		0.5*\sum_{S(d)}x(c,s)dur(s)\le 12 \quad \forall c\in C
 \end{equation}
 in quanto ogni cassiere può lavorare fino ad un massimo di 12 ore.
 
@@ -255,7 +255,7 @@ Fino ad adesso, la situazione di sovracopertura dello slot temporale era ammessa
 \end{equation}
 che indica di quanto viene superato il fabbisogno $f(d,k)$. Vale:
 \begin{equation}
-	\Delta(d,k) = \sum_{c \in C}\sum_{s \in S(d)} copre(s,d,k)x(c,s) - f(d,k)  \quad \forall d,k\\
+	\Delta(d,k) \ge \sum_{c \in C}\sum_{s \in S(d)} copre(s,d,k)x(c,s) - f(d,k)  \quad \forall d,k\\
 \end{equation}
 $\Delta(d,k)$ non può essere minore di 0, in quanto una situazione di difetto di personale non è ammessa (cambiando i vincoli, si potrebbe introdurre anche questa situazione). Si vuole ora minimizzare la situazione di sovracopertura:
 \begin{equation}
@@ -268,10 +268,10 @@ Un cassiere che può andare in scatolame avrà un peso minore nel conteggio dell
 \end{equation}
 I vincoli visti fino ad adesso valgono anche per questo tipo di dipendenti, solo conteranno di meno quando si andrà a considerare il problema della sovracopertura per i motivi appena spiegati:
 \begin{align}
-	& \Delta(d,k) = \sum_{c \in C}\sum_{s \in S(d)} pesoCopertura(c)*copre(s,d,k)x_{w,s} - f(d,k)
+	& \Delta(d,k) \ge \sum_{c \in C}\sum_{s \in S(d)} pesoCopertura(c)*copre(s,d,k)x(c,s) - f(d,k)
 	&& \forall d,k\\
 	& pesoCopertura(c)=\{\rho_1, \rho_2\}
-	&& \rho_1 = 2, \rho_2 = 1
+	&& \rho_1 = 1, \rho_2 < 1
 \end{align}
 
 \paragraph{Spazzatrice}
