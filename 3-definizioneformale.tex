@@ -181,14 +181,14 @@ che rappresenta le ore totali assegnate al cassiere $c$. Vale:
 \end{equation}
 che rappresenta le ore totali assegnate al cassiere $w$. Si definiscono altre due variabili:
 \begin{align*}
-	& ore(c)^{+}\ge 0,\quad ore(c)^{-}\ge 0
-	&& \forall c\in C\\
 	& ore(c)^{+},ore(c)^{-}\in \mathbb{R}
 \end{align*}
 che rappresentano rispettivamente le ore straordinarie oppure quelle mancanti per raggiungere il monte orario previsto da contratto. Vale quindi:
 \begin{align}
 	&ore(c)^{+}\ge H(c)-Mh(c)\\
-	&ore(c)^{-}\ge Mh(c)-H(c)
+	&ore(c)^{-}\ge Mh(c)-H(c)\\
+	& ore(c)^{+}\ge 0,\quad ore(c)^{-}\ge 0
+	&& \forall c\in C
 \end{align}
 ove, se le ore assegnate sono di più rispetto a quelle previste, il valore di $ore(c)^{+}$ sarà uguale al surplus orario, mentre varrà il contrario per $ore(c)^{-}$ nel caso in cui venissero assegnate meno ore al cassiere. L'obiettivo è quello di avere uno stesso quantitativo orario per tutti i cassieri dello stesso tipo, quindi si minimizza:
 \begin{equation}
@@ -239,7 +239,7 @@ che indica se per due giorni consecutivi il lavoratore è stato a riposo. Per fa
 \begin{align}
 	&riposoContinuato(c,d)\le riposo(c,d)\\
 	&riposoContinuato(c,d)\le riposo(c,d+1)\\
-	&riposoContinuato(c,d)\le riposo(c,d)+riposo(c,d+1)-1\\
+	&riposoContinuato(c,d)\le riposo(c,d)+riposo(c,d+1)-1
 \end{align}
 Si vuole massimizzare questa quantità in quanto richiesto dal personale:
 \begin{equation}

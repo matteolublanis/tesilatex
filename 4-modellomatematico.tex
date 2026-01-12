@@ -76,17 +76,80 @@
 	&&\forall c \in C
 \end{align}
 \subparagraph{Variabili}
-\begin{align}
+\begin{align*}
 	&O(c)\in \mathbb{N}
-\end{align}
-
+\end{align*}
+\pagebreak
 \paragraph{Equità}
-dafare
-
+\subparagraph{Funzione obiettivo}
+\begin{align}
+	&\min f_4+f_5+f_6\\
+	&f_4=\sum_{c\in C} \alpha_1 ore(c)^{+} + \beta_1 ore(c)^{-}\\
+	&f_5=\sum_{s \in S, c\in C}pen(s)x(c,s)\\
+	&f_6=\sum_{c\in (FT\cup PT)}riposoDomenicale(c)\\
+\end{align}
+\subparagraph{Vincoli}
+\begin{align}
+	&H(c)=\sum_{s\in S} 0.5*dur(s)*x(c,s)\\
+	&ore(c)^{+}\ge H(c)-Mh(c)\\
+	&ore(c)^{-}\ge Mh(c)-H(c)\\
+	& ore(c)^{+}\ge 0,\quad ore(c)^{-}\ge 0
+	&& \forall c\in C\\
+	&riposoDomenicale(c)\le riposo(c,d) 
+	&&\forall d\in D: 7\mid d
+\end{align}
+\subparagraph{Variabili e costanti}
+\begin{align*}
+	&H(c)\in \mathbb{R}\\
+	& ore(c)^{+},ore(c)^{-}\in \mathbb{R}\\
+	&pen(s) =
+	\begin{cases}
+		p_3 &\text{se } dur(s)=6\\
+		p_{3.5} &\text{se } dur(s)=7\\
+		0 &\text{se } dur(s)=8\\
+		p_{4.5} &\text{se } dur(s)=9\\
+		p_5 &\text{se } dur(s)=10
+	\end{cases}\\
+	&riposoDomenicale(c)\in {0,1}\\
+	&\alpha_1, \alpha_2,\beta_1, \beta_2 \in {R}^+
+\end{align*}
+\pagebreak
 \paragraph{Riposo continuato}
+\subparagraph{Funzione obiettivo}
+\begin{align}
+	&\min f_7\\
+	&f_7=\sum_{c\in (FT\cup PT)}\sum_{d\in D}riposoContinuato(c,d)
+\end{align}
+\subparagraph{Vincoli}
+\begin{align}
+	&riposoContinuato(c,d)\le riposo(c,d)\\
+	&riposoContinuato(c,d)\le riposo(c,d+1)\\
+	&riposoContinuato(c,d)\le riposo(c,d)+riposo(c,d+1)-1
+\end{align}
+\subparagraph{Variabili}
+\begin{align*}
+	&riposoContinuato(c,d)\in {0,1}
+\end{align*}
 
 \paragraph{Cassa-reparto}
-
+\subparagraph{Funzione obiettivo}
+\begin{align}
+	&\min f_8\\
+	&f_8=\sum_{d\in D}\sum_{k\in T(d)}\Delta(d,k)
+\end{align}
+\subparagraph{Vincoli}
+\begin{align}
+	& \Delta(d,k) \ge \sum_{c \in C}\sum_{s \in S(d)} pesoCopertura(c)*copre(s,d,k)x(c,s) - f(d,k)
+	&& \forall d,k\\
+	& pesoCopertura(c)=\{\rho_1, \rho_2\}
+	&& \rho_1 = 1, \rho_2 < 1
+\end{align}
+\subparagraph{Variabili}
+\begin{align*}
+	&c(Mh, info) \quad -> \quad c(Mh, info, cassareparto)\\
+	&\Delta(d,k)\in \mathbb{N}
+\end{align*}
+\pagebreak
 \paragraph{Spazzatrice}
 \subparagraph{Vincoli}
 \begin{align}
@@ -99,7 +162,13 @@ dafare
 	&x(c,s)=0 \quad \forall s\in S: copre(s,7,27)=1, \forall c\in C:c(spazzatrice)=1
 \end{align}
 \subparagraph{Variabili}
-\begin{align}
+\begin{align*}
 	&c(Mh, info, cassareparto) \quad ->
 	&&c(Mh, info, cassareparto, spazzatrice)
+\end{align*}
+\paragraph{Funzione obiettivo finale}
+\begin{align}
+	\min \; & 
+	\sum_{i}\lambda_if_i
+	&&\lambda_i \in \mathbb{R}, i=1,...8
 \end{align}
