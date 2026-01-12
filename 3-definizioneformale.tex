@@ -46,7 +46,7 @@ Si definisce anche l'insieme $S(d)\subset S$, ovvero l'insieme dei turni del gio
 \begin{equation}
 	gap(s1, s2)\in \mathbb{N}
 \end{equation}
-che rappresenta, per ogni coppia di turni $s1$ e $s2$, lo stacco tra i due turni espressa in slot. $gap(s1, s2)$ vale 0 nel caso in cui due turni si sovrapponessero. La durata dei turni varia dalle 3 alle 5 ore, quindi dai 6 ai 10 slot temporali. Gli slot temporali dovranno essere coperti da almeno $f_{d,k}$ turni. Per dire che un turno $s$ copre uno slot $k$ del giorno $d$, si usa:
+che rappresenta, per ogni coppia di turni $s1$ e $s2$, lo stacco tra i due turni espressa in slot. $gap(s1, s2)$ vale 0 nel caso in cui due turni si sovrapponessero o nel caso in cui $s2$ fosse precedente a $s1$. La durata dei turni varia dalle 3 alle 5 ore, quindi dai 6 ai 10 slot temporali. Gli slot temporali dovranno essere coperti da almeno $f_{d,k}$ turni. Per dire che un turno $s$ copre uno slot $k$ del giorno $d$, si usa:
 \begin{equation}
 	copre(s,d,k)\in {0,1}
 \end{equation}
@@ -66,9 +66,9 @@ che rappresenta le ore totali assegnate al cassiere $c$. Si moltiplica per 0.5 i
 Ogni cassiere dovrà lavorare il monte orario previsto fino ad un massimale da stabilire:
 \begin{align}
 	&H_{settimana}(c)\ge Mh(c)
-	&&\forall c\in C\\
+	&&\forall c\\
 	&H_{settimana}(c)\le maxOre(c)
-	&&\forall c\in C
+	&&\forall c
 \end{align}
 $maxOre(c)$ può essere definito differentemente per ogni singolo cassiere oppure essere costante per tutti. Per adesso, viene considerato costante e pari a 48, come descritto nella sezione 1. 
 
@@ -80,9 +80,9 @@ I cassieri part-time sono gli unici ai quali viene assegnato un singolo turno al
 \end{displayquote}
 Si esprime il relativo vincolo per il numero di turni giornalieri:
 \begin{align}
-	&0\le \sum_{S(d)}x(c,s)\le maxTurni(c)
-	&&\forall d\in D, \forall c\in C\\
-	&maxTurni(c) =
+	&0\le \sum_{S(d)}x(c,s)\le maxTurni(c,d)
+	&&\forall d, \forall c\\
+	&maxTurni(c,d) =
 	\begin{cases}
 		2 & \text{se } c\in FT || (c\in PTW \land d\in {sab,dom})\\
 		1 & \text{se } c\in PT \\
@@ -96,14 +96,14 @@ Per il numero di ore giornaliere assegnate a un cassiere $c$ si definisce:
 \end{align}
 Deve valere:
 \begin{equation}
-		H_{giorno}(c,d)\le 12 \quad \forall c\in C, \forall d\in D
+		H_{giorno}(c,d)\le 12 \quad \forall c, \forall d
 \end{equation}
 in quanto ogni cassiere può lavorare fino ad un massimo di 12 ore.
 
 Per assegnare due turni ad un cassiere nello stesso giorno, bisogna assicurarsi che i due turni non si sovrappongano:
 \begin{align}
 	&x(c,s1)+x(c,s2)\le 1
-	&&\forall s1,s2\in S:gap(s1,s2)=0
+	&&\forall s1,s2\in S(d):gap(s1,s2)=0
 \end{align}
 
 Si garantisce la copertura di uno slot mediante il seguente vincolo:
@@ -124,8 +124,10 @@ I cassieri hanno richiesto uno stacco tra due turni giornalieri il più breve po
 \end{equation}
 che indica se al lavoratore $c$ vengono assegnati due turni lo stesso giorno $d$. Deve valere:
 \begin{align}
-	& split(c,d) \le \sum_{s\in S(d)}x(c,s) - 1
-	&&\forall c\in C, \forall d\in D
+	&\sum_{s\in S(d)}x(c,s)\le 1+split(c,d)
+	&&\forall c\in FT\cup PTW, \forall d\\
+	&\sum_{s\in S(d)}x(c,s)\ge 2*split(c,d)
+	&&\forall c\in FT\cup PTW, \forall d
 \end{align}
 In quanto ci siamo assicurati della non sovrapposizione, possiamo definire:
 \begin{equation}
@@ -133,8 +135,9 @@ In quanto ci siamo assicurati della non sovrapposizione, possiamo definire:
 \end{equation}
 una variabile intera che indica lo stacco tra due turni nel giorno $d$ per il cassiere $c$ espresso in numero di slot temporali. Lo stacco sarà determinato da:
 \begin{align}
+	&stacco(c,d)\le maxGap\cdot split(c,d)\\
 	&stacco(c,d)\ge gap(s1,s2)*(x(c,s1)+x(c,s2)-1)
-	&&\forall c\in C, \forall d\in D, \forall (s1,s2)\in S
+	&&\forall c\in C, \forall d, \forall (s1,s2)\in S(d),s1\neq s2
 \end{align}
 che andrà minimizzato:
 \begin{equation}
@@ -147,16 +150,10 @@ Si definisce la variabile:
 \end{equation*}
 che vale 1 se e solo se il cassiere $c$ non è stato assegnato a nessun turno il giorno $d$, 0 altrimenti. Utilizzando un m-vincolo, si definisce la variabile prima spiegata:
 \begin{align}
-	&\sum_{s\in S(d)}x(c,s)\le M(1-riposo(c,d))
-	&&\forall c\in C\\
-	&\sum_{s\in S(d)}x(c,s)\ge 1-M*riposo(c,d)
-	&&\forall c\in C\\
-	&M=
-	\begin{cases}
-		2 & FT\cup PTW\\
-		1 & PT
-	\end{cases}
-	&&maxTurni
+	&\sum_{s\in S(d)}x(c,s)\le maxTurni(c,d)(1-riposo(c,d))
+	&&\forall c\in FT\cup PT,\forall d\\
+	&\sum_{s\in S(d)}x(c,s)\ge 1-maxTurni(c,d)*riposo(c,d)
+	&&\forall c\in FT\cup PT,\forall d
 \end{align}
 Non si studia il problema per i lavoratori part-time fine settimana, in quanto possono essere assegnati il sabato e la domenica.
 
@@ -165,17 +162,16 @@ Durante la settimana, il cassiere deve avere almeno un giorno di riposo e per ev
 	1 \le \sum_{d\in D} riposo(c,d)\le 2
 \end{equation}
 
-%DA QUA!
 \subsection{Problema esteso}
 
 \paragraph{Straordinari}
 Gli straordinari vengono penalizzati in quanto prevedono una retribuzione maggiorata, aumentando notevolemente il costo finale per il punto vendita. Si introduce:
 \begin{center}
-	$O(c)\in \mathbb{N}$
+	$O(c)\in \mathbb{R}$
 \end{center}
 che rappresenta le ore straordinarie assegnate al cassiere $c$. Questo valore è maggiore o uguale a 0 e si preferirebbe che valesse 0 per tutti i cassieri del roster. Non vale 0 nel caso in cui:
 \begin{equation}
-	O(c) \ge 0.5*\sum_{s \in S} x(c,s)*dur(s)- Mh(c) \quad \forall c \in C\label{vincolo:straordinari}
+	O(c) \ge H_{settimana}(c)- Mh(c) \quad \forall c\label{vincolo:straordinari}
 \end{equation}
 ovvero quando al cassiere $c$ vengono assegnate più ore di quelle previste dal contratto. La somma di questi valori va minimizzata:
 \begin{equation}
@@ -183,6 +179,7 @@ ovvero quando al cassiere $c$ vengono assegnate più ore di quelle previste dal 
 \end{equation}
 Non si fanno distinzioni tra supplementari e straordinari: sono entrambi penalizzati allo stesso modo. Il peso assegnato a questo obiettivo può variare in base al periodo, rendendo più favorevoli gli straordinari in periodi più critici, come quelli festivi.
 
+%DA QUA!
 \paragraph{Equità}
 I problemi riguardanti l'equità sono:
 \begin{itemize}
@@ -321,13 +318,13 @@ In quanto la finestra temporale è limitata ad una singola settimana, il problem
 \end{align}
 I $\lambda_i$ rappresentano i pesi che noi diamo ai vari obiettivi: più $lambda_i$ è elevato, più l'obiettivo relativo incide nella funzione obiettivo generale, ottenendo di fatto più importanza nella ricerca dell'ottimo. 
 
-\subsection{Possibili estensioni}
-\begin{itemize}
-	\item I dati possono essere ottenuti mediante l'analisi dei dati delle vendite invece di doversi affidare al lavoro manuale del caporeparto.
-	\item La finestra temporale può essere aumentata da una settimana ad un mese per un'eventuale analisi statistica più robusta.
-	\item Il modello può essere riutilizzato in altri reparti del supermercato o tutt'altro settore che richieda la schedulazione del personale.
-	\item Nel caso in cui il carico di lavoro sia distribuito in maniera equa, si può schedulare il personale in gruppi di persone e non a livello di singolo dipendente; si creano così degli orari che possono circolare in maniera costante (esempio, gruppo 1 assegnato alla mattina mentre il gruppo 2 al pomerigio, mentre la settimana successiva vengono invertiti).
-	\item Oltre alle skill, si può introdurre un tasso di produttività, che va ad indicare quanto un dipendente sia produttivo all'interno dell'ipermercato, possibilmente differenziandolo anche in base alla diversa attività che il dipendente riesce a svolgere (un dipendente può essere più produttivo in scatolame rispetto alla cassa, si deve introdurre qualcosa che riesca a definire cosa sia a livello tecnico la produttività, come ad esempio velocità di battitura in cassa).
-	\item Il punto vendita potrebbe iniziare ad operare 24/7, rendendo necessario una modifica ai vincoli legati agli orari.
-	\item Si possono introdurre differenze di retribuzione dovute a: anzianità, diversi livelli contrattuali, diversi contratti (contratti fatta con vecchia gestione), diverse responsabilità (andare a considerare anche il caporeparto come dipendente da schedulare).
-\end{itemize} 
+%\subsection{Possibili estensioni}
+%\begin{itemize}
+%	\item I dati possono essere ottenuti mediante l'analisi dei dati delle vendite invece di doversi affidare al lavoro manuale del caporeparto.
+%	\item La finestra temporale può essere aumentata da una settimana ad un mese per un'eventuale analisi statistica più robusta.
+%	\item Il modello può essere riutilizzato in altri reparti del supermercato o tutt'altro settore che richieda la schedulazione del personale.
+%	\item Nel caso in cui il carico di lavoro sia distribuito in maniera equa, si può schedulare il personale in gruppi di persone e non a livello di singolo dipendente; si creano così degli orari che possono circolare in maniera costante (esempio, gruppo 1 assegnato alla mattina mentre il gruppo 2 al pomerigio, mentre la settimana successiva vengono invertiti).
+%	\item Oltre alle skill, si può introdurre un tasso di produttività, che va ad indicare quanto un dipendente sia produttivo all'interno dell'ipermercato, possibilmente differenziandolo anche in base alla diversa attività che il dipendente riesce a svolgere (un dipendente può essere più produttivo in scatolame rispetto alla cassa, si deve introdurre qualcosa che riesca a definire cosa sia a livello tecnico la produttività, come ad esempio velocità di battitura in cassa).
+%	\item Il punto vendita potrebbe iniziare ad operare 24/7, rendendo necessario una modifica ai vincoli legati agli orari.
+%	\item Si possono introdurre differenze di retribuzione dovute a: anzianità, diversi livelli contrattuali, diversi contratti (contratti fatta con vecchia gestione), diverse responsabilità (andare a considerare anche il caporeparto come dipendente da schedulare).
+%\end{itemize} 
