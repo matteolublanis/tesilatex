@@ -38,7 +38,7 @@ $S$ rappresenta l'insieme dei turni $s$, i quali sono caratterizzati da:
 \begin{itemize}
 	\item day: giorno del turno.
 	\item start: slot d'inizio del turno.
-	\item end: slot di fine del turno. %forse si può togliere
+	\item end: slot di fine del turno (inclusivo, indica l'ultimo slot lavorato).
 	\item dur: durata del turno espressa in quantitativo di slot.
 \end{itemize}
 Si definisce anche l'insieme $S(d)\subset S$, ovvero l'insieme dei turni del giorno $d$. Si definisce anche per i turni il valore:
@@ -100,7 +100,7 @@ Si esprime il relativo vincolo per il numero di turni giornalieri:
 	&&\forall d, \forall c\\
 	&maxTurni(c,d) =
 	\begin{cases}
-		2 & \text{se } c\in FT || (c\in PTW \land d\in {sab,dom})\\
+		2 & \text{se } c\in FT \lor (c\in PTW \land d\in {6,7})\\
 		1 & \text{se } c\in PT \\
 		0 & \text{altrimenti}
 	\end{cases}\notag
@@ -153,7 +153,7 @@ una variabile intera che indica lo stacco tra due turni nel giorno $d$ per il ca
 \begin{align}
 	&stacco(c,d)\le maxGap\cdot split(c,d)\\
 	&stacco(c,d)\ge gap(s1,s2)*(x(c,s1)+x(c,s2)-1)
-	&&\forall c\in FT\cup PTW, \forall d, \forall (s1,s2)\in S(d),s1\neq s2
+	&&\forall c\in FT\cup PTW, \forall d, \forall (s1,s2)\in S(d),s1\neq s2 \land s1<s2
 \end{align}
 che andrà minimizzato:
 \begin{equation}
@@ -205,16 +205,18 @@ I problemi riguardanti l'equità sono:
 Per il primo punto, si definiscono:
 \begin{align}
 	&\bar{H}_{settimana}(t)\in \mathbb{R}
-	&&\forall t\in T(={FT, PT, PTW})\\
+	&&\forall t\in type(={FT, PT, PTW})\\
 	&dev(c)\ge 0
 	&&\forall c\in C
 \end{align}
 dove $\bar{H}_{settimana}(t)$ rappresenta la media delle ore assegnate ai cassieri del tipo $t$, mentre $dev(c)$ sta a indicare la deviazione assoluta per singolo cassiere $c$ dalle ore medie assegnate. Varranno i seguenti vincoli:
 \begin{align}
 	&\bar{H}_{settimana}(t)=\frac{1}{|t|}\sum_{c\in t}H_{settimana}(c)
-	&&\forall t\in T\\
-	&dev(c)\ge H_{settimana}(c)-\bar{H}_{settimana}(t)\\
+	&&\forall t\in type\\
+	&dev(c)\ge H_{settimana}(c)-\bar{H}_{settimana}(t)
+	&&\forall t\in type, \forall c\in t\\
 	&dev(c)\ge \bar{H}_{settimana}(t)-H_{settimana}(c)
+	&&\forall t\in type, \forall c\in t
 \end{align}
 Si dovrà minimizzare la deviazione totale:
 \begin{align}
@@ -272,7 +274,7 @@ Fino ad adesso, la situazione di sovracopertura dello slot temporale era ammessa
 \begin{align}
 	&\Delta(d,k)\in \mathbb{R}_{\ge 0}
 \end{align}
-che indica di quanto viene superato il fabbisogno $f(d,k)$. $\Delta(d,k)$ non può essere minore di 0, in quanto una situazione di difetto di personale non è ammessa (cambiando i vincoli, si potrebbe introdurre anche questa situazione). Si vuole ora minimizzare la situazione di sovracopertura:
+che indica quanto vale la sovracopertura misurata. $\Delta(d,k)$ non può essere minore di 0, in quanto una situazione di difetto di personale non è ammessa (cambiando i vincoli, si potrebbe introdurre anche questa situazione). Si vuole ora minimizzare la situazione di sovracopertura:
 \begin{equation}
 	f_8=\sum_{d\in D}\sum_{k\in T(d)}\Delta(d,k)
 \end{equation}
@@ -327,4 +329,4 @@ Il vincolo appena trovato è una semplificazione, che potrebbe inoltre introdurr
     \sum_{i=1}^8\lambda_if_i
     && \lambda_i \in \mathbb{R}
 \end{align}
-I $\lambda_i$ rappresentano i pesi che noi diamo ai vari obiettivi: più $\lambda_i$ è elevato, più l'obiettivo relativo incide nella funzione obiettivo generale, ottenendo di fatto più importanza nella ricerca dell'ottimo. 
+I $\lambda_i$ rappresentano i pesi che noi diamo ai vari obiettivi: più $\lambda_i$ è elevato, più l'obiettivo relativo incide nella funzione obiettivo generale, ottenendo di fatto più importanza nella ricerca dell'ottimo. $\lambda_i$ può essere negativo, in modo tale da massimizzare il valore del relativo obiettivo.
