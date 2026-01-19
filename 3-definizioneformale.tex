@@ -23,7 +23,7 @@ Appartenere a categorie differenti equivale soltanto ad avere monte orari differ
 \end{equation}
 ove $info$ rappresenta i dati del cassiere (non utili per la risoluzione, come nome e cognome) e $variabili$ che sono gli effettivi dati utili al problema (monte ore previsto, numero massimo di turni assegnabili giornalieri, skill, etc.).
 
-Durante una giornata, l'obiettivo del caporeparto è quello di coprire il flusso della clientela in maniera adeguata. Rifacendoci al problema del \textit{Set Covering}, all'articolo di Brucker\cite{BRUCKER2011467} e a quello di Gusmeroli e Bettinelli\cite{gusmeroli2024mixedintegerlinearprogramcreate}, si definiscono:
+Durante una giornata, l'obiettivo del caporeparto è quello di coprire il flusso della clientela in maniera adeguata. Rifacendosi al problema del \textit{Set Covering}, all'articolo di Brucker\cite{BRUCKER2011467} e a quello di Gusmeroli e Bettinelli\cite{gusmeroli2024mixedintegerlinearprogramcreate}, si definiscono:
 \begin{center}
 	$D=\{1,\dots ,m\}$ i giorni della finestra temporale.\\
 	$f(d,k)$ il fabbisogno per lo slot $k$ del giorno $d$.\\
@@ -90,7 +90,7 @@ $maxOre(c)$ può essere definito differentemente per ogni singolo cassiere oppur
 
 I cassieri part-time sono gli unici ai quali viene assegnato un singolo turno al giorno, mentre ai full-time e ai part-time fine settimana possono essere assegnati due turni giornalieri:
 \begin{displayquote}
-	\textit{Part time weekend: 16 ore settimanali, con disponibilità limitata ai giorni sabato e domenica.\dots\\
+	\textit{Part time weekend: 20 ore settimanali, con disponibilità limitata ai giorni di venerdì (solo il turno di chiusura), sabato e domenica.\dots\\
 	\dots ma sono previsti due turni giornalieri per i cassieri full-time e part-time fine settimana (solo il sabato e la domenica per loro)\dots Ai cassieri part-time viene assegnato un solo turno giornaliero.\\
 	Un dipendente può lavorare fino a 12 ore al giorno, ma è una situazione indesiderata: si tende ad assegnare fino ad un massimo di 8 ore al giorno ad ogni singolo dipendente\dots}
 \end{displayquote}
@@ -101,7 +101,7 @@ Si esprime il relativo vincolo per il numero di turni giornalieri:
 	&maxTurni(c,d) =
 	\begin{cases}
 		2 & \text{se } c\in FT \lor (c\in PTW \land d\in {6,7})\\
-		1 & \text{se } c\in PT \\
+		1 & \text{se } c\in PT \lor (c\in PTW \land d\in {5} \land k\ge k(16:30)) \\
 		0 & \text{altrimenti}
 	\end{cases}\notag
 \end{align}
@@ -121,18 +121,26 @@ Per assegnare due turni ad un cassiere nello stesso giorno, bisogna assicurarsi 
 	&x(c,s1)+x(c,s2)\le 1
 	&&\forall c\in C,\ \forall d\in D,\ \forall s_1<s_2\in S(d): overlap(s_1,s_2)=1	
 \end{align}
-
-Si garantisce la copertura di uno slot mediante il seguente vincolo:
+La copertura non può essere sempre coperta rigidamente, in quanto il personale può non essere adeguato all'effettiva richiesta in alcuni situazioni. Considerato questo, si introducono due nuove variabili:
 \begin{align}
-	&\sum_{S(d)}\sum_{c\in C}x(c,s)copre(s,d,k)\ge f(d,k) 
+	&cover(d,k)=\sum_{S(d)}\sum_{c\in C}x(c,s)copre(s,d,k)\\
+	&u(d,k)\ge 0\\
+	&cover(d,k), u(d,k) \in \mathbb{N}
+\end{align}
+con le quali si garantisce la copertura mediante il seguente vincolo:
+\begin{align}
+	&cover(d,k)+u(d,k)\ge f(d,k) 
 	&&\forall d\in D, \forall k\in T(d)\label{coperturafabbisogno}
 \end{align}
-
-Si può infine introdurre la funzione obiettivo per questa parte:
+La copertura del fabbisogno rappresenta l'obiettivo principale dell'intero problema, per cui:
+\begin{align}
+	&f_1=\sum_{d,k}u(d,k)
+\end{align}
+andrà minimizzato.
+Si vuole anche ridurre le ore complessive lavorate dai cassieri:
 \begin{equation}
-	f_1=\sum_{c \in C}H_{settimana}(c)
+	f_2=\sum_{c \in C}H_{settimana}(c)
 \end{equation}
-ovvero la somma totale delle ore lavorate dall'intero roster dei cassieri, che andrà minimizzata come da richiesta.
 
 I cassieri hanno richiesto uno stacco tra due turni giornalieri il più breve possibile. Questo permetterebbe di ridurre al minimo il tempo trascorso sul luogo di lavoro e aumentare la soddisfazione del personale. Il problema si pone solo nel caso in cui il cassiere faccia due turni in un giorno. Si definisce la seguente variabile binaria:
 \begin{equation}
@@ -145,7 +153,7 @@ che indica se al lavoratore $c$ vengono assegnati due turni lo stesso giorno $d$
 	&\sum_{s\in S(d)}x(c,s)\ge 2*split(c,d)
 	&&\forall c\in FT\cup PTW, \forall d
 \end{align}
-In quanto ci siamo assicurati della non sovrapposizione, possiamo definire:
+In quanto si è assicurato della non sovrapposizione, possiamo definire:
 \begin{equation}
 	stacco(c,d)\in \mathbb{N}
 \end{equation}
@@ -153,11 +161,15 @@ una variabile intera che indica lo stacco tra due turni nel giorno $d$ per il ca
 \begin{align}
 	&stacco(c,d)\le maxGap\cdot split(c,d)\\
 	&stacco(c,d)\ge gap(s1,s2)*(x(c,s1)+x(c,s2)-1)
-	&&\forall c\in FT\cup PTW, \forall d, \forall (s1,s2)\in S(d),s1\neq s2 \land s1<s2
+	&&\forall c\in FT\cup PTW, \forall d, \\
+	&
+	&&\forall (s1,s2)\in S(d), \notag \\
+	&
+	&&s1\neq s2 \land s1<s2 \notag
 \end{align}
 che andrà minimizzato:
 \begin{equation}
-	f_2=\sum_{d \in D}\sum_{c \in FT\cup PTW} stacco(c,d)
+	f_3=\sum_{d \in D}\sum_{c \in FT\cup PTW} stacco(c,d)
 \end{equation}
 
 Si definisce la variabile:
@@ -191,7 +203,7 @@ che rappresenta le ore straordinarie assegnate al cassiere $c$. Questo valore è
 \end{equation}
 ovvero quando al cassiere $c$ vengono assegnate più ore di quelle previste dal contratto. La somma di questi valori va minimizzata:
 \begin{equation}
-	f_3=\sum_{c \in C}O(c)
+	f_4=\sum_{c \in C}O(c)
 \end{equation}
 Non si fanno distinzioni tra supplementari e straordinari: sono entrambi penalizzati allo stesso modo. Il peso assegnato a questo obiettivo può variare in base al periodo, rendendo più favorevoli gli straordinari in periodi più critici, come quelli festivi.
 
@@ -220,7 +232,7 @@ dove $\bar{H}_{settimana}(t)$ rappresenta la media delle ore assegnate ai cassie
 \end{align}
 Si dovrà minimizzare la deviazione totale:
 \begin{align}
-	&f_4=\sum_{c\in C}dev(c)
+	&f_5=\sum_{c\in C}dev(c)
 \end{align}
 Altro problema da considerare è la durata dei turni. Sono permessi turni dalle 3 fino alle 5 ore, ma una durata eccessiva dei turni non è ben accetta dal personale e potrebbe portare a situazioni di squilibrio, in cui alcuni dipendenti lavorano un solo turno da 5 ore al giorno mentre altri ne lavorano due da 3/4 ore ciascuno. Per questione di praticità, possiamo imporre un'unica preferenza per l'intero personale verso il turno da 4 ore (si potrebbe andare a specificare per ogni dipendente una preferenza specifica). Si introduce:
 \begin{equation}
@@ -235,7 +247,7 @@ Altro problema da considerare è la durata dei turni. Sono permessi turni dalle 
 \end{equation}
 che indica le penalità relative ai tipi di turni separati per durata. Si minimizza quindi:
 \begin{equation}
-	f_5=\sum_{s \in S, c\in C}pen(s)x(c,s) 
+	f_6=\sum_{s \in S, c\in C}pen(s)x(c,s) 
 \end{equation}
 Questa equità non è intesa come confronto diretto tra cassieri, ma come preferenza globale del personale verso determinate durate di turno; l’introduzione di uno standard comune favorisce una distribuzione più omogenea delle tipologie di turno, senza imporre vincoli di equità individuale. Ogni cassiere potrebbe esprimere la propria preferenza singola, rendendo la penalità dipendente da $c$, ovvero $pen(c,s)$. 
 
@@ -245,7 +257,7 @@ I cassieri full-time e part-time hanno espresso la loro preferenza verso il ripo
 \end{equation*}
 La domenica è identificata da $d=7$. Possiamo utilizzare di nuovo la variabile $riposo(c,d)$ e massimizzare così il riposo domenicale:
 \begin{equation}
-	f_6=\sum_{c\in (FT\cup PT)}riposo(c,7)
+	f_7=\sum_{c\in (FT\cup PT)}riposo(c,7)
 \end{equation}
 
 \paragraph{Riposo continuato}
@@ -266,7 +278,7 @@ che indica se per due giorni consecutivi il lavoratore è stato a riposo. Per fa
 \end{align}
 Si vuole massimizzare questa quantità in quanto richiesto dal personale:
 \begin{equation}
-	f_7=\sum_{c\in (FT)}\sum_{d\in {1,\dots,m-1}}riposoContinuato(c,d)
+	f_8=\sum_{c\in (FT)}\sum_{d\in {1,\dots,m-1}}riposoContinuato(c,d)
 \end{equation}
 
 \paragraph{Cassa-reparto}
@@ -276,7 +288,7 @@ Fino ad adesso, la situazione di sovracopertura dello slot temporale era ammessa
 \end{align}
 che indica quanto vale la sovracopertura misurata. $\Delta(d,k)$ non può essere minore di 0, in quanto una situazione di difetto di personale non è ammessa (cambiando i vincoli, si potrebbe introdurre anche questa situazione). Si vuole ora minimizzare la situazione di sovracopertura:
 \begin{equation}
-	f_8=\sum_{d\in D}\sum_{k\in T(d)}\Delta(d,k)
+	f_9=\sum_{d\in D}\sum_{k\in T(d)}\Delta(d,k)
 \end{equation}
 
 Un cassiere che può andare in scatolame avrà un peso minore nel conteggio della sovracopertura del fabbisogno, in quanto, se si presentasse una situazione per cui il numero di cassieri presenti in cassa supera quello necessario, può uscire in corsia, riducendo così il lavoro per il personale di reparto e rimanendo comunque disponibile a rientrare in cassa nel momento in cui il flusso della clientela dovesse aumentare. Si definisce la skill:
@@ -326,7 +338,7 @@ Il vincolo appena trovato è una semplificazione, che potrebbe inoltre introdurr
 \subsection{Funzione obiettivo}
 \begin{align}
     \min \; & 
-    \sum_{i=1}^8\lambda_if_i
+    \sum_{i=1}^9\lambda_if_i
     && \lambda_i \in \mathbb{R}
 \end{align}
 I $\lambda_i$ rappresentano i pesi che noi diamo ai vari obiettivi: più $\lambda_i$ è elevato, più l'obiettivo relativo incide nella funzione obiettivo generale, ottenendo di fatto più importanza nella ricerca dell'ottimo. $\lambda_i$ può essere negativo, in modo tale da massimizzare il valore del relativo obiettivo.
