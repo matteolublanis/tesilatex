@@ -1,1 +1,66 @@
 \section{Implementazione - Gurobi}
+In seguito all'analisi e alla formulazione del modello relativo al problema, si è sviluppato uno strumento software basato su un solver per verificare la validità dei concetti prima esposti. Lo strumento software è stato sviluppato in Java e come solver è stato utilizzato Gurobi. In questa sezione si presenterà suddetto strumento e si esporranno le strutture dati utilizzate.
+\subsection{Strutture dati, rappresentazione dell'istanza e dati tecnici}
+Si è diviso il progetto in due pacchetti:
+\begin{itemize}
+	\item model: contiene le classi relative al modello e ai suoi vincoli, assieme ad una classe di util per la configurazione e la classe Main.
+	\item data: contiene le classi e le informazioni utili a organizzare i dati necessari per il modello.
+\end{itemize}
+All'interno di data, è presente una raccolta di istanze divise in BAx.txt e EXx.txt, in base al tipo di problema che si vuole risolvere (base o esteso). Questi file contengono i dati relativi al fabbisogno e ai lavoratori, dei quali si salvano alcuni dati anagrafici, la tipologia contrattuale e le skill che possiede nel caso degli EXx.txt. La classe Worker serve per salvare i dati relativi al cassiere, di cui:
+\begin{itemize}
+	\item EmploymentType: un enum che contiene le informazioni relative alla tipologia contrattuale, come monte ore settimanale previsto, ore settimanali massime assegnabili e numero massimo di turni giornalieri.
+	\item id: un long che rappresenta univocamente il cassiere.
+\end{itemize}
+Le skill vengono salvate mediante un enum chiamato, sorprendentemente, Skill. La classe Instance si occupa della preparazione dei dati necessari per il modello, come i turni e l'insieme dei lavoratori. All'interno di Instance, viene anche pregenerato l'insieme I11, che contiene le coppie di turni. Le strutture dati principali utilizzate sono:
+\begin{itemize}
+	\item List: per salvare i turni.
+	\item Set: per salvare i lavoratori, separati per tipologia contrattuale.
+	\item Map: per  collegare tra loro diversi dati, come il turno agli slot che copre.
+\end{itemize}
+Per il trasferimento di dati, rispetto a turni o anche successivamente ai lavoratori rispetto ai turni, si utilizzano i Record. I dati vengono letti mediante parsing dai file di testo (questo più avanti verrà ripreso come possibile punto di estensione, introducendo file .json o .xml).
+
+Si passa ora al pacchetto model, il quale è separato nelle seguente classi:
+\begin{itemize}
+	\item Config: una classe di configurazione, contiene costanti utili per impostare il problema;
+	\item Main: esegue il loop di ottimizzazione sulle istanze generate e richiama i metodi necessari per stampare i risultati;
+	\item PersonnelSchedulingBaseModel e ExtendedModel: il cuore dell'intero progetto, in quanto contengono tutti i vincoli relativi al modello;
+	\item SolutionPrinter: stampa le soluzioni su un file di .csv. estendere questo?
+\end{itemize}
+All'interno di PersonnelSchedulingBaseModel, tramite la programmazione lineare si rappresentano i vincoli; si riporta un esempio di codice che rimanda ai vincoli di massimo numero di turni assegnabili per giorno:
+\begin{lstlisting}[caption={Esempio di metodo per i vincoli}, style=java, label={lst:esempio_java}]
+public void maxTurnsPerDay() throws GRBException {
+	for (Worker w : instance.getAllWorkers()) {
+		for (int day = 1; day <= Instance.TIMEWINDOW; day++) {
+			
+			int maxT = w.getType().maxTurns(day);   
+			GRBLinExpr lhs = new GRBLinExpr();
+			
+			for (Shift s : instance.getDayByShifts(day)) {
+				GRBVar xcs = x_CS_Var.get(new WorkerShift(w.getId(), s.id()));
+				if (xcs != null) lhs.addTerm(1.0, xcs);
+			}
+			
+			model.addConstr(lhs, GRB.LESS_EQUAL, maxT,
+			"MaxTurns_w" + w.getId() + "_d" + day);
+		}
+	}
+}
+\end{lstlisting}
+Le strutture dati utilizzate sono le stesse utilizzate per Instance, con la differenza che in queste due classi le Map assumono un ruolo più fondamentale, in quanto stanno alla base dell'intera costruzione del modello collegando le variabili di Gurobi ai relativi dati. Le Map utilizzate sono le seguenti:
+\begin{lstlisting}[caption={Map usate per le variabili del modello}, style=java, label={lst:esempio_java}]
+private final Map<DaySlot, GRBVar> u_DK = new HashMap<>();
+private final Map<WorkerShift, GRBVar> x_CS_Var = new HashMap<>();
+private final Map<WorkerDay, GRBVar> splitC_D = new HashMap<>();
+private final Map<WorkerDay, GRBVar> staccoC_D = new HashMap<>(); 
+private final Map<WorkerDay, GRBVar> riposoC_D = new HashMap<>();
+\end{lstlisting}
+\textit{DaySlot}, \textit{WorkerShift} e \textit{WorkerDay} sono dei Record. Si utilizzano le seguenti classi di Gurobi per implementare il modello:
+\begin{itemize}
+	\item GRBEnv: l'environment per Gurobi, fondamentale per impostare tutto.
+	\item GRBModel: l'oggetto che rappresenta il modello per Gurobi. I metodi utilizzati per questa classe sono: addVar e addConstr per aggiungere variabili e vincoli, setObjective per impostare l'obiettivo, optimize per ottimizzarlo.
+	\item GRBVar: le variabili del modello per Gurobi, aggiunte mediante addVar al modello.
+	\item GRBLinExpr: un'espressione lineare, importante per la definizione dei vincoli.
+\end{itemize}
+Le funzioni obiettivo sono salvate mediante GRBLinExpr. SCEGLIERE MULTIOBIETTIVO PESATO O GERARCHICO
+LA CLASSE DI PRINT NON è STATA ULTIMATA, DA DECIDERE COME SVILUPPARLA!
+\subsection{Risultati implementativi}

@@ -282,30 +282,46 @@ Si vuole massimizzare questa quantità in quanto richiesto dal personale:
 \end{equation}
 
 \paragraph{Cassa-reparto}
-Fino ad adesso, la situazione di sovracopertura dello slot temporale era ammessa e non veniva considerata. Si introduce:
+I vincoli soft relativi al fabbisogno non sfavoriscono la situazione generale di deviazione dal fabbisogno dichiarato: questo porta a situazioni di sottocopertura sfavorite di molto rispetto a quelle di sovracopertura, che non vengono in alcun modo influenzate dai vincoli. Si introducono:
 \begin{align}
-	&\Delta(d,k)\in \mathbb{R}_{\ge 0}
+	&under(d,k)\in \mathbb{R}{\ge 0} \qquad \text{(carenza)}\\
+	&over(d,k)\in \mathbb{R}{\ge 0} \qquad \text{(sovracopertura)}
 \end{align}
-che indica quanto vale la sovracopertura misurata. $\Delta(d,k)$ non può essere minore di 0, in quanto una situazione di difetto di personale non è ammessa (cambiando i vincoli, si potrebbe introdurre anche questa situazione). Si vuole ora minimizzare la situazione di sovracopertura:
-\begin{equation}
-	f_9=\sum_{d\in D}\sum_{k\in T(d)}\Delta(d,k)
-\end{equation}
+dove $under(d,k)$ indica di quanto si è sotto il fabbisogno nello slot $(d,k)$, mentre $over(d,k)$ indica di quanto si è sopra.
 
-Un cassiere che può andare in scatolame avrà un peso minore nel conteggio della sovracopertura del fabbisogno, in quanto, se si presentasse una situazione per cui il numero di cassieri presenti in cassa supera quello necessario, può uscire in corsia, riducendo così il lavoro per il personale di reparto e rimanendo comunque disponibile a rientrare in cassa nel momento in cui il flusso della clientela dovesse aumentare. Si definisce la skill:
-\begin{equation}
-	c(Mh, info, cassareparto)
-\end{equation}
-I vincoli visti fino ad adesso valgono anche per questo tipo di dipendenti, solo conteranno di meno quando si andrà a considerare il problema della sovracopertura per i motivi appena spiegati:
+La copertura effettiva dello slot $(d,k)$ è data dalla somma dei turni assegnati che coprono lo slot, pesati in base alla skill cassa-reparto:
 \begin{align}
-	& \Delta(d,k) \ge \sum_{c \in C}\sum_{s \in S(d)} pesoCopertura(c)*copre(s,d,k)x(c,s) - f(d,k)
-	&& \forall d\in D,k\in T(d)\\
+	& \text{cop}(d,k)= \sum_{c \in C}\sum_{s \in S(d)} pesoCopertura(c)*copre(s,d,k)*x(c,s)
+\end{align}
+La variabile introdotta è molto simile a $cover(d,k)$, ma introduce un nuovo valore che è $pesoCopertura(c)$, necessario per esprimere formalmente la skill di cassa-reparto. Un cassiere che possiede la skill cassa-reparto ha un peso minore nel conteggio della sovracopertura, in quanto può uscire in corsia in caso di eccesso di cassieri in cassa, riducendo il carico sul reparto.
+
+Si definisce quindi:
+\begin{align}
 	& pesoCopertura(c)=
 	\begin{cases}
 		\rho_1 & \text{se $c$ non possiede la skill cassa-reparto}\\
 		\rho_2 & \text{se $c$ possiede la skill cassa-reparto}
-	\end{cases}
-	&& \rho_1 = 1, \rho_2 < 1
+	\end{cases}\\
+	& \rho_1 = 1; 0<\rho_2<1\notag
 \end{align}
+
+La deviazione assoluta dal fabbisogno viene modellata imponendo:
+\begin{align}
+	& \text{cop}(d,k) + U(d,k) - O(d,k) = f(d,k)
+	&& \forall d\in D,; k\in T(d)
+\end{align}
+
+In questo modo:
+\begin{itemize}
+	\item $\text{cop}(d,k) < f(d,k)$, $U(d,k)>0$ (carenza);
+	\item $\text{cop}(d,k) > f(d,k)$, $O(d,k)>0$ (sovracopertura);
+	\item $\text{cop}(d,k) = f(d,k)$, $U(d,k)=O(d,k)=0$.
+\end{itemize}
+
+L’obiettivo da minimizzare è il seguente:
+\begin{equation}
+	f_9=\sum_{d\in D}\sum_{k\in T(d)} (U(d,k) + O(d,k))
+\end{equation}
 
 \paragraph{Spazzatrice}
 La spazzatrice, per via delle sue dimensioni, può solo essere operata prima dell'apertura dell'ipermercato alla clientela. Il compito viene assegnato principalmente a due cassieri appartenenti al personale interno disponibile, poiché la variabilità del personale addetto alle pulizie, dovuta al fatto che l'ipermercato si affida ad un'azienda esterna, rende più affidabile l’impiego di dipendenti interni. Vengono definiti due nuovi slot per giornata (prima 1=08:00 e 25=20:00, ora 1=07:00 e 27=20:00), che possono essere coperti soltanto dal personale formato. Si introduce così una nuova categoria:
@@ -326,14 +342,10 @@ La copertura del fabbisogno per gli slot 1,2 è garantita dallo stesso vincolo d
 \end{align}
 Varrà di conseguenza:
 \begin{align}
-	&x(c,s_1)+x(c,s_2)\le 1 
+	&x(c,s_1)+x(c,s_2)\le 1
 	&&\forall (s_1,s_2)\in I^{11},\forall c\in C\\
 \end{align}
-In quanto la finestra temporale è limitata ad una singola settimana, il problema del controllo del rispetto del vincolo delle 11 ore di riposo tra la domenica e il lunedì può essere spostato dalla definizione del modello al problema dell'assegnamento dei turni, oppure, per evitare di introdurre vincoli su orizzonti esterni alla finestra di pianificazione, può essere risolto impedendo l'assegnazione del cassiere addetto alla pulizia con la spazzatrice allo slot della chiusura della domenica:
-\begin{equation}
-	x(c,s)=0 \quad \forall s\in S: copre(s,7,27)=1, \forall c\in C^{SP}
-\end{equation}
-Il vincolo appena trovato è una semplificazione, che potrebbe inoltre introdurre delle inequità dal punto di vista delle assegnazioni dei turni, in quanto i cassieri che possono passare la spazzatrice non avranno mai il turno di chiusura la domenica.
+In quanto la finestra temporale è limitata ad una singola settimana, il problema del controllo del rispetto del vincolo delle 11 ore di riposo tra la domenica e il lunedì può essere spostato dalla definizione del modello al problema dell'assegnamento dei turni.
 
 \subsection{Funzione obiettivo}
 \begin{align}
