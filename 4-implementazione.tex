@@ -47,7 +47,7 @@ public void maxTurnsPerDay() throws GRBException {
 }
 \end{lstlisting}
 Le strutture dati utilizzate sono le stesse utilizzate per Instance, con la differenza che in queste due classi le Map assumono un ruolo più fondamentale, in quanto stanno alla base dell'intera costruzione del modello collegando le variabili di Gurobi ai relativi dati. Le Map utilizzate sono le seguenti:
-\begin{lstlisting}[caption={Map usate per le variabili del modello}, style=java, label={lst:esempio_java}]
+\begin{lstlisting}[caption={Map usate per le variabili del modello}, style=java, label={lst:structureMap}]
 private final Map<DaySlot, GRBVar> u_DK = new HashMap<>();
 private final Map<WorkerShift, GRBVar> x_CS_Var = new HashMap<>();
 private final Map<WorkerDay, GRBVar> splitC_D = new HashMap<>();
@@ -61,6 +61,46 @@ private final Map<WorkerDay, GRBVar> riposoC_D = new HashMap<>();
 	\item GRBVar: le variabili del modello per Gurobi, aggiunte mediante addVar al modello.
 	\item GRBLinExpr: un'espressione lineare, importante per la definizione dei vincoli.
 \end{itemize}
-Le funzioni obiettivo sono salvate mediante GRBLinExpr. SCEGLIERE MULTIOBIETTIVO PESATO O GERARCHICO
-LA CLASSE DI PRINT NON è STATA ULTIMATA, DA DECIDERE COME SVILUPPARLA!
+Le funzioni obiettivo sono salvate mediante GRBLinExpr. Per la funzione obiettivo si sono trovate due strade:
+\begin{itemize}
+	\item Metodo pesato: come espresso nella sezione 3, si sommano tutti gli obiettivi assegnandogli i specifici pesi e si esegue poi l'ottimizzazione del modello.
+	\item Metodo gerarchico: si dà una priorità agli obiettivi, si ottimizza prima rispetto all'obiettivo con priorità più alta, si passa poi a quelli con priorità più bassa aggiungendo un vincolo che garantisca il non peggioramento dell'obiettivo precedente. 
+\end{itemize}
+In Gurobi, per entrambi gli approcci si può adoperare il seguente metodo:
+\begin{lstlisting}[style=java, label={lst:setObjective}]
+void setObjectiveN(GRBLinExpr expr, int index, int priority, double weight, double abstol, double reltol, String name)
+\end{lstlisting}
+ove:
+\begin{itemize}
+	\item expr: obiettivo.
+	\item index: indice dell'obiettivo, utile per il log.
+	\item priority: priorità all'interno della gerarchia di ottimizzazione.
+	\item weight: peso assegnato all'obiettivo.
+	\item abstol: tolleranza assoluta per l'obiettivo, ovvero di quanto può degradare la soluzione quando si ottimizzano obiettivi secondari (stessa unità dell'obiettivo).
+	\item reltol: tolleranza relativa per l'obiettivo, come abstol ma relativo (percentuale dell'obiettivo).
+	\item name: nome dell'obiettivo, utile per il log.
+\end{itemize}
+Per esprimere correttamente quanto esposto nella sezione 3, il metodo è stato usato con la priorità imposta uguale per tutti gli obiettivi, tuttavia si potrebbe comunque risolvere il problema dando priorità maggiore alla copertura e a eventuali obiettivi di equità e minimizzazione delle ore, così da garantire una soluzione migliore per gli obiettivi principali.
+
+Si introduce infine la classe SolutionPrinter. Questa classe contiene metodi utili alla stampa della soluzione trovata da Gurobi, in particolare risultano fondamentali:
+\begin{itemize}
+	\item writeSolutionCsvTablesByWorker: salva su un file .csv gli orari separati per singolo cassiere.
+	\item exportUtoCsv: salva su un file .csv una tabella contenente i valori di $u(d,k)$ per ogni slot temporale, mostrando come si comporta Gurobi.
+	\item writeObjectiveResult: ritorna un file .txt con i valori trovati per singolo obiettivo.
+\end{itemize}
+Si riporta un esempio di tabella oraria generata da writeSolutionCsvTablesByWorker:
+\begin{center}
+	\includegraphics[]{figures/esempioorario.png}
+\end{center}
 \subsection{Risultati implementativi}
+In quanto disponibili, gli esperimenti sono stati eseguiti su due macchine:
+\begin{itemize}
+	\item Intel© Core™ i5-7200U CPU @ 2.50GHz x 2, 32GB RAM 2133MHz.
+	\item AMD Ryzen™ 7 5700X CPU @ 3.40GHz × 16, 32GB RAM 3200MHz.
+\end{itemize}
+Risulta scontato affermare che i risultati ottenuti saranno completamente diversi, con risultati nettamente migliori sulla seconda macchina. I test sono stati eseguiti su 3 istanze per il modello base e 3 istanze per il modello esteso, dando 3 diversi limiti di tempo (5, 10 e 30 minuti). I valori dei pesi sono riportati nell'appendice A, mentre per i relativi significati dietro i valori dei singoli obiettivo si rimanda alla sezione 3.
+
+Le versioni di Java e Gurobi utilizzate sono rispettivamente Java-21 e Gurobi 13.0.0.
+\pagebreak
+\subsubsection{Prima macchina}
+\subsubsection{Seconda macchina}
