@@ -1,26 +1,29 @@
 \section*{Introduzione}
 \addcontentsline{toc}{section}{Introduzione}
-\subsection{Personnel Scheduling: definizione e caratteristiche}
+\subsection*{Personnel Scheduling: definizione e caratteristiche}
+\addcontentsline{toc}{subsection}{Personnel Scheduling: definizione e caratteristiche}
 Un problema di Personnel Scheduling consiste nel trovare il modo migliore per attribuire i turni ai lavoratori, in modo tale sia da rispettare una serie di vincoli di servizio e contrattuali e sia da massimizzare le preferenze del personale riducendo comunque al minimo i costi previsti.
 
 Negli ultimi decenni, i problemi di schedulazione del personale sono stati studiati ampiamente. Una delle cause principali dietro questo interesse sta il lato economico: il costo del lavoro rappresenta ad oggi, per molte realtà aziendali, uno degli elementi principali della spesa aziendale e riuscire a minimizzarlo può portare grossi benefici all'azienda.\\
-La prima formulazione di questo problema venne proposta negli anni '50 da George Dantzig e William Edie, ma ad oggi risulta antiquata in quanto:
+La prima formulazione di questo problema venne proposta negli anni '50 da George Dantzig e William Edie\cite{MOU2018399}, ma ad oggi risulta antiquata in quanto:
 \begin{itemize}
 	\item Non esistevano diverse tipologie di contratto, solo contratti full-time.
 	\item Ogni dipendente è interscambiabile, non vengono tenute in considerazione le skill del singolo individuo.
 	\item Come obiettivo vi era solo quello di minimizzare il costo del personale, non considerando altri fattori come preferenze o indisposizioni. 
 \end{itemize}
-Baker fornì una classificazione dei problemi di Personnel Scheduling in tre gruppi:
+Baker\cite{MOU2018399} fornì una classificazione dei problemi di Personnel Scheduling in tre gruppi:
 \begin{itemize}
 	\item Shift Scheduling: si pianifica su un orizzonte di pianificazione giornaliero, implicando che il fabbisogno di personale per ciascun turno può essere gestito in modo indipendente per determinare le allocazioni appropriate; rappresenta il problema più facile da risolvere delle tre categorie, ma non risponde a situazioni più complesse (esempio, la necessità dei turni che si sovrappongono, tipico problema per i call center).
 	\item Days off Scheduling: al posto di pianificare i turni di lavoro, si pianificano i giorni di riposo per i dipendenti; problema tipico per aziende che lavorano sette giorni su sette, mentre il lavoratore ne lavora solo cinque/sei (una variante del problema potrebbe richiedere che i giorni di riposo siano consecutivi).
 	\item Tour scheduling: una combinazione delle due categorie viste precedentemente, bisogna assegnare un tour (giorni della settimana e ore del giorno) da lavorare ad un particolare dipendente. Questa categoria risulta molto più complicata rispetto alle due precedenti e la complessità del problema, seppur dipenda da più fattori, è fortemente influenzata dalla durata minima dell'intervallo di pianificazione (solitamente, dai 15 minuti alle 8 ore).
 \end{itemize}
-In Ricerca Operativa, il Personnel Scheduling è un problema di tipo NP-hard, o peggio NP-complete: la complessità deriva principalmente da tutte le possibili combinazioni dei turni che si possono ottenere, rendendo la ricerca di un ottimo molto più complessa e lunga.
+In Ricerca Operativa, il problema di Personnel Scheduling di tipo NP-hard: la complessità deriva principalmente da tutte le possibili combinazioni dei turni che si possono ottenere, rendendo la ricerca di un ottimo molto più complessa e lunga.
 
 Il problema è in continua evoluzione e necessita quindi modelli complessi e flessibili a eventuali cambiamenti. Gli strumenti risolutivi oggi disponibili (Gurobi, CPLEX, FICO Xpress, Google OR-Tools) integrano algoritmi sempre più raffinati: un problema che decenni fa veniva approcciato manualmente ottenendo risultati approssimativi, può ora essere risolto con precisione, garantendo soluzioni di alta qualità o, in alcuni casi, ottime a livello globale.\\
 
-\subsection{Obiettivo e struttura della tesi}
+\subsection*{Obiettivo e struttura della tesi}
+\addcontentsline{toc}{subsection}{Obiettivo e struttura della tesi}
+
 Questa tesi si pone come obiettivo quello di risolvere il problema di personnel scheduling (tour scheduling) per il reparto di cassa di un supermercato. Il fine ultimo è quello di trovare la miglior pianificazione settimanale possibile per suddetto supermercato e sviluppare uno strumento applicativo software per permettere un'assegnazione dei turni semplificata.
 
 Nel Capitolo 1 viene presentato informalmente il problema reale considerato, descrivendone i soggetti coinvolti, le preferenze espresse, ciò che si vuole ottenere e i vincoli di varia natura.
