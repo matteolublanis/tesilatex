@@ -1,5 +1,7 @@
-\section{Implementazione - Gurobi}
+\section{Implementazione}
 In seguito all'analisi e alla formulazione del modello relativo al problema, si è sviluppato uno strumento software basato su un solver per verificare la validità dei concetti prima esposti. Lo strumento software è stato sviluppato in Java e come solver è stato utilizzato Gurobi. In questa sezione si presenterà suddetto strumento e si esporranno le strutture dati utilizzate.
+\subsection{Gurobi}
+Gurobi Optimizer è un solver commerciale sviluppato da Gurobi Optimization, LLC. Il nome viene dagli autori Dr. Zonghao Gu, Dr. Edward Rothberg e Dr. Robert Bixby, che fondarono Gurobi nel 2008. Gurobi viene utilizzato per problemi di programmazione lineare, programmazione quadratica, programmazione a vincoli quadratici, programmazione lineare mista intera, programmazione quadratica mista intera e programmazione a vincoli quadratici mista intera. Ad oggi, Gurobi viene utilizzato da più di 40 industrie ed è uno dei solver più utilizzati dalle aziende big tech\cite{GUROBIPAGE}.
 \subsection{Strutture dati, rappresentazione dell'istanza e dati tecnici}
 Si è diviso il progetto in due pacchetti:
 \begin{itemize}
@@ -90,17 +92,123 @@ Si introduce infine la classe SolutionPrinter. Questa classe contiene metodi uti
 \end{itemize}
 Si riporta un esempio di tabella oraria generata da writeSolutionCsvTablesByWorker:
 \begin{center}
-	\includegraphics[]{figures/esempioorario.png}
+	\includegraphics[width=75mm]{figures/esempioorario.png}
 \end{center}
+\pagebreak
 \subsection{Risultati implementativi}
-In quanto disponibili, gli esperimenti sono stati eseguiti su due macchine:
+In quanto disponibili, gli esperimenti sono stati eseguiti su una macchina con le seguenti specifiche tecniche:
 \begin{itemize}
-	\item Intel© Core™ i5-7200U CPU @ 2.50GHz x 2, 32GB RAM 2133MHz.
-	\item AMD Ryzen™ 7 5700X CPU @ 3.40GHz × 16, 32GB RAM 3200MHz.
+	\item AMD Ryzen™ 7 5700X CPU @ 3.40GHz × 16.
+	\item 32GB RAM 3200MHz.
 \end{itemize}
-Risulta scontato affermare che i risultati ottenuti saranno completamente diversi, con risultati nettamente migliori sulla seconda macchina. I test sono stati eseguiti su 3 istanze per il modello base e 3 istanze per il modello esteso, dando 3 diversi limiti di tempo (5, 10 e 30 minuti). I valori dei pesi sono riportati nell'appendice A, mentre per i relativi significati dietro i valori dei singoli obiettivo si rimanda alla sezione 3.
+I test sono stati eseguiti su 3 istanze per il modello base e 3 istanze per il modello esteso, dando 3 diversi limiti di tempo (5, 10 e 30 minuti). I valori dei pesi sono riportati nell'appendice, mentre per i relativi significati dietro i valori dei singoli obiettivo si rimanda alla sezione 3.
 
 Le versioni di Java e Gurobi utilizzate sono rispettivamente Java-21 e Gurobi 13.0.0.
-\pagebreak
-\subsubsection{Prima macchina}
-\subsubsection{Seconda macchina}
+\begin{center}
+	\begin{tabular}{ c c c c }
+		BA1 & & Valore ottimo & 1185.5\\
+		\hline
+		Tempo limite & 300 & 600 & 1800\\
+		\hline
+		Valore f.o & 3171.5 & 2985.0 & 1271.5\\
+		Gap(\%) & 62.6 & 60.3 & 6.76\\
+		\hline
+		$f_1$ & 1980.0 & 1800.0 & 40.0\\
+		$f_2$ & 1098.5 & 1110.0 & 1150.5\\
+		$f_3$ & 93.0 & 75.0 & 81.0\\
+		\hline
+	\end{tabular}
+\end{center}
+\begin{center}
+	\begin{tabular}{ c c c c }
+		BA2 & & Valore ottimo & 8608.0\\
+		\hline
+		Tempo limite & 300 & 600 & 1800\\
+		\hline
+		Valore f.o & 8624.0 & 8624.0 & 8624.0\\
+		Gap(\%) & 0.19 & 0.19 & 0.19\\
+		\hline
+		$f_1$ & 8080.0 & 8080.0 & 8080.0\\
+		$f_2$ & 516.0 & 516.0 & 516.0\\
+		$f_3$ & 28.0 & 28.0 & 28.0\\
+		\hline
+	\end{tabular}
+\end{center}
+\begin{center}
+	\begin{tabular}{ c c c c }
+		BA3 & & Valore ottimo & 5206.0\\
+		\hline
+		Tempo limite & 300 & 600 & 1800\\
+		\hline
+		Valore f.o & 5242.0 & 5240.0 & 5235.0\\
+		Gap(\%) & 0.69 & 0.65 & 0.55\\
+		\hline
+		$f_1$ & 4340.0 & 4340.0 & 4340.0\\
+		$f_2$ & 846.0 & 846.0 & 846.0\\
+		$f_3$ & 56.0 & 54.0 & 49.0\\
+		\hline
+	\end{tabular}
+\end{center}
+\begin{center}
+	\begin{tabular}{ c c c c }
+		EX1 & & Valore ottimo & 473.0\\
+		\hline
+		Tempo limite & 300 & 600 & 1800\\
+		\hline
+		Valore f.o & 474.0 & 473.5 & 473.5 \\
+		Gap(\%) & 0.21 & 0.11 & 0.11\\
+		\hline
+		$f_1$ & 0.0 & 0.0 & 0.0\\
+		$f_2$ & 336.0 & 336.0 & 336.0\\
+		$f_3$ & 24.0 & 24.0 & 24.0\\
+		$f_4$ & 0.0 & 0.0 & 0.0\\
+		$f_5$ & 0.0 & 0.0 & 0.0\\
+		$f_6$ & 0.0 & 0.0 & 0.0\\
+		$f_7$ & -2.0 & -2.0 & -2.0\\
+		$f_8$ & 0.0 & 0.0 & 0.0\\
+		$f_9$ & 116.0 & 115.5 & 115.5\\
+		\hline
+	\end{tabular}
+\end{center}
+\begin{center}
+	\begin{tabular}{ c c c c }
+		EX2 & & Valore ottimo & 10271.0\\
+		\hline
+		Tempo limite & 300 & 600 & 1800\\
+		\hline
+		Valore f.o & 10272.5 & 10272.5 & 10272.5\\
+		Gap(\%) & 0.01 & 0.01 & 0.01\\
+		\hline
+		$f_1$ & 8220.0 & 8220.0 & 8220.0\\
+		$f_2$ & 516.0 & 516.0 & 516.0\\
+		$f_3$ & 36.0 & 36.0 & 36.0\\
+		$f_4$ & 92.0 & 92.0 & 92.0\\
+		$f_5$ & 0.0 & 0.0 & 0.0\\
+		$f_6$ & 180.0 & 180.0 & 180.0\\
+		$f_7$ & -4.5 & -4.5 & -4.5\\
+		$f_8$ & 0.0 & 0.0 & 0.0\\
+		$f_9$ & 1233.0 & 1233.0 & 1233.0\\
+		\hline
+	\end{tabular}
+\end{center}
+\begin{center}
+	\begin{tabular}{ c c c c } 
+		EX3 & & Valore ottimo & 1419.3\\
+		\hline
+		Tempo limite & 300 & 600 & 1800\\
+		\hline
+		Valore f.o & 1819.7 & 1693.9 & 1669.3\\
+		Gap(\%) & 22.0 & 16.2 & 15.0\\
+		\hline
+		$f_1$ & 120.0 & 0.0 & 0.0\\
+		$f_2$ & 1181.0 & 1194.5 & 1187.5\\
+		$f_3$ & 218.0 & 208.0 & 205.0\\
+		$f_4$ & 89.0 & 102.5 & 95.5\\
+		$f_5$ & 21.2 & 14.4 & 10.8\\
+		$f_6$ & 143.0 & 135.0 & 138.0\\
+		$f_7$ & -5.5 & -5.5 & -5.5\\
+		$f_8$ & 0.0 & 0.0 & 0.0\\
+		$f_9$ & 53.0& 45.0 & 38.0\\
+		\hline
+	\end{tabular}
+\end{center}

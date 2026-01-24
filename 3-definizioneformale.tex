@@ -322,7 +322,11 @@ L’obiettivo da minimizzare è il seguente:
 \begin{equation}
 	f_9=\sum_{d\in D}\sum_{k\in T(d)} (U(d,k) + O(d,k))
 \end{equation}
-
+Questa funzione obiettivo può essere divisa in due per riuscire a gestire situazioni di carenza e sovracopertura in maniera differente mediante l'uso dei pesi degli obiettivi:
+\begin{align}
+	&f_{9under}=\sum_{d\in D}\sum_{k\in T(d)} U(d,k)\\
+	&f_{9over}=\sum_{d\in D}\sum_{k\in T(d)} O(d,k)
+\end{align}
 \paragraph{Spazzatrice}
 La spazzatrice, per via delle sue dimensioni, può solo essere operata prima dell'apertura dell'ipermercato alla clientela. Il compito viene assegnato principalmente a due cassieri appartenenti al personale interno disponibile, poiché la variabilità del personale addetto alle pulizie, dovuta al fatto che l'ipermercato si affida ad un'azienda esterna, rende più affidabile l’impiego di dipendenti interni. Vengono definiti due nuovi slot per giornata (prima 1=08:00 e 25=20:00, ora 1=07:00 e 27=20:00), che possono essere coperti soltanto dal personale formato. Si introduce così una nuova categoria:
 \begin{align}
