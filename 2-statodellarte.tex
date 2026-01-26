@@ -38,11 +38,11 @@ In letteratura, si trova un insieme veramente ampio e diversificato di tecniche 
 	\item Simulazione, programmazione a vincoli, queuing.
 	\item Altro: soluzioni meno frequenti come approssimazione lineare a tratti di una curva, analytic hierarchy process (AHP), modelli di fogli di calcolo e data envelopment analysis (DEA).
 \end{itemize}
-Il primo gruppo rappresenta il gruppo più ampio: il problema del personnel scheduling viene modellato come un programma lineare, intero o misto intero e la formulazione più usata è quella del Set Covering, introdotta da Dantzig. Il problema del \textit{Set Covering} consiste nel trovare la più piccola sotto-collezione di insiemi (sottoinsiemi dell'insieme universo) tale per cui l'unione dei suoi elementi sia equivalente all'insieme universo:
+Il primo gruppo rappresenta il gruppo più ampio: il problema del personnel scheduling viene modellato come un programma lineare, intero o misto intero e la formulazione più usata è quella del Set Covering, introdotta da Dantzig. Il problema del \textit{Set Covering} consiste nel trovare la più piccola sotto-collezione di insiemi (sottoinsiemi dell'insieme universo) tale per cui l'unione dei suoi elementi sia equivalente all'insieme universo. Si riporta la definizione formale trovata nel capitolo 10.3 del libro "Stochastic Local Search"\cite{HOOS2005467}:
 \begin{align*}
-	\min \quad & \sum_{s\in S}x_s \\
-	\text{s.t} & \sum_{s:e\in s}x_s\ge 1, \forall e\in U\\
-	& x_s \in \{0, 1\}
+	\min \quad & \sum_{i=1}^{n}c_ix_i \\
+	\text{s.t} & \sum_{i=1}^{n}b_{ji}x_i\ge 1, j=1,\dots,m\\
+	& x_i \in \{0, 1\}, i=1,\dots,n
 \end{align*}
 In particolare, nel caso del personnel scheduling, al posto dell'1 nel secondo vincolo si avrà il fabbisogno necessario per lo slot temporale considerato. Questa formulazione è molto comoda, perché permette di aggiungere a proprio piacimento vincoli aggiuntivi in base alle proprie necessità. 
 

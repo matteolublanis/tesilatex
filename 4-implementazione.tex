@@ -101,12 +101,12 @@ In quanto disponibili, gli esperimenti sono stati eseguiti su una macchina con l
 	\item AMD Ryzen™ 7 5700X CPU @ 3.40GHz × 16.
 	\item 32GB RAM 3200MHz.
 \end{itemize}
-I test sono stati eseguiti su 3 istanze per il modello base e 3 istanze per il modello esteso, dando 3 diversi limiti di tempo (5, 10 e 30 minuti). I valori dei pesi sono riportati nell'appendice, mentre per i relativi significati dietro i valori dei singoli obiettivo si rimanda alla sezione 3.
+I test sono stati eseguiti su 3 istanze per il modello base e 3 istanze per il modello esteso, dando 3 diversi limiti di tempo (5, 10 e 30 minuti). I valori dei pesi sono riportati nell'appendice, mentre per i relativi significati dietro i valori dei singoli obiettivi si rimanda alla sezione 3.
 
-Le versioni di Java e Gurobi utilizzate sono rispettivamente Java-21 e Gurobi 13.0.0.
+Le versioni di Java e Gurobi utilizzate sono rispettivamente Java-21 e Gurobi 13.0.0. Si riportano ora i risultati ottenuti con il primo insieme di coefficienti:
 \begin{center}
 	\begin{tabular}{ c c c c }
-		BA1 & & Valore ottimo & 1185.5\\
+		BA1(1) & & Valore ottimo & \\
 		\hline
 		Tempo limite & 300 & 600 & 1800\\
 		\hline
@@ -121,7 +121,7 @@ Le versioni di Java e Gurobi utilizzate sono rispettivamente Java-21 e Gurobi 13
 \end{center}
 \begin{center}
 	\begin{tabular}{ c c c c }
-		BA2 & & Valore ottimo & 8608.0\\
+		BA2(1) & & Valore ottimo & 8608.0\\
 		\hline
 		Tempo limite & 300 & 600 & 1800\\
 		\hline
@@ -136,7 +136,7 @@ Le versioni di Java e Gurobi utilizzate sono rispettivamente Java-21 e Gurobi 13
 \end{center}
 \begin{center}
 	\begin{tabular}{ c c c c }
-		BA3 & & Valore ottimo & 5206.0\\
+		BA3(1) & & Valore ottimo & 5206.0\\
 		\hline
 		Tempo limite & 300 & 600 & 1800\\
 		\hline
@@ -151,7 +151,7 @@ Le versioni di Java e Gurobi utilizzate sono rispettivamente Java-21 e Gurobi 13
 \end{center}
 \begin{center}
 	\begin{tabular}{ c c c c }
-		EX1 & & Valore ottimo & 473.0\\
+		EX1(1) & & Valore ottimo & 473.0\\
 		\hline
 		Tempo limite & 300 & 600 & 1800\\
 		\hline
@@ -172,7 +172,7 @@ Le versioni di Java e Gurobi utilizzate sono rispettivamente Java-21 e Gurobi 13
 \end{center}
 \begin{center}
 	\begin{tabular}{ c c c c }
-		EX2 & & Valore ottimo & 10271.0\\
+		EX2(1) & & Valore ottimo & 10271.0\\
 		\hline
 		Tempo limite & 300 & 600 & 1800\\
 		\hline
@@ -193,7 +193,7 @@ Le versioni di Java e Gurobi utilizzate sono rispettivamente Java-21 e Gurobi 13
 \end{center}
 \begin{center}
 	\begin{tabular}{ c c c c } 
-		EX3 & & Valore ottimo & 1419.3\\
+		EX3(1) & & Valore ottimo & 1419.3\\
 		\hline
 		Tempo limite & 300 & 600 & 1800\\
 		\hline
@@ -212,3 +212,267 @@ Le versioni di Java e Gurobi utilizzate sono rispettivamente Java-21 e Gurobi 13
 		\hline
 	\end{tabular}
 \end{center}
+Si riportano ora i risultati ottenuti con il secondo insieme di coefficienti:\\
+\begin{center}
+	\begin{tabular}{ c c c c }
+		BA1(2) & & Valore ottimo & 1165.5\\
+		\hline
+		Tempo limite & 300 & 600 & 1800\\
+		\hline
+		Valore f.o & 2280.5 & 2236.5 & 2144.0\\
+		Gap(\%) & 48.9 & 47.9 & 45.6 \\
+		\hline
+		$f_1$ & 990.0 & 990.0 & 900.0\\
+		$f_2$ & 1108.5 & 1102.5 & 1106.0\\
+		$f_3$ & 182.0 & 144.0 & 138.0 \\
+		\hline
+	\end{tabular}
+\end{center}
+\begin{center}
+	\begin{tabular}{ c c c c }
+		BA2(2) & & Valore ottimo & 4580.0\\
+		\hline
+		Tempo limite & 300 & 600 & 1800\\
+		\hline
+		Valore f.o & 4612.0 & 4612.0 & 4612.0\\
+		Gap(\%) & 0.69 & 0.69 & 0.69\\
+		\hline
+		$f_1$ & 4040.0 & 4040.0 & 4040.0 \\
+		$f_2$ & 516.0 & 516.0 & 516.0\\
+		$f_3$ & 56.0 & 56.0 & 56.0 \\
+		\hline
+	\end{tabular}
+\end{center}
+\begin{center}
+	\begin{tabular}{ c c c c }
+		BA3(2) & & Valore ottimo & 3056.0\\
+		\hline
+		Tempo limite & 300 & 600 & 1800\\
+		\hline
+		Valore f.o & 3122.0 & 3118.0 & 3112.0\\
+		Gap(\%) & 2.11 & 1.99 & 1.80\\
+		\hline
+		$f_1$ & 2170.0 & 2170.0 & 2170.0 \\
+		$f_2$ & 846.0 & 846.0 & 846.0 \\
+		$f_3$ & 106.0 & 102.0 & 96.0 \\
+		\hline
+	\end{tabular}
+\end{center}
+\begin{center}
+	\begin{tabular}{ c c c c }
+		EX1(2) & & Valore ottimo & 470.9\\
+		\hline
+		Tempo limite & 300 & 600 & 1800\\
+		\hline
+		Valore f.o & 489.5 & 488.5 & 488.5 \\
+		Gap(\%) & 3.8 & 3.6 & 3.6\\
+		\hline
+		$f_1$ & 0.0 & 0.0 & 0.0\\
+		$f_2$ & 336.0 & 336.0 & 336.0\\
+		$f_3$ & 50.0 & 52.0 & 24.0\\
+		$f_4$ & 0.0 & 0.0 & 0.0\\
+		$f_5$ & 0.0 & 0.0 & 0.0\\
+		$f_6$ & 0.0 & 0.0 & 0.0\\
+		$f_7$ & -10.0 & -10.0 & -10.0\\
+		$f_8$ & -3.0 & -6.0 & -6.0\\
+		$f_9$ & 116.5 & 116.5 & 116.5\\
+		\hline
+	\end{tabular}
+\end{center}
+\begin{center}
+	\begin{tabular}{ c c c c }
+		EX2(2) & & Valore ottimo & 5854.5\\
+		\hline
+		Tempo limite & 300 & 600 & 1800\\
+		\hline
+		Valore f.o & 5866.0 & 5866.0 & 5866.0\\
+		Gap(\%) & 0.20 & 0.20 & 0.20\\
+		\hline
+		$f_1$ & 4110.0 & 4110.0 & 4110.0\\
+		$f_2$ & 516.0 & 516.0 & 516.0\\
+		$f_3$ & 72.0 & 72.0 & 72.0\\
+		$f_4$ & 184.0 & 184.0 & 184.0\\
+		$f_5$ & 0.0 & 0.0 & 0.0\\
+		$f_6$ & 180.0 & 180.0 & 180.0\\
+		$f_7$ & -18.0 & -18.0 & -18.0\\
+		$f_8$ & 0.0 & 0.0 & 0.0\\
+		$f_9$ & 822.0 & 822.0 & 822.0\\
+		\hline
+	\end{tabular}
+\end{center}
+\begin{center}
+	\begin{tabular}{ c c c c } 
+		EX3(2) & & Valore ottimo & 1419.3\\
+		\hline
+		Tempo limite & 300 & 600 & 1800\\
+		\hline
+		Valore f.o & 2528.2 & 2148.9 & 2044.1\\
+		Gap(\%) & 41.2 & 30.6 & 27.1\\
+		\hline
+		$f_1$ & 460.0 & 120.0 & 120.0\\
+		$f_2$ & 1150.5 & 1169.5 & 1163.5\\
+		$f_3$ & 494.0 & 454.0 & 392.0\\
+		$f_4$ & 117.0 & 155.0 & 143.0\\
+		$f_5$ & 26.2 & 58.4 & 5.6\\
+		$f_6$ & 191.0 & 168.0 & 202.0\\
+		$f_7$ & -26.0 & -26.0 & -26.0\\
+		$f_8$ & 0.0 & 0.0 & 0.0\\
+		$f_9$ & 115.5 & 50.0 & 44.0\\
+		\hline
+	\end{tabular}
+\end{center}
+Infine, si riportano gli ultimi dati ottenuti con l'ultimo insieme di coefficienti (DA OTTENERE ANCORA):
+\begin{center}
+	\begin{tabular}{ c c c c }
+		BA1(3) & & Valore ottimo & 1165.5\\
+		\hline
+		Tempo limite & 300 & 600 & 1800\\
+		\hline
+		Valore f.o & 2280.5 & 2236.5 & 2144.0\\
+		Gap(\%) & 48.9 & 47.9 & 45.6 \\
+		\hline
+		$f_1$ & 990.0 & 990.0 & 900.0\\
+		$f_2$ & 1108.5 & 1102.5 & 1106.0\\
+		$f_3$ & 182.0 & 144.0 & 138.0 \\
+		\hline
+	\end{tabular}
+\end{center}
+\begin{center}
+	\begin{tabular}{ c c c c }
+		BA2(3) & & Valore ottimo & 4580.0\\
+		\hline
+		Tempo limite & 300 & 600 & 1800\\
+		\hline
+		Valore f.o & 4612.0 & 4612.0 & 4612.0\\
+		Gap(\%) & 0.69 & 0.69 & 0.69\\
+		\hline
+		$f_1$ & 4040.0 & 4040.0 & 4040.0 \\
+		$f_2$ & 516.0 & 516.0 & 516.0\\
+		$f_3$ & 56.0 & 56.0 & 56.0 \\
+		\hline
+	\end{tabular}
+\end{center}
+\begin{center}
+	\begin{tabular}{ c c c c }
+		BA3(3) & & Valore ottimo & 3056.0\\
+		\hline
+		Tempo limite & 300 & 600 & 1800\\
+		\hline
+		Valore f.o & 3122.0 & 3118.0 & 3112.0\\
+		Gap(\%) & 2.11 & 1.99 & 1.80\\
+		\hline
+		$f_1$ & 2170.0 & 2170.0 & 2170.0 \\
+		$f_2$ & 846.0 & 846.0 & 846.0 \\
+		$f_3$ & 106.0 & 102.0 & 96.0 \\
+		\hline
+	\end{tabular}
+\end{center}
+\begin{center}
+	\begin{tabular}{ c c c c }
+		EX1(3) & & Valore ottimo & 470.9\\
+		\hline
+		Tempo limite & 300 & 600 & 1800\\
+		\hline
+		Valore f.o & 489.5 & 488.5 & 488.5 \\
+		Gap(\%) & 3.8 & 3.6 & 3.6\\
+		\hline
+		$f_1$ & 0.0 & 0.0 & 0.0\\
+		$f_2$ & 336.0 & 336.0 & 336.0\\
+		$f_3$ & 50.0 & 52.0 & 24.0\\
+		$f_4$ & 0.0 & 0.0 & 0.0\\
+		$f_5$ & 0.0 & 0.0 & 0.0\\
+		$f_6$ & 0.0 & 0.0 & 0.0\\
+		$f_7$ & -10.0 & -10.0 & -10.0\\
+		$f_8$ & -3.0 & -6.0 & -6.0\\
+		$f_9$ & 116.5 & 116.5 & 116.5\\
+		\hline
+	\end{tabular}
+\end{center}
+\begin{center}
+	\begin{tabular}{ c c c c }
+		EX2(3) & & Valore ottimo & 5854.5\\
+		\hline
+		Tempo limite & 300 & 600 & 1800\\
+		\hline
+		Valore f.o & 5866.0 & 5866.0 & 5866.0\\
+		Gap(\%) & 0.20 & 0.20 & 0.20\\
+		\hline
+		$f_1$ & 4110.0 & 4110.0 & 4110.0\\
+		$f_2$ & 516.0 & 516.0 & 516.0\\
+		$f_3$ & 72.0 & 72.0 & 72.0\\
+		$f_4$ & 184.0 & 184.0 & 184.0\\
+		$f_5$ & 0.0 & 0.0 & 0.0\\
+		$f_6$ & 180.0 & 180.0 & 180.0\\
+		$f_7$ & -18.0 & -18.0 & -18.0\\
+		$f_8$ & 0.0 & 0.0 & 0.0\\
+		$f_9$ & 822.0 & 822.0 & 822.0\\
+		\hline
+	\end{tabular}
+\end{center}
+\begin{center}
+	\begin{tabular}{ c c c c } 
+		EX3(3) & & Valore ottimo & 1419.3\\
+		\hline
+		Tempo limite & 300 & 600 & 1800\\
+		\hline
+		Valore f.o & 2528.2 & 2148.9 & 2044.1\\
+		Gap(\%) & 41.2 & 30.6 & 27.1\\
+		\hline
+		$f_1$ & 460.0 & 120.0 & 120.0\\
+		$f_2$ & 1150.5 & 1169.5 & 1163.5\\
+		$f_3$ & 494.0 & 454.0 & 392.0\\
+		$f_4$ & 117.0 & 155.0 & 143.0\\
+		$f_5$ & 26.2 & 58.4 & 5.6\\
+		$f_6$ & 191.0 & 168.0 & 202.0\\
+		$f_7$ & -26.0 & -26.0 & -26.0\\
+		$f_8$ & 0.0 & 0.0 & 0.0\\
+		$f_9$ & 115.5 & 50.0 & 44.0\\
+		\hline
+	\end{tabular}
+\end{center}
+Si mostrano ora dei grafici che mostrano il miglioramento della soluzione trovata da Gurobi rispetto al tempo.
+\begin{center}
+\begin{tikzpicture}
+	\begin{axis}[
+		ylabel=Gap(\%),
+		symbolic x coords={BA1,EX3},
+		xtick=data,
+		legend style={at={(0.5,-0.1)}, anchor=north, legend columns=-1},
+		ybar,
+		]
+		\addplot coordinates {(BA1, 62.7) (EX3, 22.0)};
+		\addplot coordinates {(BA1, 60.3) (EX3, 16.2)};
+		\addplot coordinates {(BA1, 6.76) (EX3, 15.0)};
+		\legend{300s,600s,1800s}
+	\end{axis}
+\end{tikzpicture}\\
+\begin{tikzpicture}
+	\begin{axis}[
+		ylabel=Gap(\%),
+		symbolic x coords={BA2,BA3,EX1,EX2},
+		xtick=data,
+		legend style={at={(0.5,-0.1)}, anchor=north, legend columns=-1},
+		ybar,
+		]
+		\addplot coordinates {(BA2, 0.19) (BA3, 0.69) (EX1, 0.21) (EX2, 0.01)};
+		\addplot coordinates {(BA2, 0.19) (BA3, 0.65) (EX1, 0.11) (EX2, 0.01)};
+		\addplot coordinates {(BA2, 0.19) (BA3, 0.55) (EX1, 0.11) (EX2, 0.01)};
+		\legend{300s,600s,1800s}
+	\end{axis}
+\end{tikzpicture}
+\begin{tikzpicture}
+	\begin{axis}[
+		ylabel=FO,
+		symbolic x coords={BA1,EX3},
+		xtick=data,
+		legend style={at={(0.5,-0.1)}, anchor=north, legend columns=-1},
+		ybar,
+		]
+		\addplot coordinates {(BA1, 3171.5) (EX3, 1819.7)};
+		\addplot coordinates {(BA1, 2985.0) (EX3, 1693.9)};
+		\addplot coordinates {(BA1, 1271.5) (EX3, 1669.3)};
+		\legend{300s,600s,1800s}
+	\end{axis}
+\end{tikzpicture}
+\end{center}
+Questi risultati sono stati ottenuti eseguendo l'istanza una singola volta con il limite di tempo dato. Non sono stati impostati dei vincoli relativi a numero di thread o valori per il seed. Per quasi tutte le soluzioni, Gurobi segna uno stato per la soluzione pari a TIME\_LIMIT, in quanto, per via della natura del problema, trovare la soluzione ottima risulta complesso. Lo stato viene segnato come OPTIMAL per le soluzioni delle istanze EX1 e EX2 con un limite di tempo di 30 minuti. Sia per EX1 che per EX2, si nota però che Gurobi ha trovato una soluzione identica anche con altri limiti di tempo. Per l'istanza EX2 con tempo limite pari a 10 minuti, si nota che l'ultimo best bound trovato è di 10254.1 e non 10271.0 come riportato nella tabella: il best bound viene ottenuto mediante rilassamento e viene migliorato nel tempo grazie a varie tecniche, come cutting planes (es. Gomory), branch and bound, pruning o presolve. I valori ottimi inseriti nelle varie tabelle rappresentano il best bound trovato nei test sulle istanze con limite di tempo pari a 30 minuti e il gap individuato per ogni soluzione è stato ricalcolato sulla base di questo: se si osservano i log, per esempio si può osservare come il gap per la soluzione trovata per EX2 con tempo limite pari a 10 minuti sia uguale allo 0.18\%, in quanto calcolato rispetto al best bound citato prima di 10254.1.
